@@ -1,0 +1,23 @@
+.table-main {
+  width: 100%;
+}
+.table-head {
+  height: 1vh;
+}
+
+.button-hook {
+  cursor: pointer;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 3px;
+  background: green;
+  border: none;
+  font-family: 'Antic';
+  font-weight: 700;
+}
+
+.button-hook:hover{
+    background-color: white;
+    border: green;
+    color: green;
+}

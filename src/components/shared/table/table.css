@@ -1,0 +1,38 @@
+table {
+  border-collapse: collapse;
+  box-shadow: 0 5px 10px #e5e7eb;
+  text-align: left;
+}
+table > thead {
+    box-shadow: 0 5px 10px #e5e7eb;
+  }
+table > thead > tr > th {
+  padding: 1.5rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+table > tbody > tr > td {
+  padding: 1.2rem 2rem;
+  font-size: .9rem;
+  letter-spacing: 0.01rem;
+}
+.status {
+  border-radius: 4px;
+  background-color: lightgreen;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  display: inline-block;
+}
+.pending {
+  background-color: grey;
+  color: black;
+}
+.hold {
+  background-color: orange;
+  color: black;
+}
+tr:nth-child(even) {
+  background-color: #e5e7eb;
+}

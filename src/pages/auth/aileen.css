@@ -1,0 +1,170 @@
+.splashContainer {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 516px) {
+  .splashContainer > img {
+    width: 100%;
+  }
+}
+.splashContainer > img {
+  width: 50%;
+  height: 80vh;
+}
+
+/* .container {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-direction: column;
+} */
+/* width breakpoints */
+/* @media (min-width: 481px) and (max-width: 786px) {
+} */
+
+/* flexbox helps to position objects */
+/* @media screen and (max-width: 400px) {
+  .sidebar {
+    width: 0%;
+    display: none;
+  }
+  .body-container{
+    width: 100%;
+  }
+} */
+/* .navigationbar {
+  width: 100%;
+  border: 1px solid black;
+}
+.main {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.body-container {
+  width: 80%;
+  background-color: blue;
+  height: 90vh;
+}
+.sidebar {
+  width: 20%;
+  background-color: brown;
+  height: 90vh;
+}
+.hidden {
+  display: none;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.leftContainer {
+  height: 100vh;
+  width: 50%;
+  background: green;
+}
+ .imgContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100vh;
+  background: black;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.descriptionContainer {
+  z-index: 3;
+  position: absolute;
+  left: 10%;
+  bottom: 20%;
+  width: 80%;
+  text-align: left;
+}
+
+.description {
+  z-index: 6;
+  color: #fff;
+  line-height: 1.7rem;
+}
+
+@media (max-width: 400px) {
+  .loginContainer {
+    width: 100%;
+    display: flex;
+    margin: auto;
+  }
+  .leftContainer {
+    display: none;
+  }
+  .imgContainer{
+    display: 0;
+  }
+  .rightContainer {
+    width: 100%;
+    border: 1px solid;
+    padding: 1.5rem 0rem;
+  }
+} */
+
+/* @media screen and (min-width: 600px) {
+  .loginContainer {
+    width: 100%;
+  }
+  .rightContainer {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem 2em;
+  }
+  .leftContainer {
+    display: none;
+    width: 0%;
+  }
+} */
+
+/* .rightContainer {
+  height: 100vh;
+  width: 50%;
+  padding: 5rem 6rem;
+  box-sizing: border-box;
+}
+.move {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+.move:hover {
+  cursor: pointer;
+}
+input {
+  width: 100%;
+  height: 35px;
+  border-radius: 3px;
+  padding-left: 10px;
+  border: 1px solid grey;
+  font-family: "Antic";
+  box-sizing: border-box;
+} */
+/* .login-photo{
+    height: 100vh;
+    object-fit: cover;
+    width: 100%;
+} */

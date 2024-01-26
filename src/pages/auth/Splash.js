@@ -1,13 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
 
-function Splash() {
+import Algizer from "./../../assets/algizer.png";
+import CustomButton from "../../components/main/customButton";
+// import CustomButton from '../../components/main/customButton'
+
+import './aileen.css'
+// remember media query
+const Splash = () => {
   return (
-    <div>
-        <h1>Splash</h1>
-        <Link to={"/login"}>Login</Link>
+    <div className="splashContainer">
+      <img src={Algizer} alt="Algizer" />
+      <CustomButton titleName="Get Started" link={"/login"} />
     </div>
-  )
-}
+  );
+};
 
-export default Splash
+export default Splash;
+// Edge cases
+// What is I ma alredy Logged in

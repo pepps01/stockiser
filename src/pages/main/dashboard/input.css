@@ -1,0 +1,13 @@
+.search-container {
+  width: 95.5%;
+  background: #fff;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-shadow: 3px 1px 3px #e5e7eb;
+  z-index: 3px;
+  border-radius: 6px;
+}

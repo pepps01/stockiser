@@ -1,0 +1,188 @@
+import React, { useEffect, useState } from "react";
+import ReactModal from "react-modal";
+
+// local components
+import AppNavbar from "../../../components/shared/navbar/Navbar";
+import Sidebar from "../../../components/shared/sidebar";
+import AssetValidate from "./../../../assets/misc/row.svg";
+import QuickActions from "../../../components/shared/quick_actions/QuickActions";
+import TopMovers from "./../../../components/shared/top_movers/TopMovers";
+import MarketNews from "./../../../components/shared/market_news/MarketNews";
+import Table from "./../../../components/shared/table/Table";
+
+import Accordion from "../../../components/shared/accordion/Accordion";
+import { BASEURL } from "../../../apis/api";
+// import BasicTable from "../../../components/shared/table/BasicTable";
+
+import Trabaye from "../../../components/shared/table/Trabaye";
+import PagingTable from "../../../components/shared/table/PagingTable";
+
+// import columnSection from "./../../../components/shared/table/columns"
+import rowSection from "./../../../components/shared/table/mock_data.json";
+import { COLUMNS } from "../../../components/shared/table/columns";
+import SelectorTable from "../../../components/shared/table/SelectorTable";
+import BasicTable from "../../../components/shared/table/BasicTable";
+
+import "./button.css";
+import "./dashboard.css";
+import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
+import News from "../../../components/atom/news/News";
+import NewsBar from "../../../components/shared/sidebar/NewsBar";
+
+function Dashboard() {
+  const [modal, setModal] = useState(false);
+  const [isData, setIsData] = useState(true);
+  const [records, setRecords] = useState([]);
+  const [formData, setFormData] = useState();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setModal(false);
+  };
+
+  const handleOpenClick = (e) => {
+    e.preventDefault();
+    setModal(true);
+  };
+
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleRowClick = (rowData) => {
+    setSelectedRow(rowData);
+    setModal(true);
+    setIsModalOpen(true);
+  };
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      marginRight: "-30%",
+      marginBottom: "-20%",
+      transform: "translate(-50%, -50%)",
+      width: "40%",
+      height: "50%",
+    },
+  };
+  // / TOD: Add alert upon creation
+  const columns = [
+    {
+      Header: "Captitalisation",
+      accessor: "capitalisation",
+    },
+    {
+      Header: "Status",
+      accessor: "status",
+    },
+    {
+      Header: "Stock Exchange Name",
+      accessor: "stockExchangeName",
+    },
+    // {
+    //   Header: "Logo",
+    //   accessor: "statusLogo",
+    // },
+    // {
+    //   Header: "Capitalisation",
+    //   accessor: "capitalisation",
+    // },
+  ];
+
+  const columnites = [
+    { name: "Listing Name" },
+    { name: "Symbol" },
+    { name: "Capitalisation" },
+    { name: "% Change" },
+    { name: "Action" },
+  ];
+
+  const loadData = () => {
+    fetch(`${BASEURL}/api/selector/stocks`)
+      .then((response) => response.json())
+      .then((data) => {
+        setRecords({ records: data });
+        console.log("data records", data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getData = async () => {
+    await fetch(`${BASEURL}/api/selectors/stocks`)
+      .then((res) => res.json())
+      .then((data) => {
+        setRecords(data.result);
+        console.log("data", data);
+        // console.log(data.result);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+  console.log("RECORDS FROM THE LOAD DATA", records);
+
+  return (
+    <div className="dashboard-container">
+      {/* navigation */}
+      <CustomNavbar />
+      <div className="page-container">
+        {/* take into consideration the @meedia queries */}
+        <Sidebar />
+        <div className="main">
+          {/* Navabar */}
+          <AppNavbar title="Dashboard" />
+
+          {/* Another level */}
+          <div className="search-container">
+            {/* TODO: Isolate to a different container */}
+            {/* search area  */}
+            <div>
+              <input
+                type="text"
+                name="search"
+                style={{
+                  padding: ".5rem 2rem",
+                  border: ".5px solid light-grey",
+                  fontFamily: "Antic",
+                }}
+              />
+              <button
+              className="buttons"
+                style={{
+                 
+                }}
+              >
+                <a
+                  href="/login"
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    border: "1px solid green",
+                    borderRadius: "2px",
+                  }}
+                >
+                  Search
+                </a>
+              </button>
+            </div>
+          </div>
+        </div>
+        <NewsBar />
+        {/* ReactModal */}
+        <ReactModal isOpen={modal} data={selectedRow} style={customStyles}>
+          <button onClick={handleClick}>Close Modal</button>
+          <p style={{ fontSize: "1.3rem" }}>
+            Selected Row:{" "}
+            <b style={{ color: "green" }}>{selectedRow?.stockExchangeName}</b>
+          </p>
+          <Accordion />
+        </ReactModal>
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
+
+//Manipulating properties and thei behaviours of an objet to fulfill a need

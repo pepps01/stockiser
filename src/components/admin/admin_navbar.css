@@ -1,0 +1,46 @@
+.nav-controller {
+  height: 8vh;
+  position:sticky;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 3px 2px 3px #e5e7eb;
+
+  /* background-color: lightgray; */
+  /* border: 1px solid black; */
+}
+
+.nav-brand {
+  width: 150px;
+  margin: 2rem 0rem;
+
+}
+.nav-brand > img {
+  /* width: 100%; */
+  border-radius: 50px;
+  /* height: 100%; */
+}
+
+.profile-badge {
+  max-width: 60px;
+  margin: 2rem;
+}
+.profile-badge > img {
+  width: 100%;
+}
+.profile-badge:hover{
+    background-color: grey;
+    cursor: pointer;
+}
+.profile-icon{
+    position: absolute;
+    right: 30;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    border-radius: 50%;
+}

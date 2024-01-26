@@ -1,0 +1,12 @@
+{
+  "actions": [
+    {
+      "title": "My Portfolio",
+      "description": "View your investment Portfolio"
+    },
+    {
+      "title": "My Watchlist",
+      "description": "Keep an eye on your favourite asset"
+    }
+  ]
+}

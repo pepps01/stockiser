@@ -1,0 +1,17 @@
+[
+  {
+    "stockExchangeName": "Dow Jones",
+    "shortName": "DOW",
+    "capitalisation": 5000000
+  },
+  {
+    "stockExchangeName": "London Stock Exchange",
+    "shortName": "S&P500",
+    "capitalisation": 5000000
+  },
+  {
+    "stockExchangeName": "NASDAQ",
+    "shortName": "NASDAQ",
+    "capitalisation": 5000000
+  }
+]

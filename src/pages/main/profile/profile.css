@@ -1,0 +1,166 @@
+.profileContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0px;
+  box-shadow: 1px 2px 100px 10px #e5e7eb;
+  border-radius: 5px;
+  height: 18vh;
+}
+.imageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.assetValuation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.assetValuation img {
+  border-radius: 10%;
+  width: 10px;
+}
+
+.imageContainer img {
+  border-radius: 10%;
+  width: 120px;
+  border: 3px solid green;
+}
+.other-info {
+  text-align: left;
+  margin-left: 1rem;
+}
+.manageContainer {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0px;
+}
+.manageContainer > ul {
+  display: flex;
+  align-self: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  width: 20vw;
+  margin-right: 1rem;
+  background-color: white;
+  /* box-shadow: "10px 10px 25px #E5E7EB"; */
+  box-shadow: 1px 2px 100px 10px #e5e7eb;
+  border-radius: 10px;
+}
+
+.manageContainer > ul > li:active {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  padding: 1rem 0;
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.manageContainer > ul > li:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  padding: 1rem 0;
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.manageContainer > ul > li:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  padding: 1rem 0;
+  width: 100%;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.manageContainer > ul > li:hover {
+  background-color: lightgreen;
+  cursor: pointer;
+}
+.manageContainer > ul > li > img {
+  padding: 0 1rem 0 1rem;
+}
+.manageContainer > ul > li > a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: black;
+}
+.manageContainer > .miniSidebar > ul > li:active {
+  background-color: green;
+}
+.manageContainer > .miniSidebar > ul > li:hover {
+  background-color: lightgreen;
+  cursor: pointer;
+}
+.boardContainer {
+  width: 100%;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  height: 50vh;
+  border-radius: 10px;
+}
+.boardContainer > table {
+  border-collapse: collapse;
+  box-shadow: 0 5px 10px #e5e7eb;
+  text-align: left;
+}
+.boardContainer > table > thead {
+  box-shadow: 0 5px 10px #e5e7eb;
+}
+.boardContainer > table > thead > tr {
+}
+.boardContainer > table > thead > tr > th {
+  padding: 1.5rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.boardContainer > table > tbody {
+}
+.boardContainer > table > tbody > tr {
+}
+.boardContainer > table > tbody > tr > td {
+  padding: 0.5rem 2rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.01rem;
+}
+.status {
+  border-radius: 4px;
+  background-color: lightgreen;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  display: inline-block;
+}
+.pending {
+  background-color: grey;
+  color: black;
+}
+.hold {
+  background-color: orange;
+  color: black;
+}
+tr:nth-child(even) {
+  background-color: #e5e7eb;
+}

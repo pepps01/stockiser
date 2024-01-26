@@ -1,0 +1,26 @@
+[
+  {
+    "logo": "./../../../../assets/logos/uba.svg",
+    "stockExchangeName": "Dow Jones",
+    "shortName": "DOW",
+    "capitalisation": 5000000,
+    "status": 5.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "London Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "S&P500",
+    "status": 2.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "NASDAQ",
+    "capitalisation": 5000000,
+    "shortName": "NASDAQ",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  }
+]

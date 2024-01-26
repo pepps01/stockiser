@@ -1,0 +1,43 @@
+[
+  {
+    "logo": "./../../../../assets/logos/uba.svg",
+    "stockExchangeName": "Microsoft",
+    "shortName": "SSE",
+    "capitalisation": 5000000,
+    "status": 5.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "Apple",
+    "capitalisation": 5000000,
+    "shortName": "LSE",
+    "status": 2.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "Saudi Aramco",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "UBA",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "shortName": "NYSE",
+    "stockExchangeName": "Alistair",
+    "capitalisation": 5000000,
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  }
+]

@@ -1,0 +1,91 @@
+[
+  {
+    "logo": "./../../../../assets/logos/uba.svg",
+    "stockExchangeName": "Saudi Stock Exchange",
+    "shortName": "SSE",
+    "capitalisation": 5000000,
+    "status": 5.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "London Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "LSE",
+    "status": 2.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "shortName": "NYSE",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "status": 6.25,
+    "shortName": "NYSE",
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  },
+  {
+    "logo": "./../../../assets/logos/uba.svg",
+    "stockExchangeName": "New York Stock Exchange",
+    "capitalisation": 5000000,
+    "shortName": "NYSE",
+    "status": 6.25,
+    "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
+  }
+]

@@ -1,0 +1,14 @@
+.message-container{
+    border: 2px solid red;
+    padding: .1rem .5rem;
+    background-color: lightpink;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.error-meesage{
+    color: red;
+}

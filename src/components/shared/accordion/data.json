@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Get Value Stocks",
+    "description": "Stocks that tends to trade at a lower price relative to its fundamentals, making it appealing to value investors."
+  },
+  {
+    "title": "Get Growth Stocks",
+    "description": "Stock that tends to increase in capital value rather than yield high income."
+  },
+  {
+    "title": "Get Equity Stocks",
+    "description": "Stocks over which a company is exposed to price risk"
+  }
+]
