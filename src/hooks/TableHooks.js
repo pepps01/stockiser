@@ -58,8 +58,8 @@ export const useTableHook = (columns, initialData, itemsPerPage, handleRowClick)
             {columns.map((column, index) => (
               <td key={column.key}>
                 {column.key === "action" ? (
-                  <button className="button-hook" onClick={handleRowClick}>{column.action}</button>
-                ) : (
+                  <button className="button-hook" onClick={handleRowClick}>{row[column.key]}</button>
+                  ) : (
                   row[column.key]
                 )}
               </td>

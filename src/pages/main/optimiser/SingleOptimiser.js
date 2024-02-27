@@ -7,7 +7,8 @@ import TopMovers from "./../../../components/shared/top_movers/TopMovers";
 import MarketNews from "./../../../components/shared/market_news/MarketNews";
 import Table from "./../../../components/shared/table/Table";
 
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
+
 import ReactModal from "react-modal";
 import TableView from "../../../components/shared/table/TableView";
 import { Link } from "react-router-dom";

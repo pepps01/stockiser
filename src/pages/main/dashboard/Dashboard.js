@@ -7,7 +7,7 @@ import AdminMain from "../../../components/admin/AdminMain";
 import AdminRightBar from "../../../components/admin/AdminRightBar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 import { useTableHook } from "../../../hooks/TableHooks";
-import { BASE_URL } from "../../../apis/api";
+import { BASEURL } from "../../../apis/api";
 import ReactModal from "react-modal";
 import Accordion from "../../../components/shared/accordion/Accordion";
 
@@ -34,7 +34,6 @@ const Dashboard = () => {
     e.preventDefault();
     setModal(true);
   };
-
   const customStyles = {
     content: {
       top: "50%",
@@ -54,16 +53,29 @@ const Dashboard = () => {
     { key: "status", label: "Market Status" },
     { key: "action", label: "Action" },
   ];
+  const token = localStorage.getItem('token')
+
   const getData = async () => {
-    await fetch(`${BASE_URL}/api/selectors/stocks`)
+    await fetch(`${BASEURL}/api/selectors/stocks`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setRecords(data.result);
-        console.log("data", data.result);
+        console.log("data", data);
+        console.log("data results", data.result);
         // console.log(data.result);
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
+// ! Weldone is the good day
+// * This is a TODO comment 
+// TODO is the application 
+// ? This is not normal 
   useEffect(() => {
     getData();
   }, []);

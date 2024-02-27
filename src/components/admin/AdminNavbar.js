@@ -1,6 +1,6 @@
 import React from "react";
 
-import Algizer from "./../../assets/algizer.svg";
+import Algizer from "./../../assets/algizer.jpeg";
 import UserAvatar from "./../../assets/user.png";
 
 import "./admin_navbar.css";
@@ -12,7 +12,7 @@ const AdminNavbar = () => {
   return (
     <nav className="nav-controller">
       <div className="nav-brand">
-        <img src={Algizer} alt="algizer" className="nav-icon" />
+        <img src={Algizer} alt="algizer" className="nav-icon" width={250} height={250} />
       </div>
       <div className="profile-badge">
         <img src={UserAvatar} alt="editProfile" />

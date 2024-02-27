@@ -8,7 +8,7 @@ import MarketNews from "./../../../components/shared/market_news/MarketNews";
 
 import ReactModal from "react-modal";
 
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
 import TableSignals from "../../../components/shared/table/TableSignals";
 import Sidebar from "../../../components/shared/sidebar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";

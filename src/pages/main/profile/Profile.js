@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
 import Sidebar from "../../../components/shared/sidebar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 import MarketNews from "../../../components/shared/market_news/MarketNews";

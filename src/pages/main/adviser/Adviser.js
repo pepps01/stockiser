@@ -10,9 +10,9 @@ import MarketNews from "./../../../components/shared/market_news/MarketNews";
 
 import ReactModal from "react-modal";
 
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
 import TableSignals from "../../../components/shared/table/TableSignals";
-import { BASE_URL } from "../../../apis/api";
+import { BASEURL } from "../../../apis/api";
 const Adviser = () => {
   const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);
@@ -38,7 +38,7 @@ const Adviser = () => {
   };
 
   const getData = async() => {
-    await fetch(`${BASE_URL}/api/advisers`)
+    await fetch(`${BASEURL}/api/advisers`)
       .then((res) => res.json())
       .then((data) => {
         setFormData(data);

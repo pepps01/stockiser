@@ -7,11 +7,11 @@ import QuickActions from "../../../components/shared/quick_actions/QuickActions"
 import TopMovers from "./../../../components/shared/top_movers/TopMovers";
 import MarketNews from "./../../../components/shared/market_news/MarketNews";
 
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
 import buy from "./buy.json";
 import sell from "./sell.json";
 import Sidebar from "../../../components/shared/sidebar";
-import { BASE_URL } from "../../../apis/api";
+import { BASEURL } from "../../../apis/api";
 
 const Stock = (props) => {
   const { stock_id } = useParams();
@@ -65,7 +65,7 @@ const Stock = (props) => {
   // };
 
   const getData = async () => {
-    await fetch(`${BASE_URL}/api/selectors/tickers/buy`)
+    await fetch(`${BASEURL}/api/selectors/tickers/buy`)
       .then((res) => res.json())
       .then((data) => {
         setRecords(data.result);
@@ -79,7 +79,7 @@ const Stock = (props) => {
   }, []);
 
   const loadData = async () => {
-    await fetch(`${BASE_URL}/api/selectors/tickers/sell`)
+    await fetch(`${BASEURL}/api/selectors/tickers/sell`)
       .then((res) => res.json())
       .then((data) => {
         setSellRecords(data.result);

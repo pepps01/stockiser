@@ -1,6 +1,6 @@
 import React from "react";
 
-import Algizer from "./../../assets/algizer.png";
+import Tickizer from "./../../assets/tickizer.jpeg";
 import CustomButton from "../../components/main/customButton";
 // import CustomButton from '../../components/main/customButton'
 
@@ -9,7 +9,7 @@ import './aileen.css'
 const Splash = () => {
   return (
     <div className="splashContainer">
-      <img src={Algizer} alt="Algizer" />
+      <img src={Tickizer} alt="Tickizer" />
       <CustomButton titleName="Get Started" link={"/login"} />
     </div>
   );

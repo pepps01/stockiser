@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import LoginPhoto from "./../../assets/page_logos/login/login.jpg";
-import AlgizerImage from "./../../assets/page_logos/login/algizer.svg";
+import Tickizer from "./../../assets/tickizer.jpeg";
 import Arrow from "./../../assets/page_logos/login/arrow.png";
 
 import "./login.css";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "@chakra-ui/react";
-import { BASE_URL } from "../../apis/api";
+import { BASEURL } from "../../apis/api";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -15,10 +14,11 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("")
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
-
+  //  const memo = useMemo(() => first, [second])
   const handleNavigate = () => {
     navigate(-1);
   };
@@ -29,43 +29,50 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("FormData", formData)
+        const response = await fetch(BASEURL + "/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok){
+          const result = await response.json();
+
+          if (result.status === 'error'){
+            setError(true)
+            setErrorMessage(result.message)
+            console.log("Failed", result.message);
+
+          } else{
+            localStorage.setItem("token", result.result.access_token);
+            console.log("result token",result.result.access_token);
+            setLoggedIn(true);
+          }
+      } 
+    } catch (e) {
+      setError(true);
+      console.log("Error", e.message);
+    };
+  }
+
   useEffect(() => {
-    if (loggedIn) {
+    if (loggedIn === true) {
       navigate("/dashboard");
     }
   }, [loggedIn]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(false);
-    try {
-      const response = await fetch(BASE_URL + "/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        localStorage.setItem("token", result.access_token);
-        const token = localStorage.getItem("token");
-        console.log("token_case", token);
-        setLoggedIn(true);
-      } else {
-        console.log("Failed", response.status);
-      }
-    } catch (e) {
-      setError(true);
-      console.log("Error", e.message);
-    }
-  };
   return (
     <div className="loginContainer">
       <div className="leftContainer">
         <div className="imgContainer">
           <img
-            src={AlgizerImage}
-            alt="algizer logo"
+            src={Tickizer}
+            alt="tickizer logo"
             crossOrigin="anonymous"
             style={{
               marginLeft: "0%",
@@ -79,7 +86,7 @@ const Login = () => {
                 zIndex: 6,
               }}
             >
-              Algizer
+              Tickizer
             </h1>
             <p className="description">
               On the other hand, prop platforms are customized platforms built
@@ -103,6 +110,7 @@ const Login = () => {
           />
           <p>Go Home</p>
         </div>
+
         <div className="login-title">
           <h1>Login</h1>
           <p>
@@ -110,10 +118,13 @@ const Login = () => {
             entered to fill the information below{" "}
           </p>
         </div>
+
+
         <div className="login-form">
-          <div className={`${!error ? "hidden" : ""}`}>
-            <Alert message={error && ""} />
+          <div className={`${error ? "error" : "hidden"}`}>
+              <p className="alert-red">{errorMessage}</p>
           </div>
+
           <form
             action=""
             style={{

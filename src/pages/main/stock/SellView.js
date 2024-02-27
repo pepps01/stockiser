@@ -7,7 +7,7 @@ import QuickActions from "../../../components/shared/quick_actions/QuickActions"
 import TopMovers from "./../../../components/shared/top_movers/TopMovers";
 import MarketNews from "./../../../components/shared/market_news/MarketNews";
 
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
 import buy from "./buy.json";
 import Sidebar from "../../../components/shared/sidebar";
 import UBA from "./../../../assets/logos/uba.svg";

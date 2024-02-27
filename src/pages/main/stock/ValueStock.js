@@ -6,16 +6,11 @@ import AssetValidate from "./../../../assets/misc/row.svg";
 import QuickActions from "../../../components/shared/quick_actions/QuickActions";
 import TopMovers from "./../../../components/shared/top_movers/TopMovers";
 import MarketNews from "./../../../components/shared/market_news/MarketNews";
-
-import Algizer from "./../../../assets/algizer.svg";
-import buy from "./buy.json";
-import sell from "./sell.json";
 import Sidebar from "../../../components/shared/sidebar";
-import { BASE_URL } from "../../../apis/api";
+import { BASEURL } from "../../../apis/api";
 
 import Loading from "./../../../components/atom/loading/Loading";
 import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
-
 
 const ValueStock =()=> {
   const { stock_id } = useParams();
@@ -23,31 +18,122 @@ const ValueStock =()=> {
   const [isData, setIsData] = useState(true);
   const [records, setRecords] = useState([]);
   const [sell_records, setSellRecords] = useState([]);
+  const [sells, setSells] = useState(null);
+  const [stockData, setStockData] = useState(null);
   const [formData, setFormData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectData, setSelectData] = useState({
+    ticker:"",
+    open:"",
+    high:"",
+    low:"",
+    close:"",
+    volume:"",
+    date:"",
+    token:""
+  })
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token')
 
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
   };
 
-  const navigate = useNavigate();
-
   const handleOpenClick = (e) => {
     e.preventDefault();
     setModal(true);
   };
 
-  const handleBuyClick = (records) => {
-    // setSelectedRow(rowData);
-    alert("The selected stock has been added to Buy List for $" + records.high);
+  const handleBuyClick = async (records) => {
+     const newData = {
+      ticker: records?.ticker,
+      close: records?.close,
+      high: records?.high, 
+      low: records?.low, 
+      open:records?.open, 
+      token:localStorage.getItem('token'),
+      date:records?.date,
+      volume: records?.volume, 
+      action_taken: "buy", 
+      status:"processing",
+      transaction_name: "Value"
+    }
+    console.log("records", records.ticker)
+    
+    setSelectData(newData)
+     
+    try{
+      const response = await fetch(`${BASEURL}/api/selectors/add-list`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          "Access-Control-Allow-Origin":"*"
+        },
+        body:JSON.stringify(selectData) 
+      })
+
+      if (!response.ok){
+        console.log("error status", response.data)
+      }
+      const result  = await response.json();
+
+      console.log(" positive result", result.data);
+      console.log(" positive result", result.status);
+      console.log("  result", result.message);
+      console.log(" message result", result.result);
+
+    }catch(error){console.log("error", error)}
+
+    console.log("selected data", selectData)
+
+    alert("The selected stock has been added to Buy List for $" + records?.high);
   };
 
-  const handleSellClick = (records) => {
-    // setSelectedRow(rowData);
-    alert(
-      "The selected stock has been added to Sell list for $" + records.high
-    );
+  const handleSellClick = async (records) => {
+    const newData = {
+      ticker: records?.ticker,
+      close: records?.close,
+      high: records?.high, 
+      low: records?.low, 
+      open:records?.open, 
+      token:localStorage.getItem('token'),
+      date:records?.date,
+      volume: records?.volume, 
+      action_taken: "sell", 
+      status:"processing",
+      transaction_name: "Value"
+    }
+    
+    setSelectData(newData)
+     
+    try{
+      const response = await fetch(`${BASEURL}/api/selectors/add-list`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          "Access-Control-Allow-Origin":"*"
+        },
+        body:JSON.stringify(selectData) 
+      })
+
+      if (!response.ok){
+        console.log("error status", response.data)
+      }
+      const result  = await response.json();
+
+      console.log(" positive result", result.data);
+      console.log(" positive result", result.status);
+      console.log("  result", result.message);
+      console.log(" message result", result.result);
+
+    }catch(error){console.log("error", error)}
+
+    console.log("selected data", selectData)
+
+    alert("The selected stock has been added to Sell List for $" + records?.high);
   };
 
   const columnites = [
@@ -57,12 +143,18 @@ const ValueStock =()=> {
     { name: "Low" },
     { name: "Close" },
     { name: "Volume" },
-    { name: "Date" },
     { name: "Action" },
   ];
 
   const loadFormData = () => {
-    fetch(`${BASE_URL}/api/selector/add_list`)
+    fetch(`${BASEURL}/api/selector/add_list`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*'
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setRecords({ records: data });
@@ -71,45 +163,77 @@ const ValueStock =()=> {
       .catch((err) => console.log(err));
   };
 
+  const onSelect = async()=>{
+    try{
+      const response = fetch(`${BASEURL}/api/selectors/add-list`,{
+        method:"POST",
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(selectData),
+      })
+      
+      if(response.ok){
+        const result = await response.json();
+
+        if (response.status !== "error"){
+          console.log("response", result.message)
+          // engage react notify 
+          // get the message od creattion
+        }
+      }
+    }catch(e){
+      console.log("Error",e)
+    }
+  }
+
   const getData = async () => {
-    await fetch(`${BASE_URL}/api/selectors/tickers/buy`)
+    await fetch(`${BASEURL}/api/selectors/buy-stock`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setRecords(data.result);
-        console.log("DATA", data);
-        // console.log(data.result);
+        setStockData(data.result)
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
-  useEffect(() => {
-    getData();
-  }, []);
 
   const loadData = async () => {
-    await fetch(`${BASE_URL}/api/selectors/tickers/sell`)
+    await fetch(`${BASEURL}/api/selectors/sell-value-stock`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setSellRecords(data.result);
-        console.log("DATA", data);
-        // console.log(data.result);
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
+
   useEffect(() => {
+    getData();
     loadData();
   }, []);
-
 
   useEffect(() => {
     // Simulate an API call
     setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 1000);
   }, []);
 
   if (isLoading) {
    return <Loading/>
   }
+
 
   return (
     <div
@@ -118,31 +242,7 @@ const ValueStock =()=> {
         flexDirection: "column",
       }}
     >
-      {/* <div
-        style={{
-          height: "50px",
-          width: "100%",
-          background: "#FFF",
-          boxShadow: "3px 1px 3px #E5E7EB",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "1.3rem .2rem",
-        }}
-      >
-        <img src={Algizer} alt="Algizer" width={250} height={250} />
-        <div
-          style={{
-            borderRadius: "50%",
-            width: "100px",
-            height: "100px",
-          }}
-        >
-          <img src="" alt="Profile" />
-        </div>
-      </div> */}
       <CustomNavbar/>
-      {/* <h1>{title}</h1> */}
       <div
         style={{
           display: "flex",
@@ -172,6 +272,7 @@ const ValueStock =()=> {
               padding: ".8rem 0rem",
               borderRadius: "4px",
               color: "green",
+              cursor:"pointer"
             }}
           >
             Go back
@@ -231,45 +332,41 @@ const ValueStock =()=> {
                 </tr>
               </thead>
               <tbody>
-                {records.map((record, index) => (
-                  <tr key={index}>
-                    <td>{record.ticker}</td>
-                    <td>${record.open}</td>
-                    <td>${record.high}</td>
-                    <td>${record.low}</td>
-                    <td>${record.close}</td>
-                    <td>{record.volume}</td>
-                    <td>{record.date}</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      {/* <a href={record.action}></a> */}
-                      <button
-                        className="buttonFinancials"
-                        style={{
-                          padding: "7px 15px",
-                          border: "none",
-                          color: "white",
-                          textAlign: "center",
-                          textDecoration: "none",
-                          border: "2px solid green",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                          background: "green",
-                          fontSize:".7rem"
-                        }}
-                        onClick={() => handleBuyClick(record)}
-                      >
-                        {/* lift a modal experience to show the growth, value and economy stock */}
-                        Buy List
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {stockData &&
+                  Object.keys(stockData).map((ticker, index ) => (
+                      <tr key={index}>
+                              <td>{stockData[ticker][0]?.ticker}</td>
+                              <td>${stockData[ticker][0]?.open}</td>
+                              <td>${stockData[ticker][0]?.high}</td>
+                              <td>${stockData[ticker][0]?.low}</td>
+                              <td>${stockData[ticker][0]?.close}</td>
+                              <td>{stockData[ticker][0]?.volume}</td>
+                        <td
+                          style={{
+                            width:"20px",
+                            padding:"0px",
+                            textAlign:"center"
+                          }}
+                        >
+                               <button
+                                className="buttonFinancials"
+                                  style={{
+                                    border: "none",
+                                    color: "white",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                    background: "green",
+                                    margin:"auto",
+                                    padding:".3rem .9rem",
+                                    borderRadius:2
+                                  }}
+                                  onClick={() => handleBuyClick(stockData[ticker][0])}
+                                >
+                                  Buy List
+                                </button>
+                              </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -305,44 +402,42 @@ const ValueStock =()=> {
                 </tr>
               </thead>
               <tbody>
-                {sell_records.map((sell_record, index) => (
-                  <tr key={index}>
-                    <td>{sell_record.ticker}</td>
-                    <td>${sell_record.open}</td>
-                    <td>${sell_record.high}</td>
-                    <td>${sell_record.low}</td>
-                    <td>${sell_record.close}</td>
-                    <td>{sell_record.volume}</td>
-                    <td>{sell_record.date}</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      {/* <a href={sell_record.action}></a> */}
+                  {sell_records &&
+                    Object.keys(sell_records).map((ticker, index ) => (
+                      <tr key={index}>
+                        <td>{sell_records[ticker][0]?.ticker}</td>
+                        <td>${sell_records[ticker][0]?.open}</td>
+                        <td>${sell_records[ticker][0]?.high}</td>
+                        <td>${sell_records[ticker][0]?.low}</td>
+                        <td>${sell_records[ticker][0]?.close}</td>
+                        <td>{sell_records[ticker][0]?.volume}</td>
+                        <td
+                            style={{
+                              width:"20px",
+                              padding:"0px",
+                              textAlign:"center"
+                            }}
+                        >
                       <button
-                        className="buttonFinancials"
-                        style={{
-                          padding: "5px 15px",
-                          border: "none",
-                          color: "white",
-                          textAlign: "center",
-                          textDecoration: "none",
-                          border: "2px solid orange",
-                          borderRadius: "5px",
-                          background: "orange",
-                          cursor: "pointer",
-                          fontSize:".7rem"
-                        }}
-                        onClick={() => handleSellClick(sell_record)}
-                      >
-                        {/* lift a modal experience to show the growth, value and economy stock */}
-                        Sell List
-                      </button>
-                    </td>
-                  </tr>
+                            className="buttonFinancials"
+                            style={{
+                              padding: "5px 15px",
+                              border: "none",
+                              color: "white",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              border: "2px solid orange",
+                              borderRadius: "5px",
+                              background: "orange",
+                              cursor: "pointer",
+                              fontSize:".7rem"
+                            }}
+                            onClick={() => handleSellClick(sell_records[ticker][0])}
+                          >
+                            Sell List
+                          </button>
+                        </td>
+                      </tr>
                 ))}
               </tbody>
             </table>

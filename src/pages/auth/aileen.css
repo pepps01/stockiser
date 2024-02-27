@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color:black;
 }
 
 @media screen and (max-width: 516px) {

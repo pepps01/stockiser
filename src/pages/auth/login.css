@@ -113,3 +113,18 @@ input[type="submit"] {
   font-size: 1.1rem;
   cursor: pointer;
 }
+
+.hidden{
+  display: none;
+}
+.error{
+  background-color: rgb(230, 201, 201);
+  border-color: red;
+  padding: .5px 0px;
+  border: 1px solid red;
+  border-radius: 5px;
+}
+.alert-red{
+  color: red;
+  padding-left: 4px;
+}

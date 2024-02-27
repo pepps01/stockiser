@@ -1,5 +1,5 @@
 import React from 'react'
-import Algizer from "./../../../assets/algizer.svg";
+import Algizer from "./../../../assets/algizer.jpeg";
 import UserAvatar from "./../../../assets/user.png";
 
 // import ABC from "./../../../assets/"
