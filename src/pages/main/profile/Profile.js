@@ -23,13 +23,13 @@ import ArrowUp from "./../../../assets/misc/up-arrow.svg";
 
 const Profile = () => {
   const [modal, setModal] = useState(false);
-  // const [isData, setIsData] = useState(true);
   const [name, setName] = useState("Sunny Pepple");
   // const [email, setEmail] = useState("slpepple01@gmail.com");
   // const [phone, setPhone] = useState("08077201806");
   const [formData, setFormData] = useState([]);
-
+  const [stockData, setStockData] = useState(null);
   const [redirectPage, setRedirectPage] = useState(false);
+  const [records, setRecords] = useState([]);
 
   const navigate = useNavigate();
 
@@ -42,20 +42,47 @@ const Profile = () => {
     e.preventDefault();
     setModal(true);
   };
+  const columnites = [
+    { name: "Ticker" },
+    { name: "Listing Name" },
+    { name: "Purchase Action" },
+    { name: "Purchase Price" },
+    { name: "Real Time Price" },
+    { name: "Percentage Change" },
+    { name: "Date" },
+  ];
 
   // get data
   // where and how can the id be gotten
-  const getData = async () => {
-    await fetch(`${BASEURL}/api/profile/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFormData(data);
-        console.log(data);
-      });
-  };
+  // const getData = async () => {
+  //   await fetch(`${BASEURL}/api/transaction/`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setFormData(data);
+  //       console.log(data);
+  //     });
+  // };
 
+  const loadTransactionData = async (e) => {
+    await fetch(`${BASEURL}/api/transactions/7`, {
+      method: 'GET',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRecords(data.result);
+        console.log("data records", data.result);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
-    getData();
+    // getData();
+    loadTransactionData();
   }, []);
 
   // post data
@@ -80,6 +107,8 @@ const Profile = () => {
       console.log("Error", e.message);
     }
   };
+
+  
 
   useEffect(() => {
     if (redirectPage) {
@@ -216,22 +245,28 @@ const Profile = () => {
                 width={"100%"}
               >
                 <thead>
-                  <tr>
-                    <th>S/N</th>
-                    <th>Shortname</th>
-                    <th>Ticker</th>
-                    <th>Purchase Action</th>
-                    <th>Purchase Price</th>
-                    <th>Real Time Price</th>
-                    <th>Percentage Change</th>
-                    <th>Date</th>
-                  </tr>
+                <tr>
+                  {columnites.map((columnite, index) => (
+                    <th key={index}>{columnite.name}</th>
+                  ))}
+                </tr>
+                 
                 </thead>
                 <tbody>
+                {/* {
+                  records.map((record, index ) => (
+                      <tr key={index}>
+                              <td>{record.stock}</td>
+                              <td>${record.amount}</td>
+                              <td>${record.transaction_name}</td>
+                              <td>${record}</td>
+                              <td>${record}</td>
+                              <td>{record}</td>
+                    </tr>
+                  ))} */}
                   <tr>
                     <td>1</td>
                     <td>APPL</td>
-                    <td>Apple</td>
                     <td className="">
                       <p className="status">Bought</p>
                     </td>
@@ -250,7 +285,7 @@ const Profile = () => {
                     </td>
                     <td>20-12-2023</td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td>2</td>
                     <td>MSFT</td>
                     <td>Microsoft</td>
@@ -272,7 +307,7 @@ const Profile = () => {
                       $1
                     </td>
                     <td>22-12-2023</td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>

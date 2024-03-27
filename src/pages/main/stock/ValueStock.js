@@ -45,33 +45,32 @@ const ValueStock =()=> {
     setModal(true);
   };
 
+  
   const handleBuyClick = async (records) => {
-     const newData = {
-      ticker: records?.ticker,
-      close: records?.close,
-      high: records?.high, 
-      low: records?.low, 
-      open:records?.open, 
-      token:localStorage.getItem('token'),
-      date:records?.date,
-      volume: records?.volume, 
-      action_taken: "buy", 
-      status:"processing",
-      transaction_name: "Value"
-    }
-    console.log("records", records.ticker)
-    
-    setSelectData(newData)
-     
     try{
+      const newData = {
+        ticker: records?.ticker,
+        close: records?.close,
+        high: records?.high, 
+        low: records?.low, 
+        open:records?.open, 
+        token:localStorage.getItem('token'),
+        date:records?.date,
+        volume: records?.volume, 
+        action_taken: "buy", 
+        status:"processing",
+        transaction_name: "Value"
+      }
+      
       const response = await fetch(`${BASEURL}/api/selectors/add-list`,{
         method:'POST',
+        mode:"no-cors",
         headers:{
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           "Access-Control-Allow-Origin":"*"
         },
-        body:JSON.stringify(selectData) 
+        body:JSON.stringify(newData) 
       })
 
       if (!response.ok){
@@ -86,9 +85,11 @@ const ValueStock =()=> {
 
     }catch(error){console.log("error", error)}
 
-    console.log("selected data", selectData)
-
-    alert("The selected stock has been added to Buy List for $" + records?.high);
+     // console.log("records_ticker", records.ticker)
+    // setSelectData(newData)
+    // console.log("records", records)
+    // console.log("new data", newData)
+    // alert("The selected stock has been added to Buy List for $" + records?.high);
   };
 
   const handleSellClick = async (records) => {
@@ -112,8 +113,8 @@ const ValueStock =()=> {
       const response = await fetch(`${BASEURL}/api/selectors/add-list`,{
         method:'POST',
         headers:{
-          "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
           "Access-Control-Allow-Origin":"*"
         },
         body:JSON.stringify(selectData) 
@@ -124,16 +125,17 @@ const ValueStock =()=> {
       }
       const result  = await response.json();
 
+      // share result
       console.log(" positive result", result.data);
       console.log(" positive result", result.status);
-      console.log("  result", result.message);
+      console.log("  result", records?.high);
       console.log(" message result", result.result);
 
     }catch(error){console.log("error", error)}
 
     console.log("selected data", selectData)
 
-    alert("The selected stock has been added to Sell List for $" + records?.high);
+    // alert("The selected stock has been added to Sell List for $" + records?.high);
   };
 
   const columnites = [
@@ -145,6 +147,7 @@ const ValueStock =()=> {
     { name: "Volume" },
     { name: "Action" },
   ];
+
 
   const loadFormData = () => {
     fetch(`${BASEURL}/api/selector/add_list`, {
@@ -191,9 +194,11 @@ const ValueStock =()=> {
   const getData = async () => {
     await fetch(`${BASEURL}/api/selectors/buy-stock`,{
       method: 'GET',
+      mode:"no-cors",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
+        "Access-Control-Allow-Origin":"*"
       },
     })
       .then((res) => res.json())
@@ -206,9 +211,12 @@ const ValueStock =()=> {
   const loadData = async () => {
     await fetch(`${BASEURL}/api/selectors/sell-value-stock`,{
       method: 'GET',
+      mode:"no-cors",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
+        "Access-Control-Allow-Origin":"*"
+
       },
     })
       .then((res) => res.json())
@@ -323,7 +331,7 @@ const ValueStock =()=> {
             <h4>Top 5 to Buy</h4>
           </div>
           <div>
-            <table className="table table-spaced">
+            <table className="table table-spaced" style={{width:"100%"}}>
               <thead>
                 <tr>
                   {columnites.map((columnite, index) => (
@@ -336,10 +344,10 @@ const ValueStock =()=> {
                   Object.keys(stockData).map((ticker, index ) => (
                       <tr key={index}>
                               <td>{stockData[ticker][0]?.ticker}</td>
-                              <td>${stockData[ticker][0]?.open}</td>
-                              <td>${stockData[ticker][0]?.high}</td>
-                              <td>${stockData[ticker][0]?.low}</td>
-                              <td>${stockData[ticker][0]?.close}</td>
+                              <td>${Number(stockData[ticker][0]?.open).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.high).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.low).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.close).toFixed(2)}</td>
                               <td>{stockData[ticker][0]?.volume}</td>
                         <td
                           style={{
@@ -393,7 +401,7 @@ const ValueStock =()=> {
           </div>
           <div>
             {/* seelings */}
-            <table className="table table-spaced">
+            <table className="table table-spaced" style={{width:"100%"}}>
               <thead>
                 <tr>
                   {columnites.map((columnite, index) => (
@@ -406,10 +414,10 @@ const ValueStock =()=> {
                     Object.keys(sell_records).map((ticker, index ) => (
                       <tr key={index}>
                         <td>{sell_records[ticker][0]?.ticker}</td>
-                        <td>${sell_records[ticker][0]?.open}</td>
-                        <td>${sell_records[ticker][0]?.high}</td>
-                        <td>${sell_records[ticker][0]?.low}</td>
-                        <td>${sell_records[ticker][0]?.close}</td>
+                        <td>${Number(sell_records[ticker][0]?.open).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.high).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.low).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.close).toFixed(2)}</td>
                         <td>{sell_records[ticker][0]?.volume}</td>
                         <td
                             style={{

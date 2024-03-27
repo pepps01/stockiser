@@ -130,7 +130,7 @@ const Dashboard = () => {
               <div
                 className=""
                 style={{
-                  display: "flex",
+                  display:  "flex",
                   width: "100%",
                   justifyContent: "right",
                   alignItems: "center",

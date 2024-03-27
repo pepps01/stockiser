@@ -1,11 +1,25 @@
-import React from "react";
+import React,{useEffect} from "react";
 
 import Tickizer from "./../../assets/tickizer.jpeg";
 import CustomButton from "../../components/main/customButton";
 // import CustomButton from '../../components/main/customButton'
 
 import './aileen.css'
+import { BASEURL } from "../../apis/api";
+import Test from "../../components/Test";
 // remember media query
+
+// const rendition = async()=>{
+//   const response = fetch(`${BASEURL}/api/me`)
+
+//   if(!response.ok){
+//     console.log("error status", response.data)
+//   }
+//   const result = response.json();
+// }
+
+
+
 const Splash = () => {
   return (
     <div className="splashContainer">

@@ -13,6 +13,7 @@ import ReactModal from "react-modal";
 import Algizer from "./../../../assets/algizer.jpeg";
 import TableSignals from "../../../components/shared/table/TableSignals";
 import { BASEURL } from "../../../apis/api";
+
 const Adviser = () => {
   const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);

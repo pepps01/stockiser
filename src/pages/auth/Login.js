@@ -36,7 +36,10 @@ const Login = () => {
       console.log("FormData", formData)
         const response = await fetch(BASEURL + "/api/login", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json" ,
+            'Access-Control-Allow-Origin': '*'
+          },
           body: JSON.stringify(formData),
         });
 
@@ -125,12 +128,7 @@ const Login = () => {
               <p className="alert-red">{errorMessage}</p>
           </div>
 
-          <form
-            action=""
-            style={{
-              marginTop: "2rem",
-            }}
-          >
+          <form>
             <div className="form-group">
               <label>Email</label>
               <input
