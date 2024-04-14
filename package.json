@@ -1,8 +1,8 @@
 {
-  "name": "Algizer",
+  "name": "Tickizer",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://3970-102-216-201-52.ngrok-free.app",
+  "proxy": "https://e079-102-216-201-35.ngrok-free.app",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",

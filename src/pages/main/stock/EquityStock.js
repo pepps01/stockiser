@@ -34,6 +34,7 @@ function EquityStock() {
     e.preventDefault();
     setModal(false);
   };
+  const token = localStorage.getItem('token')
 
   const handleOpenClick = (e) => {
     e.preventDefault();
@@ -51,6 +52,7 @@ function EquityStock() {
       "The selected stock has been added to Sell list for $" + records.high
     );
   };
+
 
   const customStyles = {
     content: {
@@ -80,7 +82,14 @@ function EquityStock() {
     console.log("clicked");
   };
   const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/buy`)
+    await fetch(`${BASEURL}/api/selectors/tickers/buy`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*'
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setRecords(data.result);

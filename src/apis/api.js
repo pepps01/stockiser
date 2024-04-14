@@ -1,4 +1,5 @@
 export const BASE_URL="http://localhost:5000"
 // export const BASEURL="http://3.145.199.181"
-export const BASEURL="https://7fb8-102-216-201-30.ngrok-free.app"
-// export const BASEURL="https://4ac3-102-216-201-33.ngrok-free.app "
+// export const BASEURL="https://3836-102-216-201-48.ngrok-free.app"
+// export const BASEURL="https://13db-102-216-201-30.ngrok-free.app"
+export const BASEURL="http://localhost:5000"

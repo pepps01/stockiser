@@ -47,7 +47,7 @@ const Dashboard = () => {
   };
   const columns = [
     // { key: "id", label: "S/N" },
-    { key: "stockExchangeName", label: "Listing Name" },
+    { key: "listing", label: "Listing Name" },
     { key: "symbol", label: "Symbol" },
     { key: "capitalisation", label: "Market Capitalisation" },
     { key: "status", label: "Market Status" },
@@ -55,12 +55,17 @@ const Dashboard = () => {
   ];
   const token = localStorage.getItem('token')
 
+
+
+
   const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/stocks`,{
+    await fetch(`${BASEURL}/api/selector`,{
       method: 'GET',
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
+
       },
     })
       .then((res) => res.json())
@@ -76,8 +81,33 @@ const Dashboard = () => {
 // * This is a TODO comment 
 // TODO is the application 
 // ? This is not normal 
-  useEffect(() => {
+  useEffect(  () => {
     getData();
+
+    // try {
+    //   const response =  fetch(BASEURL + `/api/selector`, {
+    //     method: "GET",
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Access-Control-Allow-Origin': '*',
+    //       'Authorization': `Bearer ${token}`,
+    //     },
+    //     body: JSON.stringify(formData),
+    //   });
+    //   // Access-Control-Allow-Origin
+    //   if (!response.ok) {
+    //     console.log("Response issues");
+    //   } else {
+    //     // const result = (await response).json();
+    //     // console.log("results", result);
+    //     // setFormData(result);
+    //     // setMessage("User is created successfully")
+    //     // setAlert(true)
+    //   }
+    // } catch (error) {
+    //   console.log("Errors:" + error);
+    //   // setErrors(error);
+    // }
   }, []);
 
   const {

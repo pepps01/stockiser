@@ -22,6 +22,7 @@ function GrowthStock() {
   const [records, setRecords] = useState([]);
   const [sell_records, setSellRecords] = useState([]);
   const [formData, setFormData] = useState();
+  const token = localStorage.getItem('token')
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -45,6 +46,7 @@ function GrowthStock() {
     );
   };
 
+
   const columnites = [
     { name: "Ticker" },
     { name: "Open" },
@@ -67,7 +69,14 @@ function GrowthStock() {
   // };
 
   const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/buy`)
+    await fetch(`${BASEURL}/api/selectors/tickers/buy`,{
+      method: 'GET',
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Access-Control-Allow-Origin': '*'
+      },
+  })
       .then((res) => res.json())
       .then((data) => {
         setRecords(data.result);

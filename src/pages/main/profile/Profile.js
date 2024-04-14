@@ -66,7 +66,7 @@ const Profile = () => {
   const loadTransactionData = async (e) => {
     await fetch(`${BASEURL}/api/transactions/7`, {
       method: 'GET',
-      mode: 'no-cors',
+      // mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("token")}`,
