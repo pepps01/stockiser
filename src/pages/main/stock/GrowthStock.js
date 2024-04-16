@@ -20,6 +20,7 @@ function GrowthStock() {
   const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);
   const [records, setRecords] = useState([]);
+  const [stockData, setStockData] = useState([]);
   const [sell_records, setSellRecords] = useState([]);
   const [formData, setFormData] = useState();
   const token = localStorage.getItem('token')
@@ -54,7 +55,6 @@ function GrowthStock() {
     { name: "Low" },
     { name: "Close" },
     { name: "Volume" },
-    { name: "Date" },
     { name: "Action" },
   ];
 
@@ -68,39 +68,47 @@ function GrowthStock() {
   //     .catch((err) => console.log(err));
   // };
 
-  const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/buy`,{
+  const loadFormData = () => {
+    fetch(`${BASEURL}/api/selector/get-growth-stock`, {
       method: 'GET',
       headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-      'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*'
       },
-  })
-      .then((res) => res.json())
+    })
+      .then((response) => response.json())
       .then((data) => {
-        setRecords(data.result);
-        console.log("DATA", data);
-        // console.log(data.result);
+        // setRecords({ records: data });
+        // setRecords(data.result);
+        setStockData(data.result)
+        console.log("data records", data);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const loadData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/sell`)
+  // get buy stock
+  const getData = async () => {
+    await fetch(`${BASEURL}/api/selector/get-growth-sell-stock`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        "Access-Control-Allow-Origin":"*"
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setSellRecords(data.result);
-        console.log("DATA", data);
-        // console.log(data.result);
+        setSellRecords(data.result)
+        console.log("data records", data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
+
+
   useEffect(() => {
-    loadData();
+    loadFormData();
+    getData()
   }, []);
 
   const navigate = useNavigate();
@@ -169,7 +177,6 @@ function GrowthStock() {
 
             <h3>Growth Stock</h3>
           </div>
-
           <div
             className=""
             style={{
@@ -192,7 +199,7 @@ function GrowthStock() {
             <h4>Top 5 to Buy</h4>
           </div>
           <div>
-            <table className="table table-spaced">
+            <table className="table table-spaced" style={{width:"100%"}}>
               <thead>
                 <tr>
                   {columnites.map((columnite, index) => (
@@ -201,48 +208,44 @@ function GrowthStock() {
                 </tr>
               </thead>
               <tbody>
-                {records.map((record, index) => (
-                  <tr key={index}>
-                    <td>{record.ticker}</td>
-                    <td>${record.open}</td>
-                    <td>${record.high}</td>
-                    <td>${record.low}</td>
-                    <td>${record.close}</td>
-                    <td>{record.volume}</td>
-                    <td>{record.date}</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <a href={record.action}></a>
-                      <button
-                        className="buttonFinancials"
-                        style={{
-                          padding: "7px 15px",
-                          border: "none",
-                          color: "white",
-                          textAlign: "center",
-                          textDecoration: "none",
-                          border: "2px solid green",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                          background: "green",
-                        }}
-                        onClick={() => handleBuyClick(record)}
-                      >
-                        {/* lift a modal experience to show the growth, value and economy stock */}
-                        Buy List
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {stockData &&
+                  Object.keys(stockData).map((ticker, index ) => (
+                      <tr key={index}>
+                              <td>{stockData[ticker][0]?.ticker}</td>
+                              <td>${Number(stockData[ticker][0]?.open).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.high).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.low).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.close).toFixed(2)}</td>
+                              <td>{stockData[ticker][0]?.volume}</td>
+                        <td
+                          style={{
+                            width:"20px",
+                            padding:"0px",
+                            textAlign:"center"
+                          }}
+                        >
+                               <button
+                                className="buttonFinancials"
+                                  style={{
+                                    border: "none",
+                                    color: "white",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                    background: "green",
+                                    margin:"auto",
+                                    padding:".3rem .9rem",
+                                    borderRadius:2
+                                  }}
+                                  onClick={() => handleBuyClick(stockData[ticker][0])}
+                                >
+                                  Buy List
+                                </button>
+                              </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
-{/* TODO: LAZY LOADING THE APPLICATIONS */}
           <div
             className=""
             style={{
@@ -265,7 +268,7 @@ function GrowthStock() {
           </div>
           <div>
             {/* seelings */}
-            <table className="table table-spaced">
+            <table className="table table-spaced" style={{width:"100%"}}>
               <thead>
                 <tr>
                   {columnites.map((columnite, index) => (
@@ -274,48 +277,46 @@ function GrowthStock() {
                 </tr>
               </thead>
               <tbody>
-                {sell_records.map((sell_record, index) => (
-                  <tr key={index}>
-                    <td>{sell_record.ticker}</td>
-                    <td>${sell_record.open}</td>
-                    <td>${sell_record.high}</td>
-                    <td>${sell_record.low}</td>
-                    <td>${sell_record.close}</td>
-                    <td>{sell_record.volume}</td>
-                    <td>{sell_record.date}</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <a href={sell_record.action}></a>
+                  {sell_records &&
+                    Object.keys(sell_records).map((ticker, index ) => (
+                      <tr key={index}>
+                        <td>{sell_records[ticker][0]?.ticker}</td>
+                        <td>${Number(sell_records[ticker][0]?.open).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.high).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.low).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.close).toFixed(2)}</td>
+                        <td>{sell_records[ticker][0]?.volume}</td>
+                        <td
+                            style={{
+                              width:"20px",
+                              padding:"0px",
+                              textAlign:"center"
+                            }}
+                        >
                       <button
-                        className="buttonFinancials"
-                        style={{
-                          padding: "7px 0px",
-                          border: "none",
-                          color: "white",
-                          textAlign: "center",
-                          textDecoration: "none",
-                          border: "2px solid orange",
-                          borderRadius: "5px",
-                          background: "orange",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => handleSellClick(sell_record)}
-                      >
-                        {/* lift a modal experience to show the growth, value and economy stock */}
-                       Sell List
-                      </button>
-                    </td>
-                  </tr>
+                            className="buttonFinancials"
+                            style={{
+                              padding: "5px 15px",
+                              border: "none",
+                              color: "white",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              border: "2px solid orange",
+                              borderRadius: "5px",
+                              background: "orange",
+                              cursor: "pointer",
+                              fontSize:".7rem"
+                            }}
+                            onClick={() => handleSellClick(sell_records[ticker][0])}
+                          >
+                            Sell List
+                          </button>
+                        </td>
+                      </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
           <div
             className=""
             style={{

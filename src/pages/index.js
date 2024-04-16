@@ -19,6 +19,7 @@ import ValueStock from "./main/stock/ValueStock";
 import GrowthStock from "./main/stock/GrowthStock";
 import EquityStock from "./main/stock/EquityStock";
 import Help from "./main/help/Help";
+import Test from "./main/test/Test";
 // import EquityStock from "./main/stock/SingleStock";
 
 function Pages() {
@@ -26,6 +27,7 @@ function Pages() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Splash />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />

@@ -2,7 +2,7 @@ import React from 'react'
 import { BASEURL } from '../apis/api';
 import { useEffect } from 'react';
 
-function Test() {
+function TestAvenue() {
     const loadData = () => {
         fetch(`${BASEURL}/api/me`, {
           method: 'GET',
@@ -26,4 +26,4 @@ function Test() {
   )
 }
 
-export default Test
+export default TestAvenue

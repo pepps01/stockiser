@@ -34,6 +34,7 @@ const Dashboard = () => {
     e.preventDefault();
     setModal(true);
   };
+
   const customStyles = {
     content: {
       top: "50%",
@@ -47,25 +48,22 @@ const Dashboard = () => {
   };
   const columns = [
     // { key: "id", label: "S/N" },
-    { key: "listing", label: "Listing Name" },
+    { key: "listing_name", label: "Listing Name" },
     { key: "symbol", label: "Symbol" },
-    { key: "capitalisation", label: "Market Capitalisation" },
-    { key: "status", label: "Market Status" },
+    { key: "market_cap", label: "Market Capitalisation" },
+    { key: "percentage_change", label: "Market Status" },
     { key: "action", label: "Action" },
   ];
   const token = localStorage.getItem('token')
 
 
-
-
   const getData = async () => {
-    await fetch(`${BASEURL}/api/selector`,{
+    await fetch(`${BASEURL}/api/selector/selected`,{
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-
       },
     })
       .then((res) => res.json())
@@ -83,31 +81,6 @@ const Dashboard = () => {
 // ? This is not normal 
   useEffect(  () => {
     getData();
-
-    // try {
-    //   const response =  fetch(BASEURL + `/api/selector`, {
-    //     method: "GET",
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Access-Control-Allow-Origin': '*',
-    //       'Authorization': `Bearer ${token}`,
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   // Access-Control-Allow-Origin
-    //   if (!response.ok) {
-    //     console.log("Response issues");
-    //   } else {
-    //     // const result = (await response).json();
-    //     // console.log("results", result);
-    //     // setFormData(result);
-    //     // setMessage("User is created successfully")
-    //     // setAlert(true)
-    //   }
-    // } catch (error) {
-    //   console.log("Errors:" + error);
-    //   // setErrors(error);
-    // }
   }, []);
 
   const {

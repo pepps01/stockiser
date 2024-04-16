@@ -29,7 +29,6 @@ const ValueStock =()=> {
     low:"",
     close:"",
     volume:"",
-    date:"",
     token:""
   })
   const navigate = useNavigate();
@@ -148,24 +147,6 @@ const ValueStock =()=> {
     { name: "Action" },
   ];
 
-
-  const loadFormData = () => {
-    fetch(`${BASEURL}/api/selector/add_list`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'Access-Control-Allow-Origin': '*'
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setRecords({ records: data });
-        console.log("data records", data);
-      })
-      .catch((err) => console.log(err));
-  };
-
   const onSelect = async()=>{
     try{
       const response = fetch(`${BASEURL}/api/selectors/add-list`,{
@@ -191,44 +172,66 @@ const ValueStock =()=> {
     }
   }
 
-  const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/buy-stock`,{
+// post sell stock 
+  const loadFormData = () => {
+    fetch(`${BASEURL}/api/selector/get-value-stock`, {
       method: 'GET',
-      mode:"no-cors",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-        "Access-Control-Allow-Origin":"*"
+        'Access-Control-Allow-Origin': '*'
       },
     })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
+        setRecords({ records: data });
+        // setRecords(data.result);
         setStockData(data.result)
+        console.log("data records", data);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((err) => console.log(err));
   };
 
-  const loadData = async () => {
-    await fetch(`${BASEURL}/api/selectors/sell-value-stock`,{
+  // get buy stock
+  const getData = async () => {
+    await fetch(`${BASEURL}/api/selector/get-value-sell-stock`,{
       method: 'GET',
-      mode:"no-cors",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
         "Access-Control-Allow-Origin":"*"
-
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        setSellRecords(data.result);
+        setSellRecords(data.result)
+        console.log("data records", data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
+
+  // get sell stock
+  // const loadData = async () => {
+  //   await fetch(`${BASEURL}/api/selector/`,{
+  //     method: 'GET',
+  //     mode:"no-cors",
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //       "Access-Control-Allow-Origin":"*"
+
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setSellRecords(data.result);
+  //     })
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // };
 
   useEffect(() => {
-    getData();
-    loadData();
+    loadFormData()
+    getData()
   }, []);
 
   useEffect(() => {

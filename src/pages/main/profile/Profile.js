@@ -32,6 +32,7 @@ const Profile = () => {
   const [records, setRecords] = useState([]);
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('token')
 
   const handleClick = (e) => {
     e.preventDefault();

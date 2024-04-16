@@ -13,28 +13,22 @@ import sell from "./sell.json";
 import Sidebar from "../../../components/shared/sidebar";
 import { BASEURL } from "../../../apis/api";
 import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
-import AdminNavbar from "../../../components/admin/AdminNavbar";
-import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { useTableHook } from "../../../hooks/TableHooks";
-import ReactModal from "react-modal";
-import Accordion from "../../../components/shared/accordion/Accordion";
-import AdminRightBar from "../../../components/admin/AdminRightBar";
 
 function EquityStock() {
+  
   const { stock_id } = useParams();
   const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);
   const [records, setRecords] = useState([]);
+  const [stockData, setStockData] = useState([]);
   const [sell_records, setSellRecords] = useState([]);
   const [formData, setFormData] = useState();
-  const [selectedRow, setSelectedRow] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const token = localStorage.getItem('token')
 
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
   };
-  const token = localStorage.getItem('token')
 
   const handleOpenClick = (e) => {
     e.preventDefault();
@@ -54,17 +48,15 @@ function EquityStock() {
   };
 
 
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      marginRight: "-30%",
-      marginBottom: "-20%",
-      transform: "translate(-50%, -50%)",
-      width: "40%",
-      height: "50%",
-    },
-  };
+  const columnites = [
+    { name: "Ticker" },
+    { name: "Open" },
+    { name: "High" },
+    { name: "Low" },
+    { name: "Close" },
+    { name: "Volume" },
+    { name: "Action" },
+  ];
 
   // const loadData = () => {
   //   fetch(`${BASEURL}/api/selector/stocks`)
@@ -75,14 +67,9 @@ function EquityStock() {
   //     })
   //     .catch((err) => console.log(err));
   // };
-  const handleRowClick = (rowData) => {
-    setSelectedRow(rowData);
-    setModal(true);
-    setIsModalOpen(true);
-    console.log("clicked");
-  };
-  const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/buy`, {
+
+  const loadFormData = () => {
+    fetch(`${BASEURL}/api/selector/get-equity-stock`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -90,120 +77,287 @@ function EquityStock() {
         'Access-Control-Allow-Origin': '*'
       },
     })
+      .then((response) => response.json())
+      .then((data) => {
+        // setRecords({ records: data });
+        // setRecords(data.result);
+        setStockData(data.result)
+        console.log("data records", data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // get buy stock
+  const getData = async () => {
+    await fetch(`${BASEURL}/api/selector/get-equity-sell-stock`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        "Access-Control-Allow-Origin":"*"
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setRecords(data.result);
-        console.log("DATA", data.result);
-        // console.log(data.result);
+        setSellRecords(data.result)
+        console.log("data records", data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
+
+
   useEffect(() => {
-    getData();
+    loadFormData();
+    getData()
   }, []);
-
-  const loadData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/sell`)
-      .then((res) => res.json())
-      .then((data) => {
-        setSellRecords(data.result);
-        console.log("DATA", data);
-        // console.log(data.result);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  };
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const columns = [
-    { key: "ticker", label: "Ticker" },
-    { key: "open", label: "Open" },
-    { key: "high", label: "High" },
-    { key: "low", label: "Low" },
-    { key: "close", label: "Close" },
-    { key: "adjclose", label: "Closing" },
-    { key: "volume", label: "Volume" },
-    { key: "date", label: "Date" },
-    { key: "action", label: "Action" },
-  ];
-
-  const {
-    Table,
-    search,
-    handleSearch,
-    currentPage,
-    totalPages,
-    handlePageChange,
-    setData,
-  } = useTableHook(columns, records, 5, handleRowClick);
 
   const navigate = useNavigate();
   return (
-    <div className="page-controller">
-      <AdminNavbar />
-      <div className="body-controller">
-        <AdminSidebar />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <CustomNavbar/>
+      {/* <h1>{title}</h1> */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "left",
+          alignContent: "center",
+          background: "#F9FAFB",
+        }}
+      >
+        {/* take into consideration the @meedia queries */}
+        <Sidebar />
         <div
-          className="main-container"
+          className="main"
           style={{
             width: "100%",
-            boxSizing: "border-box",
-            padding: "0px 2rem",
-            overflowY: "auto",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            background: "#FBFCFD",
           }}
         >
-          <button onClick={()=>navigate(-1)}>Back</button>
-          <AppNavbar title="Equity Stock" />
-          <div
-            className="main"
+          {/* Navabar */}
+          <button
+            onClick={() => navigate(-1)}
             style={{
-              width: "100%",
+              width: "9%",
+              border: "1px solid #3DA900",
+              padding: ".8rem 0rem",
+              borderRadius: "4px",
+              color: "green",
             }}
           >
-            {/* consuming Hooks  */}
-            <div
-              style={{
-                width: "100%",
-              }}
-            >
-              <h3>Top 5 to Buy</h3>
-              <Table />
-            </div>
-          </div>
+            Go back
+          </button>
 
+          {/* Another level */}
           <div
-            className="main"
+            className=""
             style={{
-              width: "100%",
+              width: "95.5%",
+              background: "#FFF",
+              height: "70px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingLeft: "1rem",
+              paddingRight: "2rem",
+              boxShadow: "3px 1px 3px #E5E7EB",
+              zIndex: "3px",
+              borderRadius: "6px",
             }}
           >
-            {/* consuming Hooks  */}
-            <div
+            {/* TODO: Isolate to a different container */}
+            {/* search area  */}
+
+            <h3>Equity Stock</h3>
+          </div>
+          <div
+            className=""
+            style={{
+              width: "97.5%",
+              background: "#FFF",
+              height: "70px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingLeft: "0rem",
+              paddingRight: "2rem",
+              boxShadow: "1px 1px 1px #E5E7EB",
+              zIndex: "3px",
+              borderRadius: "6px",
+            }}
+          >
+            {/* TODO: Isolate to a different container */}
+            {/* search area  */}
+
+            <h4>Top 5 to Buy</h4>
+          </div>
+          <div>
+            <table className="table table-spaced" style={{width:"100%"}}>
+              <thead>
+                <tr>
+                  {columnites.map((columnite, index) => (
+                    <th key={index}>{columnite.name}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {stockData &&
+                  Object.keys(stockData).map((ticker, index ) => (
+                      <tr key={index}>
+                              <td>{stockData[ticker][0]?.ticker}</td>
+                              <td>${Number(stockData[ticker][0]?.open).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.high).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.low).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.close).toFixed(2)}</td>
+                              <td>{stockData[ticker][0]?.volume}</td>
+                        <td
+                          style={{
+                            width:"20px",
+                            padding:"0px",
+                            textAlign:"center"
+                          }}
+                        >
+                               <button
+                                className="buttonFinancials"
+                                  style={{
+                                    border: "none",
+                                    color: "white",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                    background: "green",
+                                    margin:"auto",
+                                    padding:".3rem .9rem",
+                                    borderRadius:2
+                                  }}
+                                  onClick={() => handleBuyClick(stockData[ticker][0])}
+                                >
+                                  Buy List
+                                </button>
+                              </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+          <div
+            className=""
+            style={{
+              width: "97.5%",
+              background: "#FFF",
+              height: "70px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingLeft: "0rem",
+              paddingRight: "2rem",
+              boxShadow: "1px 1px 1px #E5E7EB",
+              borderRadius: "6px",
+            }}
+          >
+            {/* TODO: Isolate to a different container */}
+            {/* search area  */}
+
+            <h4>Top 5 to Sell</h4>
+          </div>
+          <div>
+            {/* seelings */}
+            <table className="table table-spaced" style={{width:"100%"}}>
+              <thead>
+                <tr>
+                  {columnites.map((columnite, index) => (
+                    <th key={index}>{columnite.name}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                  {sell_records &&
+                    Object.keys(sell_records).map((ticker, index ) => (
+                      <tr key={index}>
+                        <td>{sell_records[ticker][0]?.ticker}</td>
+                        <td>${Number(sell_records[ticker][0]?.open).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.high).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.low).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.close).toFixed(2)}</td>
+                        <td>{sell_records[ticker][0]?.volume}</td>
+                        <td
+                            style={{
+                              width:"20px",
+                              padding:"0px",
+                              textAlign:"center"
+                            }}
+                        >
+                      <button
+                            className="buttonFinancials"
+                            style={{
+                              padding: "5px 15px",
+                              border: "none",
+                              color: "white",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              border: "2px solid orange",
+                              borderRadius: "5px",
+                              background: "orange",
+                              cursor: "pointer",
+                              fontSize:".7rem"
+                            }}
+                            onClick={() => handleSellClick(sell_records[ticker][0])}
+                          >
+                            Sell List
+                          </button>
+                        </td>
+                      </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div
+            className=""
+            style={{
+              padding: "1rem 0rem",
+            }}
+          >
+            {/* container table for the application */}
+            {/* check if data is available  */}
+          </div>
+        </div>
+        {/* Action bar */}
+        <div
+          style={{
+            maxWidth: "300px",
+            width: "100%",
+            height: "100vh",
+            background: "#FFF",
+            boxShadow: "3px 2px 3px #E5E7EB",
+            flexDirection: "column",
+            alignContent: "center",
+            padding: "0rem 1.5rem",
+            // zIndex: 2,
+          }}
+        >
+          {/* Top Movers*/}
+          <div>
+            <MarketNews />
+            <TopMovers />
+            <QuickActions />
+            <img
+              src={AssetValidate}
+              alt="Asset Validate"
               style={{
                 width: "100%",
-                marginTop: "1rem",
               }}
-            >
-              <h3>Top 5 to Sell</h3>
-              <Table />
-            </div>
+            />
           </div>
-          <ReactModal isOpen={modal} data={selectedRow} style={customStyles}>
-            <button onClick={handleClick}>Close Modal</button>
-            <p style={{ fontSize: "1.3rem" }}>
-              Selected Row:{" "}
-              <b style={{ color: "green" }}>{selectedRow?.stockExchangeName}</b>
-            </p>
-            <p>Are you ready to buy?</p>
-          </ReactModal>
-        </div>
-        <div className="right-bar-controller">
-          <AdminRightBar />
         </div>
       </div>
     </div>
   );
 }
 
-export default EquityStock;
+export default EquityStock
