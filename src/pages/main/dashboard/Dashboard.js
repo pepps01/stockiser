@@ -23,7 +23,8 @@ const Dashboard = () => {
     setSelectedRow(rowData);
     setModal(true);
     setIsModalOpen(true);
-    console.log("clicked");
+    console.log("CLICKED!",  rowData);
+    console.log("End Clicked!");
   };
   const handleClick = (e) => {
     e.preventDefault();
@@ -107,6 +108,9 @@ const Dashboard = () => {
           }}
         >
           <AppNavbar title="Dashboard" />
+
+          
+          <a href="/ranger">Ranger Requests</a>
           <div
             className="main"
             style={{
@@ -130,6 +134,7 @@ const Dashboard = () => {
                 }}
               />
               <Table />
+              
               <div
                 className=""
                 style={{
@@ -173,10 +178,10 @@ const Dashboard = () => {
           <ReactModal isOpen={modal} data={selectedRow} style={customStyles}>
             <button onClick={handleClick}>Close Modal</button>
             <p style={{ fontSize: "1.3rem" }}>
-              Selected Row:{" "}
+              Selected Row:{selectedRow}
               <b style={{ color: "green" }}>{selectedRow?.stockExchangeName}</b>
             </p>
-            <Accordion />
+            <Accordion  stockName={selectedRow}/>
           </ReactModal>
         </div>
         <div className="right-bar-controller">

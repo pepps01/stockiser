@@ -25,6 +25,9 @@ function GrowthStock() {
   const [formData, setFormData] = useState();
   const token = localStorage.getItem('token')
 
+  const navigateToPage =()=>{
+    return `<a href=${BASEURL}?stock_name={}&stock_name=${BASEURL}>Post </a>`;
+  }
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);

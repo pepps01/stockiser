@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 import AssetValidate from "./../../../assets/misc/row.svg";
@@ -20,6 +20,16 @@ const Stock = (props) => {
   const [records, setRecords] = useState([]);
   const [sell_records, setSellRecords] = useState([]);
   const [formData, setFormData] = useState();
+
+
+  const location = useLocation();
+
+  // Parse the query string parameters
+  const queryParams = new URLSearchParams(location.search);
+
+  // Access specific query parameters
+  const stock_name = queryParams.get('stock_name').toLowerCase();
+  const stock_type = queryParams.get('stock_type').toLowerCase();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -64,8 +74,20 @@ const Stock = (props) => {
   //     .catch((err) => console.log(err));
   // };
 
+  // const getData = async () => {
+  //   await fetch(`${BASEURL}/api/selectors/tickers/buy`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setRecords(data.result);
+  //       console.log("DATA", data);
+  //       // console.log(data.result);
+  //     })
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // };
+
+
   const getData = async () => {
-    await fetch(`${BASEURL}/api/selectors/tickers/buy`)
+    await fetch(`${BASEURL}/api/get-stock-market?stock_name=${stock_name}&stock_type=${stock_type}`)
       .then((res) => res.json())
       .then((data) => {
         setRecords(data.result);
@@ -74,6 +96,8 @@ const Stock = (props) => {
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
+  
+
   useEffect(() => {
     getData();
   }, []);

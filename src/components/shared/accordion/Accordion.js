@@ -4,7 +4,7 @@ import AccordionItem from "./AccordionItem";
 import data from "./data.json";
 import "./styles.css";
 
-const Accordion = () => {
+const Accordion = ({stockName}) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
 
@@ -21,8 +21,8 @@ const Accordion = () => {
           answer={item.description}
           index={index}
           isOpen={activeIndex === index}
-          onClick={() => handleItemClick(index)
-          }
+          onClick={() => handleItemClick(index)}
+          stockName={stockName}
         />
       ))}
     </div>

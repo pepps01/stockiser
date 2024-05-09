@@ -20,6 +20,8 @@ import GrowthStock from "./main/stock/GrowthStock";
 import EquityStock from "./main/stock/EquityStock";
 import Help from "./main/help/Help";
 import Test from "./main/test/Test";
+import Ranger from "./main/selector/Ranger";
+import Invearn from "./main/selector/Invearn";
 // import EquityStock from "./main/stock/SingleStock";
 
 function Pages() {
@@ -37,7 +39,7 @@ function Pages() {
         <Route path="/asset" element={<Asset />} />
         <Route path="/sellview" element={<SellView />} />
         <Route path="/stock/:stock_id" element={<Stock />} />
-        <Route path="/value-stock/:stock_id" element={<ValueStock />} />
+        <Route path="/value-stock" element={<ValueStock />} />
         <Route path="/growth-stock/:stock_id" element={<GrowthStock />} />
         <Route path="/economy-stock/:stock_id" element={<EquityStock />} />
         <Route path="/stockview/:stock_view_id" element={<StockView />} />
@@ -46,6 +48,8 @@ function Pages() {
         <Route path="/selector/:selector_id" element={<SelectorView />} />
 
         <Route path="/estimate" element={<SingleOptimiser />} />
+        <Route path="/ranger" element={<Ranger />} />
+        <Route path="/invearn" element={<Invearn />} />
         {/* <Route path="/optimise/" element={<SingleStock />} /> */}
         <Route path="/ticker" element={<Ticker />} />
       </Routes>

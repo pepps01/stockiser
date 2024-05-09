@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate,useLocation } from "react-router-dom";
 
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 import AssetValidate from "./../../../assets/misc/row.svg";
@@ -44,6 +44,42 @@ const ValueStock =()=> {
     setModal(true);
   };
 
+  function capitalizeString(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+
+  // Access specific query parameters
+  const stock_name = queryParams.get('stock_name').toLowerCase();
+  const stock_type = queryParams.get('stock_type').toLowerCase();
+
+  // const encryptedParam1 = CryptoJS.AES.encrypt(param1, 'secret-key').toString();
+  // const hashedParam2 = CryptoJS.SHA256(param2).toString();
+  const getBackendData = async () => {
+      await fetch(`${BASEURL}/api/selector/get-stock-market?stock_name=${stock_name}&stock_type=${stock_type}`,{
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setStockData(data.result.buy);
+          setSellRecords(data.result.sell);
+          // // console.log("data", data);
+          // // console.log("data results", data.result);
+          // console.log("sell records",sell_records)
+          console.log(" records",data.result)
+          console.log(" records",data.result.sell)
+          // console.log(data.result);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    };
+
   
   const handleBuyClick = async (records) => {
     try{
@@ -54,7 +90,7 @@ const ValueStock =()=> {
         low: records?.low, 
         open:records?.open, 
         token:localStorage.getItem('token'),
-        date:records?.date,
+        // date:records?.date,
         volume: records?.volume, 
         action_taken: "buy", 
         status:"processing",
@@ -173,42 +209,42 @@ const ValueStock =()=> {
   }
 
 // post sell stock 
-  const loadFormData = () => {
-    fetch(`${BASEURL}/api/selector/get-value-stock`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'Access-Control-Allow-Origin': '*'
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setRecords({ records: data });
-        // setRecords(data.result);
-        setStockData(data.result)
-        console.log("data records", data);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const loadFormData = () => {
+  //   fetch(`${BASEURL}/api/selector/get-value-stock`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //       'Access-Control-Allow-Origin': '*'
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setRecords({ records: data });
+  //       // setRecords(data.result);
+  //       setStockData(data.result)
+  //       console.log("data records", data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // get buy stock
-  const getData = async () => {
-    await fetch(`${BASEURL}/api/selector/get-value-sell-stock`,{
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        "Access-Control-Allow-Origin":"*"
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setSellRecords(data.result)
-        console.log("data records", data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  };
+  // const getData = async () => {
+  //   await fetch(`${BASEURL}/api/selector/get-value-sell-stock`,{
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //       "Access-Control-Allow-Origin":"*"
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setSellRecords(data.result)
+  //       console.log("data records", data);
+  //     })
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // };
 
   // get sell stock
   // const loadData = async () => {
@@ -230,8 +266,10 @@ const ValueStock =()=> {
   // };
 
   useEffect(() => {
-    loadFormData()
-    getData()
+    // loadFormData()
+    // getData()
+    getBackendData()
+
   }, []);
 
   useEffect(() => {
@@ -309,7 +347,7 @@ const ValueStock =()=> {
             {/* TODO: Isolate to a different container */}
             {/* search area  */}
 
-            <h3> Value Stock</h3>
+            <h3> {stock_name?capitalizeString(stock_name):" "} Stock</h3>
           </div>
 
           <div
@@ -343,6 +381,7 @@ const ValueStock =()=> {
                 </tr>
               </thead>
               <tbody>
+
                 {stockData &&
                   Object.keys(stockData).map((ticker, index ) => (
                       <tr key={index}>
@@ -379,7 +418,7 @@ const ValueStock =()=> {
                     </tr>
                   ))}
               </tbody>
-            </table>
+            </table> 
           </div>
 
           <div
@@ -451,7 +490,7 @@ const ValueStock =()=> {
                       </tr>
                 ))}
               </tbody>
-            </table>
+            </table> 
           </div>
 
           <div

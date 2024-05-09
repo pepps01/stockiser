@@ -4,7 +4,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import "./styles.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const AccordionItem = ({ index, question, answer, isOpen, onClick }) => {
+const AccordionItem = ({ index, question, answer, isOpen, onClick, stockName }) => {
   const contentHeight = useRef();
   const navigate = useNavigate();
 
@@ -40,21 +40,21 @@ const AccordionItem = ({ index, question, answer, isOpen, onClick }) => {
         {index + 1 === 1 ? (
           <>
             <p className="answer-content">{answer}</p>
-            <a href={`value-stock/${index + 1}`} className="answer-button">
+            <a href={`value-stock?stock_name=${stockName}&stock_type=value`} className="answer-button">
               {question}
             </a>
           </>
         ) : index + 1 === 2 ? (
           <>
             <p className="answer-content">{answer}</p>
-            <a href={`growth-stock/${index + 1}`} className="answer-button">
+            <a href={`value-stock?stock_name=${stockName}&stock_type=growth`} className="answer-button">
               {question}
             </a>
           </>
         ) : (
           <>
             <p className="answer-content">{answer}</p>
-            <a href={`economy-stock/${index + 1}`} className="answer-button">
+            <a href={`value-stock?stock_name=${stockName}&stock_type=equity`} className="answer-button">
               {question}
             </a>
           </>
