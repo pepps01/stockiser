@@ -96,14 +96,11 @@ const ValueStock =()=> {
         status:"processing",
         transaction_name: "Value"
       }
-      
-      const response = await fetch(`${BASEURL}/api/selectors/add-list`,{
+      const response = await fetch(BASEURL+"/api/transactions/buy-list",{
         method:'POST',
-        mode:"no-cors",
         headers:{
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          "Access-Control-Allow-Origin":"*"
         },
         body:JSON.stringify(newData) 
       })
@@ -112,19 +109,13 @@ const ValueStock =()=> {
         console.log("error status", response.data)
       }
       const result  = await response.json();
-
-      console.log(" positive result", result.data);
-      console.log(" positive result", result.status);
+      
+      alert(`${result.result} "$" ${Number(records?.high).toFixed(2)}`);
       console.log("  result", result.message);
       console.log(" message result", result.result);
 
     }catch(error){console.log("error", error)}
 
-     // console.log("records_ticker", records.ticker)
-    // setSelectData(newData)
-    // console.log("records", records)
-    // console.log("new data", newData)
-    // alert("The selected stock has been added to Buy List for $" + records?.high);
   };
 
   const handleSellClick = async (records) => {
@@ -145,12 +136,11 @@ const ValueStock =()=> {
     setSelectData(newData)
      
     try{
-      const response = await fetch(`${BASEURL}/api/selectors/add-list`,{
+      const response = await fetch(`${BASEURL}/api/transactions/sell-list`,{
         method:'POST',
         headers:{
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":"*"
         },
         body:JSON.stringify(selectData) 
       })
@@ -159,18 +149,13 @@ const ValueStock =()=> {
         console.log("error status", response.data)
       }
       const result  = await response.json();
+      alert(`${result.result} "$" ${Number(records?.high).toFixed(2)}`);
 
-      // share result
-      console.log(" positive result", result.data);
-      console.log(" positive result", result.status);
       console.log("  result", records?.high);
       console.log(" message result", result.result);
 
     }catch(error){console.log("error", error)}
 
-    console.log("selected data", selectData)
-
-    // alert("The selected stock has been added to Sell List for $" + records?.high);
   };
 
   const columnites = [
@@ -183,93 +168,8 @@ const ValueStock =()=> {
     { name: "Action" },
   ];
 
-  const onSelect = async()=>{
-    try{
-      const response = fetch(`${BASEURL}/api/selectors/add-list`,{
-        method:"POST",
-        headers:{
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(selectData),
-      })
-      
-      if(response.ok){
-        const result = await response.json();
-
-        if (response.status !== "error"){
-          console.log("response", result.message)
-          // engage react notify 
-          // get the message od creattion
-        }
-      }
-    }catch(e){
-      console.log("Error",e)
-    }
-  }
-
-// post sell stock 
-  // const loadFormData = () => {
-  //   fetch(`${BASEURL}/api/selector/get-value-stock`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //       'Access-Control-Allow-Origin': '*'
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setRecords({ records: data });
-  //       // setRecords(data.result);
-  //       setStockData(data.result)
-  //       console.log("data records", data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // get buy stock
-  // const getData = async () => {
-  //   await fetch(`${BASEURL}/api/selector/get-value-sell-stock`,{
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //       "Access-Control-Allow-Origin":"*"
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setSellRecords(data.result)
-  //       console.log("data records", data);
-  //     })
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // };
-
-  // get sell stock
-  // const loadData = async () => {
-  //   await fetch(`${BASEURL}/api/selector/`,{
-  //     method: 'GET',
-  //     mode:"no-cors",
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //       "Access-Control-Allow-Origin":"*"
-
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setSellRecords(data.result);
-  //     })
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // };
-
   useEffect(() => {
-    // loadFormData()
-    // getData()
     getBackendData()
-
   }, []);
 
   useEffect(() => {
@@ -282,7 +182,6 @@ const ValueStock =()=> {
   if (isLoading) {
    return <Loading/>
   }
-
 
   return (
     <div
