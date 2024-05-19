@@ -1,82 +1,167 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../../components/shared/sidebar";
+import { useParams, useNavigate,useLocation } from "react-router-dom";
 
-// local component
-// import AppNavbar from "../../../components/shared/navbar/Navbar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 import AssetValidate from "./../../../assets/misc/row.svg";
 import QuickActions from "../../../components/shared/quick_actions/QuickActions";
 import TopMovers from "./../../../components/shared/top_movers/TopMovers";
 import MarketNews from "./../../../components/shared/market_news/MarketNews";
-import Table from "./../../../components/shared/table/Table";
-
-import Algizer from "./../../../assets/algizer.jpeg";
-
-import ReactModal from "react-modal";
-import Accordion from "../../../components/shared/accordion/Accordion";
-import TableView from "../../../components/shared/table/TableView";
-import { Link } from "react-router-dom";
+import Sidebar from "../../../components/shared/sidebar";
 import { BASEURL } from "../../../apis/api";
-import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
-// import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
 
-const Optimiser = () => {
+import Loading from "./../../../components/atom/loading/Loading";
+import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
+
+const Optimiser =()=> {
+  const { stock_id } = useParams();
   const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);
-  const [formData, setFormData] = useState("");
   const [records, setRecords] = useState([]);
-  const [selectedRow, setSelectedRow] = useState(null);
-  
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      marginRight: '-30%',
-      marginBottom: '-20%',
-      transform: 'translate(-50%, -50%)',
-      width:"40%",
-      height:"50%"
-    },
-  };
+  const [sell_records, setSellRecords] = useState([]);
+  const [sells, setSells] = useState(null);
+  const [stockData, setStockData] = useState(null);
+  const [formData, setFormData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectData, setSelectData] = useState({
+    ticker:"",
+    open:"",
+    high:"",
+    low:"",
+    close:"",
+    volume:"",
+    token:""
+  })
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token')
 
+  const navigatePage = (e) => {
+    e.preventDefault();
+    navigate("/parameter-estimate");
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
   };
 
-  const handleOpenClick = () => {
+  const handleOpenClick = (e) => {
+    e.preventDefault();
     setModal(true);
   };
 
-  const handleClickParameter = (e) => {
-    e.preventDefault();
+  function capitalizeString(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+
+  // Access specific query parameters
+  const stock_name = queryParams.get('stock_name').toLowerCase();
+  const stock_type = queryParams.get('stock_type').toLowerCase();
+
+  // const encryptedParam1 = CryptoJS.AES.encrypt(param1, 'secret-key').toString();
+  // const hashedParam2 = CryptoJS.SHA256(param2).toString();
+  const getBackendData = async () => {
+      await fetch(`${BASEURL}/api/optimiser/optimise`,{
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setStockData(data.result.buy);
+          setSellRecords(data.result.sell);
+          // // console.log("data", data);
+          // // console.log("data results", data.result);
+          // console.log("sell records",sell_records)
+          console.log(" records",data.result)
+          console.log(" records",data.result.sell)
+          // console.log(data.result);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    };
+
+  
+  const handleBuyClick = async (records) => {
+    try{
+      const newData = {
+        ticker: records?.ticker,
+        close: records?.close,
+        high: records?.high, 
+        low: records?.low, 
+        open:records?.open, 
+        token:localStorage.getItem('token'),
+        // date:records?.date,
+        volume: records?.volume, 
+        action_taken: "buy", 
+        status:"processing",
+        transaction_name:  stock_type? stock_type :"value"
+      }
+      const response = await fetch(BASEURL+"/api/transactions/buy-list",{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body:JSON.stringify(newData) 
+      })
+
+      if (!response.ok){
+        console.log("error status", response.data)
+      }
+      const result  = await response.json();
+      
+      alert(`${result.result} $${Number(records?.high).toFixed(2)}`);
+      console.log("  result", result.message);
+      console.log(" message result", result.result);
+
+    }catch(error){console.log("error", error)}
+
   };
 
-  const handleBuyClick = (records) => {
-    // setSelectedRow(rowData);
-    alert("The selected stock has been added to Buy List for $" + records.high);
-  };
+  const handleSellClick = async (records) => {
+    const newData = {
+      ticker: records?.ticker,
+      close: records?.close,
+      high: records?.high, 
+      low: records?.low, 
+      open:records?.open, 
+      // date:records?.date,
+      volume: records?.volume, 
+      action_taken: "sell", 
+      status:"processing",
+      transaction_name: stock_type? stock_type :"value"
+    }
+   console.log("selling", newData)    
+    try{
+      const response = await fetch(`${BASEURL}/api/transactions/sell-list`,{
+        method:'POST',
+        headers:{
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+        },
+        body:JSON.stringify(newData) 
+      })
+      
+      if (!response.ok){
+        console.log("error status", response.data)
+      }
 
-  const handleSellClick = (records) => {
-    // setSelectedRow(rowData);
-    alert(
-      "The selected stock has been added to Sell list for $" + records.high
-    );
-  };
+      const result  = await response.json();
+      alert(`${result.result} "$" ${Number(records?.high).toFixed(2)}`);
 
-  const getData = async () => {
-    await fetch(`${BASEURL}/api/optimisers`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRecords(data.result);
-        console.log("collect data",data);
-      });
-  };
+      console.log("  result", records?.high);
+      console.log(" message result", result.result);
 
-  useEffect(() => {
-    getData();
-  }, []);
+    }catch(error){
+      console.log("error", error)
+    }
+
+  };
 
   const columnites = [
     { name: "Ticker" },
@@ -85,9 +170,24 @@ const Optimiser = () => {
     { name: "Low" },
     { name: "Close" },
     { name: "Volume" },
-    { name: "Date" },
     { name: "Action" },
   ];
+
+  useEffect(() => {
+    getBackendData()
+  }, []);
+
+  useEffect(() => {
+    // Simulate an API call
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+   return <Loading/>
+  }
+
   return (
     <div
       style={{
@@ -95,9 +195,7 @@ const Optimiser = () => {
         flexDirection: "column",
       }}
     >
-      {/* navbar */}
-      {/* <CustomNavbar/> */}
-      {/* navigation */}
+      <CustomNavbar/>
       <div
         style={{
           display: "flex",
@@ -119,7 +217,19 @@ const Optimiser = () => {
           }}
         >
           {/* Navabar */}
-          <AppNavbar title="Optimiser" />
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              width: "9%",
+              border: "1px solid #3DA900",
+              padding: ".8rem 0rem",
+              borderRadius: "4px",
+              color: "green",
+              cursor:"pointer"
+            }}
+          >
+            Go back
+          </button>
 
           {/* Another level */}
           <div
@@ -131,7 +241,7 @@ const Optimiser = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              paddingLeft: "2rem",
+              paddingLeft: "1rem",
               paddingRight: "2rem",
               boxShadow: "3px 1px 3px #E5E7EB",
               zIndex: "3px",
@@ -141,23 +251,41 @@ const Optimiser = () => {
             {/* TODO: Isolate to a different container */}
             {/* search area  */}
 
-            {/* Get Financials */}
-            <div>
-              {/* <button
+            <h3>Optimiser</h3>
+          </div>
+
+          <div
+            className=""
+            style={{
+              width: "97.5%",
+              background: "#FFF",
+              height: "70px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingLeft: "0rem",
+              paddingRight: "2rem",
+              boxShadow: "1px 1px 1px #E5E7EB",
+              zIndex: "3px",
+              borderRadius: "6px",
+            }}
+          >
+              <button
                 style={{
-                  background: "green",
                   padding: "10px 20px",
-                  border: "none",
-                  color: "#FFF",
+                  border: "1px solid green",
+                  borderRadius: "5px",
+                  color: "green",
+                  marginLeft:".5rem"
                 }}
+                onClick={navigatePage}
               >
+                {/* lift a modal experience to show the growth, value and economy stock */}
                 Estimate Parameters
-              </button> */}
-            </div>
+              </button>
           </div>
           <div>
-            {/* seelings */}
-            <table className="table table-spaced">
+            <table className="table table-spaced" style={{width:"100%"}}>
               <thead>
                 <tr>
                   {columnites.map((columnite, index) => (
@@ -166,45 +294,30 @@ const Optimiser = () => {
                 </tr>
               </thead>
               <tbody>
-                {records.map((record, index) => (
-                  <tr key={index}>
-                    <td>{record.ticker}</td>
-                    <td>${record.open}</td>
-                    <td>${record.high}</td>
-                    <td>${record.low}</td>
-                    <td>${record.close}</td>
-                    <td>{record.volume}</td>
-                    <td>{record.date}</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <a href={record.action}></a>
-                      <button
-                        className="buttonFinancials"
-                        style={{
-                          padding: "7px 15px",
-                          border: "none",
-                          color: "white",
-                          textAlign: "center",
-                          textDecoration: "none",
-                          // border: "2px solid orange",
-                          borderRadius: "5px",
-                          background: "green",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => handleOpenClick(record)}
-                      >
-                        Estimate Parameters
-                      </button>
-                    </td>
-                  </tr>
-                ))} 
+
+                {stockData &&
+                  Object.keys(stockData).map((ticker, index ) => (
+                      <tr key={index}>
+                              <td>{stockData[ticker][0]?.ticker? "":""}</td>
+                              <td>${Number(stockData[ticker][0]?.open).toFixed(2)? "":""}</td>
+                              <td>${Number(stockData[ticker][0]?.high).toFixed(2)? "":""}</td>
+                              <td>${Number(stockData[ticker][0]?.low).toFixed(2)? "":""}</td>
+                              <td>${Number(stockData[ticker][0]?.close).toFixed(2)? "":""}</td>
+                              <td>{stockData[ticker][0]?.volume}</td>
+                    </tr>
+                  ))}
               </tbody>
-            </table>
+            </table> 
+          </div>
+
+          <div
+            className=""
+            style={{
+              padding: "1rem 0rem",
+            }}
+          >
+            {/* container table for the application */}
+            {/* check if data is available  */}
           </div>
         </div>
         {/* Action bar */}
@@ -235,137 +348,9 @@ const Optimiser = () => {
             />
           </div>
         </div>
-        <ReactModal isOpen={modal} data={selectedRow} 
-        style={customStyles}
-        >
-          <button onClick={handleClick}>Close Modal</button>
-          <div
-            style={
-              {
-                // display:"flex"
-              }
-            }
-          >
-            <div
-              style={{
-                padding: "10rem",
-                width: "400px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom: "10px",
-                }}
-              >
-                <label for="stockastic">Stockastic</label>
-
-                <select
-                  name="stockastic"
-                  id="stockastic"
-                  style={{
-                    display: "block",
-                    padding: ".3rem",
-                    width: "100%",
-                    marginTop:".3rem",
-                    height:"40px"
-                  }}
-                >
-                  <option value="volvo">
-                    Roll low (Upper Bound and Lower Bound)
-                  </option>
-                  <option value="saab">Roll High (Upper Bound and Lower Bound)</option>
-                  <option value="mercedes">Fasts (Upper Bound and Lower Bound)</option>
-                  <option value="audi">Low (Upper Bound and Lower Bound)</option>
-                </select>
-              </div>
-              <div
-                style={{
-                  marginBottom: "10px",
-                }}
-              >
-                <label for="convergent">
-                  Moving Average Convergent and Divergent
-                  {/* Moving Average Convergent x Divergent: */}
-                  {/* Add tool tip */}
-                </label>
-
-                <select
-                  name="convergent"
-                  id="convergent"
-                  style={{
-                    display: "block",
-                    padding: ".3rem",
-                    width: "100%",
-                    marginTop:".3rem",
-                    height:"40px"
-
-                  }}
-                >
-                  <option value="volvo">Fast (UxL) </option>
-                  <option value="saab">Slow (Upper Bound and Lower Bound)</option>
-                  <option value="mercedes">Smooth (Upper Bound and Lower Bound)</option>
-                </select>
-              </div>
-              <div
-                style={{
-                  marginBottom: "10px",
-                }}
-              >
-                <label for="strength">
-                  Relative Strength Indicators
-                </label>
-
-                <select
-                  name="strength"
-                  id="strength"
-                  style={{
-                    display: "block",
-                    padding: ".3rem",
-                    width: "100%",
-                    marginTop:".3rem",
-                    height:"40px"
-
-                  }}
-                >
-                  <option value="volvo">Overbought </option>
-                  <option value="saab">Oversold</option>
-                </select>
-              </div>
-              <a
-                href="/estimate"
-                style={{
-                  background: "green",
-                  textDecoration: "none",
-                  color: "#fff",
-                  padding: ".7rem .5rem",
-                  borderRadius: "5px",
-                  marginTop: "15px",
-                  display: "block",
-                  textAlign: "center",
-                }}
-              >
-                Estimate Parameter
-              </a>
-            </div>
-
-            {/* <button onClick={handleClickParameter}>Estimate Parameter</button> */}
-          </div>
-
-          {/* <Link
-            to={{ pathname: "/estimate" }}
-            style={{
-              textDecoration: "none",
-              padding: ".4rem 1rem",
-              background: "#E5E7EB",
-            }}
-          >
-            Estimate Parameter
-          </Link> */}
-          
-        </ReactModal>
       </div>
     </div>
   );
-};
+}
 
-export default Optimiser;
+export default Optimiser

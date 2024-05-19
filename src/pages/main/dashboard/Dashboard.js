@@ -110,7 +110,6 @@ const Dashboard = () => {
           <AppNavbar title="Dashboard" />
 
           
-          <a href="/ranger">Ranger Requests</a>
           <div
             className="main"
             style={{

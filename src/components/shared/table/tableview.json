@@ -1,35 +1,44 @@
 [
   {
-    "logo": "./../../../../assets/logos/uba.svg",
+    "elogo": "./../../../../assets/logos/uba.svg",
+    "logo": "./../../../assets/algiz.svg",
     "stockExchangeName": "Microsoft",
     "shortName": "SSE",
     "capitalisation": 5000000,
-    "status": 5.25,
+    "current_trade": 5.25,
+    "status": "Inactive",
+    "action": "Add Buy",
     "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
   },
   {
     "logo": "./../../../assets/logos/uba.svg",
     "stockExchangeName": "Apple",
     "capitalisation": 5000000,
-    "shortName": "LSE",
-    "status": 2.25,
+    "shortName": "Russel 2000",
+    "current_trade": 8.25,
+    "status": "Inactive",
+    "action": "Add Hold",
     "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
   },
   {
     "logo": "./../../../assets/logos/uba.svg",
-    "stockExchangeName": "Saudi Aramco",
+    "stockExchangeName": "Tesla",
     "capitalisation": 5000000,
-    "shortName": "NYSE",
-    "status": 6.25,
+    "shortName": "Dow Jones",
+    "current_trade": 6.25,
+    "status":"Active",
+    "action": "Add Sell",
     "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
   },
-
+  
   {
     "logo": "./../../../assets/logos/uba.svg",
-    "stockExchangeName": "UBA",
+    "stockExchangeName": "Amazon",
     "capitalisation": 5000000,
-    "shortName": "NYSE",
-    "status": 6.25,
+    "shortName": "Amazon",
+    "current_trade": 10.25,
+    "status": "Inactive",
+    "action": "Add Buy",
     "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
   },
   {
@@ -37,7 +46,9 @@
     "shortName": "NYSE",
     "stockExchangeName": "Alistair",
     "capitalisation": 5000000,
-    "status": 6.25,
+    "current_trade": 7.25,
+    "status":"Active",
+    "action": "Add Hold",
     "statusLogo": "./../../../assets/misc/arrow-down-right.svg"
   }
 ]

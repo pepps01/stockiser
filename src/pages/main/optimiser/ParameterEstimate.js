@@ -1,10 +1,13 @@
 import React from "react";
 
 const ParameterEstimate = () => {
+
+
+  const handleSubmit =()=>{}
   return (
     <div>
       <h1>Parameter Estimate</h1>
-      <table>
+      {/* <table>
         <thead>
           <th></th>
           <th>Return Value</th>
@@ -28,7 +31,42 @@ const ParameterEstimate = () => {
             <td></td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
+
+
+      <div class="card">
+        <form>
+            <div className="form-group">
+              <label>Stockastic</label>
+              <select>
+                <option>Roll Low</option>
+                <option>Roll High </option>
+                <option>Fasts </option>
+                <option>Low </option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Moving Average Covergent & Divergent</label>
+              <select>
+                <option></option>
+                <option>Fast</option>
+                <option>Slow </option>
+                <option>Smooth </option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Relative Strength Indicators</label>
+              <select>
+                <option>Overbought</option>
+                <option>Oversold</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <input type="submit" value={"Estimate Parameter"} onClick={handleSubmit} />
+            </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -22,6 +22,7 @@ import Help from "./main/help/Help";
 import Test from "./main/test/Test";
 import Ranger from "./main/selector/Ranger";
 import Invearn from "./main/selector/Invearn";
+import ParameterEstimate from "./main/optimiser/ParameterEstimate";
 // import EquityStock from "./main/stock/SingleStock";
 
 function Pages() {
@@ -37,6 +38,7 @@ function Pages() {
         <Route path="/adviser" element={<Adviser />} />
         <Route path="/help" element={<Help />} />
         <Route path="/asset" element={<Asset />} />
+        <Route path="/parameter-estimate" element={<ParameterEstimate />} />
         <Route path="/sellview" element={<SellView />} />
         <Route path="/stock/:stock_id" element={<Stock />} />
         <Route path="/value-stock" element={<ValueStock />} />

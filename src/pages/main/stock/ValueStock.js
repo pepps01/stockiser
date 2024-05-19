@@ -94,7 +94,7 @@ const ValueStock =()=> {
         volume: records?.volume, 
         action_taken: "buy", 
         status:"processing",
-        transaction_name: "Value"
+        transaction_name:  stock_type? stock_type :"value"
       }
       const response = await fetch(BASEURL+"/api/transactions/buy-list",{
         method:'POST',
@@ -110,7 +110,7 @@ const ValueStock =()=> {
       }
       const result  = await response.json();
       
-      alert(`${result.result} "$" ${Number(records?.high).toFixed(2)}`);
+      alert(`${result.result} $${Number(records?.high).toFixed(2)}`);
       console.log("  result", result.message);
       console.log(" message result", result.result);
 
@@ -125,16 +125,13 @@ const ValueStock =()=> {
       high: records?.high, 
       low: records?.low, 
       open:records?.open, 
-      token:localStorage.getItem('token'),
-      date:records?.date,
+      // date:records?.date,
       volume: records?.volume, 
       action_taken: "sell", 
       status:"processing",
-      transaction_name: "Value"
+      transaction_name: stock_type? stock_type :"value"
     }
-    
-    setSelectData(newData)
-     
+   console.log("selling", newData)    
     try{
       const response = await fetch(`${BASEURL}/api/transactions/sell-list`,{
         method:'POST',
@@ -142,19 +139,22 @@ const ValueStock =()=> {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
         },
-        body:JSON.stringify(selectData) 
+        body:JSON.stringify(newData) 
       })
-
+      
       if (!response.ok){
         console.log("error status", response.data)
       }
+
       const result  = await response.json();
       alert(`${result.result} "$" ${Number(records?.high).toFixed(2)}`);
 
       console.log("  result", records?.high);
       console.log(" message result", result.result);
 
-    }catch(error){console.log("error", error)}
+    }catch(error){
+      console.log("error", error)
+    }
 
   };
 

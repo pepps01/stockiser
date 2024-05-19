@@ -17,6 +17,7 @@ import { BASEURL } from "../../../apis/api";
 const Adviser = () => {
   const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);
+  const [search,setSearch] = useState("");
   const navigate = useNavigate();
   const [formData, setFormData] = useState("");
 
@@ -50,6 +51,10 @@ const Adviser = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const handleSearch =(e)=>{
+    e.preventDefault()
+  }
 
   return (
     <div
@@ -105,7 +110,7 @@ const Adviser = () => {
           }}
         >
           {/* Navabar */}
-          <AppNavbar title="Tickers" />
+          <AppNavbar title="Advisers" />
 
           {/* Another level */}
           <div
@@ -126,32 +131,53 @@ const Adviser = () => {
           >
             {/* TODO: Isolate to a different container */}
             {/* search area  */}
+            <input
+                type="text"
+                placeholder="Search..."
+                value={search}
+                onChange={(e) => handleSearch(e.target.value)}
+                style={{
+                  width: "30%",
+                  height:"4vh"
+                }}
+              />
 
-            <button
-              style={{
-                background: "green",
-                padding: "10px 20px",
-                border: "none",
-                color: "#FFF",
-              }}
-              onClick={handleOpenClick}
-            >
-              {/* lift a modal experience to show the growth, value and economy stock */}
-              Run
-            </button>
 
-            <button
-              style={{
-                padding: "10px 20px",
-                border: "1px solid green",
-                borderRadius: "5px",
-                color: "green",
-              }}
-              onClick={navigatePage}
-            >
-              {/* lift a modal experience to show the growth, value and economy stock */}
-              Add Ticker
-            </button>
+              <div className="" style={{
+                width: "20%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}>
+
+              <button
+                style={{
+                  background: "green",
+                  padding: "10px 20px",
+                  border: "none",
+                  color: "#FFF",
+                }}
+                onClick={handleOpenClick}
+              >
+                {/* lift a modal experience to show the growth, value and economy stock */}
+                Run
+              </button>
+
+              <button
+                style={{
+                  padding: "10px 20px",
+                  border: "1px solid green",
+                  borderRadius: "5px",
+                  color: "green",
+                  marginLeft:"1rem"
+                }}
+                onClick={navigatePage}
+              >
+                {/* lift a modal experience to show the growth, value and economy stock */}
+                Add Ticker
+              </button>
+            </div>
+
           </div>
           <div
             className=""
