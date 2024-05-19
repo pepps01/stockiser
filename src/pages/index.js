@@ -23,6 +23,7 @@ import Test from "./main/test/Test";
 import Ranger from "./main/selector/Ranger";
 import Invearn from "./main/selector/Invearn";
 import ParameterEstimate from "./main/optimiser/ParameterEstimate";
+import ResetPassword from "./auth/ResetPassword";
 // import EquityStock from "./main/stock/SingleStock";
 
 function Pages() {
@@ -33,6 +34,7 @@ function Pages() {
         <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/optimiser" element={<Optimiser />} />
         <Route path="/adviser" element={<Adviser />} />

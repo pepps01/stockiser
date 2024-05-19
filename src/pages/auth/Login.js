@@ -168,6 +168,18 @@ const Login = () => {
                 Terms and Conditions
               </a>
             </p>
+
+            <p>
+              <a
+                href="/dashboard"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                Forgot Password?
+              </a>
+            </p>
+            
           </div>
         </div>
       </div>
