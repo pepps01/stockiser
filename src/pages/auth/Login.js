@@ -29,7 +29,6 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -67,7 +66,7 @@ const Login = () => {
     if (loggedIn === true) {
       navigate("/dashboard");
     }
-  }, [loggedIn]);
+  }, [loggedIn, navigate]);
 
   return (
     <div className="loginContainer">
@@ -171,7 +170,7 @@ const Login = () => {
 
             <p>
               <a
-                href="/dashboard"
+                href="/ResetPassword"
                 style={{
                   textDecoration: "none",
                 }}

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import AssetValidate from "./../../../assets/misc/row.svg";
-import QuickActions from "../../../components/shared/quick_actions/QuickActions";
-import TopMovers from "./../../../components/shared/top_movers/TopMovers";
-import MarketNews from "./../../../components/shared/market_news/MarketNews";
+// import AssetValidate from "./../../../assets/misc/row.svg";
+// import QuickActions from "../../../components/shared/quick_actions/QuickActions";
+// import TopMovers from "./../../../components/shared/top_movers/TopMovers";
+// import MarketNews from "./../../../components/shared/market_news/MarketNews";
 
 import ReactModal from "react-modal";
 
 import Algizer from "./../../../assets/algizer.jpeg";
-import TableSignals from "../../../components/shared/table/TableSignals";
+// import TableSignals from "../../../components/shared/table/TableSignals";
 import Sidebar from "../../../components/shared/sidebar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 function Ticker() {
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
   const [isData, setIsData] = useState(true);
   const navigate = useNavigate();
 
@@ -101,7 +101,6 @@ function Ticker() {
               }}
               onClick={() => navigate(-1)}
             >
-              {/* lift a modal experience to show the growth, value and economy stock */}
               Go Back
             </button>
           </div>
@@ -135,8 +134,8 @@ function Ticker() {
                   Ticker Name
                 </label>
                 <input
-                  type="email"
-                  name="email"
+                  type="text"
+                  name="ticker"
                   id="email"
                   placeholder="Enter Ticker Name"
                   style={{
@@ -168,8 +167,8 @@ function Ticker() {
                   Parameter Name
                 </label>
                 <input
-                  type="password"
-                  name="password"
+                  type="text"
+                  name="parameter_name"
                   id="password"
                   placeholder="Enter Password"
                   style={{

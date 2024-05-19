@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate,useLocation } from "react-router-dom";
 
-import AppNavbar from "../../../components/shared/navbar/Navbar";
+// import AppNavbar from "../../../components/shared/navbar/Navbar";
 import AssetValidate from "./../../../assets/misc/row.svg";
 import QuickActions from "../../../components/shared/quick_actions/QuickActions";
 import TopMovers from "./../../../components/shared/top_movers/TopMovers";
@@ -15,13 +15,13 @@ import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
 const Optimiser =()=> {
   const { stock_id } = useParams();
   const [modal, setModal] = useState(false);
-  const [isData, setIsData] = useState(true);
-  const [records, setRecords] = useState([]);
-  const [sell_records, setSellRecords] = useState([]);
-  const [sells, setSells] = useState(null);
+  // const [isData, setIsData] = useState(true);
+  // const [records, setRecords] = useState([]);
+  // const [sell_records, setSellRecords] = useState([]);
+  // const [sells, setSells] = useState(null);
   const [stockData, setStockData] = useState(null);
-  const [formData, setFormData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [formData, setFormData] = useState();
+  // const [isLoading, setIsLoading] = useState(true);
   const [selectData, setSelectData] = useState({
     ticker:"",
     open:"",

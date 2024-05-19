@@ -5,7 +5,7 @@ import "./actions_data.json";
 import WatchList_Container from "./../../../assets/misc/WatchList_Container.svg";
 import PortfolioContainer from "./../../../assets/misc/PortfolioContainer.svg";
 const QuickActions = () => {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
 
   return (
     <div

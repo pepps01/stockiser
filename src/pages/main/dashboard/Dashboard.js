@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./dashboard.css";
 import AdminNavbar from "../../../components/admin/AdminNavbar";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import AdminMain from "../../../components/admin/AdminMain";
+// import AdminMain from "../../../components/admin/AdminMain";
 import AdminRightBar from "../../../components/admin/AdminRightBar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";
 import { useTableHook } from "../../../hooks/TableHooks";
@@ -13,11 +13,11 @@ import Accordion from "../../../components/shared/accordion/Accordion";
 
 const Dashboard = () => {
   const [modal, setModal] = useState(false);
-  const [isData, setIsData] = useState(true);
+  // const [isData, setIsData] = useState(true);
   const [records, setRecords] = useState([]);
-  const [formData, setFormData] = useState();
+  // const [formData, setFormData] = useState();
   const [selectedRow, setSelectedRow] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
@@ -31,10 +31,10 @@ const Dashboard = () => {
     setModal(false);
   };
 
-  const handleOpenClick = (e) => {
-    e.preventDefault();
-    setModal(true);
-  };
+  // const handleOpenClick = (e) => {
+  //   e.preventDefault();
+  //   setModal(true);
+  // };
 
   const customStyles = {
     content: {
@@ -91,7 +91,7 @@ const Dashboard = () => {
     currentPage,
     totalPages,
     handlePageChange,
-    setData,
+    // setData,
   } = useTableHook(columns, records, 10, handleRowClick);
 
   return (

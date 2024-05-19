@@ -2,32 +2,9 @@ import React, { useState } from "react";
 
 import stocks from "./stocks.json";
 
-import style from "./table.css";
-import { BASEURL } from "../../../apis/api";
 
 function Table() {
-  const { tableData, setTableData } = useState([]);
-  const { modal, setModal } = useState(false);
-
-  // const loadData = async()=>{
-  //   try {
-  //     const response =  await fetch(`${BASEURL}/selector`)
-  //     if(!response.ok) {
-  //       console.error("issues fetching the application ")
-  //     }
-
-  //     const responseData = await response.json()
-  //     setTableData(responseData)
-  //     console.log("data", responseData)
-
-  //   } catch (error) {
-  //     console.log("Error",error)
-  //   }
-  // }
-  // useEffect(() => {
-  //   loadData()
-  // })
-
+  // const { modal, setModal } = useState(false);
 
   const handleOpenClick = (e) => {
     e.preventDefault();

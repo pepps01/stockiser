@@ -5,20 +5,21 @@ import AssetValidate from "./../../../assets/misc/row.svg";
 import QuickActions from "../../../components/shared/quick_actions/QuickActions";
 import TopMovers from "./../../../components/shared/top_movers/TopMovers";
 import MarketNews from "./../../../components/shared/market_news/MarketNews";
-import Table from "./../../../components/shared/table/Table";
+// import Table from "./../../../components/shared/table/Table";
 
 import Algizer from "./../../../assets/algizer.jpeg";
 
 import ReactModal from "react-modal";
-import TableView from "../../../components/shared/table/TableView";
+// import TableView from "../../../components/shared/table/TableView";
 import { Link } from "react-router-dom";
 import Sidebar from "../../../components/shared/sidebar";
 
 const SingleOptimiser = () => {
   const [modal, setModal] = useState(false);
-  const [isData, setIsData] = useState(true);
-  const [selectedRow, setSelectedRow] = useState(true);
+  // const [isData, setIsData] = useState(true);
+  // const [selectedRow, setSelectedRow] = useState(true);
 
+  const selectedRow = true;
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
@@ -29,9 +30,9 @@ const SingleOptimiser = () => {
     setModal(true);
   };
 
-  const handleClickParameter = (e) => {
-    e.preventDefault();
-  };
+  // const handleClickParameter = (e) => {
+  //   e.preventDefault();
+  // };
 
   const customStyles = {
     content: {

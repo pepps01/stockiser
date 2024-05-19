@@ -5,8 +5,8 @@ import CustomButton from "../../components/main/customButton";
 // import CustomButton from '../../components/main/customButton'
 
 import './aileen.css'
-import { BASEURL } from "../../apis/api";
-import TestAvenue from "../../components/TestAvenue";
+// import { BASEURL } from "../../apis/api";
+// import TestAvenue from "../../components/TestAvenue";
 // remember media query
 
 // const rendition = async()=>{

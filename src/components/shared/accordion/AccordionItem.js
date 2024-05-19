@@ -2,13 +2,13 @@ import React, { useRef } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 import "./styles.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AccordionItem = ({ index, question, answer, isOpen, onClick, stockName }) => {
   const contentHeight = useRef();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const data = { title: question, description: answer };
+  // const data = { title: question, description: answer };
   return (
     <div className="wrapper">
       <button

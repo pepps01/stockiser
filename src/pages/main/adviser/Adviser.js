@@ -16,10 +16,11 @@ import { BASEURL } from "../../../apis/api";
 
 const Adviser = () => {
   const [modal, setModal] = useState(false);
-  const [isData, setIsData] = useState(true);
+  // const [isData, setIsData] = useState(true);
+  const isData = true
   const [search,setSearch] = useState("");
   const navigate = useNavigate();
-  const [formData, setFormData] = useState("");
+  // const [formData, setFormData] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -43,8 +44,7 @@ const Adviser = () => {
     await fetch(`${BASEURL}/api/advisers`)
       .then((res) => res.json())
       .then((data) => {
-        setFormData(data);
-        console.log(data);
+          console.log(data)
       });
   };
 
@@ -169,7 +169,7 @@ const Adviser = () => {
                   border: "1px solid green",
                   borderRadius: "5px",
                   color: "green",
-                  marginLeft:"1rem"
+                  marginLeft:".5rem"
                 }}
                 onClick={navigatePage}
               >
@@ -238,7 +238,6 @@ const Adviser = () => {
               <label>1 hour</label>
               <input type="radio" name="1" />
             </div>
-            {/* <button onClick={handleClickParameter}>Estimate Parameter</button> */}
             <Link
               to={{ pathname: "/estimate" }}
               style={{
