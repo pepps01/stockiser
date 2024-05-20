@@ -22,7 +22,7 @@ const Dashboard = () => {
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
     setModal(true);
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
     console.log("CLICKED!",  rowData);
     console.log("End Clicked!");
   };

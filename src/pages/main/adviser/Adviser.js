@@ -40,17 +40,17 @@ const Adviser = () => {
     navigate("/ticker");
   };
 
-  const getData = async() => {
-    await fetch(`${BASEURL}/api/advisers`)
-      .then((res) => res.json())
-      .then((data) => {
-          console.log(data)
-      });
-  };
+  // const getData = async() => {
+  //   await fetch(`${BASEURL}/api/advisers`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //         console.log(data)
+  //     });
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   const handleSearch =(e)=>{
     e.preventDefault()
