@@ -15,10 +15,8 @@ import Profile from "./main/profile/Profile";
 import ValueStock from "./main/stock/ValueStock";
 import Help from "./main/help/Help";
 import Ranger from "./main/selector/Ranger";
-import Invearn from "./main/selector/Invearn";
 import ParameterEstimate from "./main/optimiser/ParameterEstimate";
 import ResetPassword from "./auth/ResetPassword";
-// import EquityStock from "./main/stock/SingleStock";
 
 function Pages() {
   return (
@@ -41,7 +39,6 @@ function Pages() {
 
         <Route path="/estimate" element={<SingleOptimiser />} />
         <Route path="/ranger" element={<Ranger />} />
-        <Route path="/invearn" element={<Invearn />} />
         {/* <Route path="/optimise/" element={<SingleStock />} /> */}
         <Route path="/ticker" element={<Ticker />} />
       </Routes>
