@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 
 function VerifyCode() {
   const [error, setError] = useState(false);
@@ -12,6 +12,7 @@ function VerifyCode() {
       e.preventDefault();
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
+      setError(false)
     };
 return (
   <div style={{
