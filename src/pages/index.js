@@ -17,6 +17,9 @@ import Help from "./main/help/Help";
 import Ranger from "./main/selector/Ranger";
 import ParameterEstimate from "./main/optimiser/ParameterEstimate";
 import ResetPassword from "./auth/ResetPassword";
+import ForgotPassword from "./auth/ForgotPassword";
+import VerifyCode from "./auth/VerifyCode";
+import SendCode from "./auth/SendCode";
 
 function Pages() {
   return (
@@ -26,6 +29,10 @@ function Pages() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-code" element={<VerifyCode />} />
+        <Route path="/send-code" element={<SendCode />} />
+       
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/optimiser" element={<Optimiser />} />
         <Route path="/adviser" element={<Adviser />} />

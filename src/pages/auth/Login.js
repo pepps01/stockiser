@@ -10,7 +10,7 @@ import { BASEURL } from "../../apis/api";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    email:"",
     password: "",
   });
   const [error, setError] = useState(null);
@@ -170,7 +170,7 @@ const Login = () => {
 
             <p>
               <a
-                href="/ResetPassword"
+                href="/forgot-password"
                 style={{
                   textDecoration: "none",
                 }}

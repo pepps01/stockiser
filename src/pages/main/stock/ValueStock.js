@@ -18,7 +18,7 @@ const ValueStock =()=> {
   // const [isData, setIsData] = useState(true);
   // const [records, setRecords] = useState([]);
   const [sell_records, setSellRecords] = useState([]);
-  const [sells, setSells] = useState(null);
+  // const [sells, setSells] = useState(null);
   const [stockData, setStockData] = useState(null);
   // const [formData, setFormData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +29,7 @@ const ValueStock =()=> {
     low:"",
     close:"",
     volume:"",
-    token:""
+    token:"" 
   })
   const navigate = useNavigate();
   const token = localStorage.getItem('token')
@@ -39,10 +39,10 @@ const ValueStock =()=> {
     setModal(false);
   };
 
-  const handleOpenClick = (e) => {
-    e.preventDefault();
-    setModal(true);
-  };
+  // const handleOpenClick = (e) => {
+  //   e.preventDefault();
+  //   setModal(true);
+  // };
 
   function capitalizeString(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -119,19 +119,20 @@ const ValueStock =()=> {
   };
 
   const handleSellClick = async (records) => {
-    const newData = {
+    const newSellData = {
       ticker: records?.ticker,
       close: records?.close,
       high: records?.high, 
       low: records?.low, 
       open:records?.open, 
+      token:localStorage.getItem('token'),
       // date:records?.date,
       volume: records?.volume, 
       action_taken: "sell", 
       status:"processing",
       transaction_name: stock_type? stock_type :"value"
     }
-   console.log("selling", newData)    
+   console.log("selling", newSellData)    
     try{
       const response = await fetch(`${BASEURL}/api/transactions/sell-list`,{
         method:'POST',
@@ -139,7 +140,7 @@ const ValueStock =()=> {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
         },
-        body:JSON.stringify(newData) 
+        body:JSON.stringify(newSellData) 
       })
       
       if (!response.ok){
