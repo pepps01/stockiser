@@ -9,7 +9,7 @@ import AssetValidate from "./../../../assets/misc/row.svg";
 import ReactModal from "react-modal";
 import Accordion from "../../../components/shared/accordion/Accordion";
 
-import Profileimage from "./../../../assets/pepple.jpeg";
+import Profileimage from "./../../../assets/avatar.png";
 
 import "./profile.css";
 import WishList from "./../../../assets/misc/Iconly/Bulk/Profile.svg";
@@ -20,17 +20,26 @@ import { useNavigate } from "react-router-dom";
 
 import ArrowDown from "./../../../assets/misc/arrow-down-right.svg";
 import ArrowUp from "./../../../assets/misc/up-arrow.svg";
+import axios from "axios";
+import Item from "antd/es/list/Item";
+
 
 const Profile = () => {
   const [modal, setModal] = useState(false);
-  const [name, setName] = useState("Sunny Pepple");
+  const [name, setName] = useState({
+    "firstname":"Sunny",
+    "lastname":"Pepple",
+    "valuation": 100000, 
+    "assets": 50
+  }); 
   // const [email, setEmail] = useState("slpepple01@gmail.com");
   // const [phone, setPhone] = useState("08077201806");
   const [formData, setFormData] = useState([]);
   const [stockData, setStockData] = useState(null);
   const [redirectPage, setRedirectPage] = useState(false);
   const [records, setRecords] = useState([]);
-
+  const [file, setFile] = useState("")
+  const [fileCheck,  setFileCheck] = useState(false)
   const navigate = useNavigate();
   const token = localStorage.getItem('token')
 
@@ -39,30 +48,46 @@ const Profile = () => {
     setModal(false);
   };
 
+  const handleNavigate = (item)=> {
+    console.log("target", item)
+    navigate(`/transaction/${item}`)
+  }
+
   const handleOpenClick = (e) => {
     e.preventDefault();
     setModal(true);
   };
   const columnites = [
     { name: "Ticker" },
-    { name: "Listing Name" },
     { name: "Purchase Action" },
     { name: "Purchase Price" },
     { name: "Real Time Price" },
     { name: "Percentage Change" },
     { name: "Date" },
+    { name: "Action" },
   ];
 
-  // get data
-  // where and how can the id be gotten
-  // const getData = async () => {
-  //   await fetch(`${BASEURL}/api/transaction/`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setFormData(data);
-  //       console.log(data);
-  //     });
-  // };
+  const getBackendData = async () => {
+    try {
+        const response = await axios.get(`${BASEURL}/api/transactions/user`,{
+                  headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
+        });
+        console.log("Response", response.data.result);
+        setRecords(response.data.result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+  const handlePhoto =(e)=>{
+      setFile(URL.createObjectURL(e.target.files[0]))
+      setFileCheck(true)
+      console.log("Incoming")
+  }
 
   const loadTransactionData = async (e) => {
     await fetch(`${BASEURL}/api/transactions/7`, {
@@ -81,10 +106,6 @@ const Profile = () => {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    // getData();
-    loadTransactionData();
-  }, []);
 
   // post data
   const handleSubmit = async (e) => {
@@ -109,7 +130,10 @@ const Profile = () => {
     }
   };
 
-  
+  useEffect(() => {
+    // getData();
+    getBackendData();
+  }, []);
 
   useEffect(() => {
     if (redirectPage) {
@@ -181,18 +205,24 @@ const Profile = () => {
             }}
           >
             <div className="profileContainer">
-              <div className="imageContainer">
-                <img src={Profileimage} alt="profile image" />
-                <div className="other-info">
-                  <p style={{ color: "grey", bold: 400 }}>Account Name</p>
-                  <h2>{name}</h2>
-                </div>
+              <div className="imageContainer" style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+                <img src={fileCheck ? file: Profileimage} alt="profile image" className="" style={{width:150, height:150}}/>
+               
+                <form onSubmit={handleSubmit} className="" style={{position:"relative", top:0, right:0}}>
+                  <div className="form-group" style={{display:"inline", position:"relative", top:"10px", right:"-30%"}}>
+                    <input type={'file'} onChange={handlePhoto} style={{display:"inline", color:"white",}}/>
+                  </div>
+                </form>
               </div>
+              <div className="other-info">
+                  <p style={{ color: "grey", bold: 400 }}>Account Name</p>
+                  <h2>{name.firstname} {name.lastname}</h2>
+                </div>
               <div className="assetValuation">
                 <img src={Chart} alt="asset valuation" />
                 <div className="other-info">
                   <h4>Total Asset Valuation</h4>
-                  <h1 style={{ textAlign: "center" }}>{0}</h1>
+                  <h1 style={{ textAlign: "center" }}>{name.valuation}</h1>
                 </div>
               </div>
               {/* <div className="assetValuation">
@@ -207,7 +237,7 @@ const Profile = () => {
                 <div className="other-info">
                   <image alt="asset valuation" />
                   <h4>WatchList</h4>
-                  <h1 style={{ textAlign: "center" }}>{0}</h1>
+                  <h1 style={{ textAlign: "center" }}>{name.assets}</h1>
                 </div>
               </div>
             </div>
@@ -230,15 +260,6 @@ const Profile = () => {
               </li>
             </ul>
 
-            {/* <button onClick={handleSubmit}>Edit Profile</button>
-            <button onClick={handleOpenClick}>Open</button> */}
-            {/* <div className="userDetails">
-              <h2>Personal Details</h2>
-              <div>
-                <h4>Phone Number:{}</h4>
-                <h4>Email:{}</h4>
-              </div>
-            </div> */}
             <div className="boardContainer">
               <table
                 className="userdetails table table-spaced space-table"
@@ -246,69 +267,51 @@ const Profile = () => {
                 width={"100%"}
               >
                 <thead>
-                <tr>
-                  {columnites.map((columnite, index) => (
-                    <th key={index}>{columnite.name}</th>
-                  ))}
-                </tr>
-                 
-                </thead>
-                <tbody>
-                {/* {
-                  records.map((record, index ) => (
-                      <tr key={index}>
-                              <td>{record.stock}</td>
-                              <td>${record.amount}</td>
-                              <td>${record.transaction_name}</td>
-                              <td>${record}</td>
-                              <td>${record}</td>
-                              <td>{record}</td>
-                    </tr>
-                  ))} */}
                   <tr>
-                    <td>1</td>
-                    <td>APPL</td>
-                    <td className="">
-                      <p className="status">Bought</p>
-                    </td>
-                    <td>195.53</td>
-                    <td>194.19</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        alignContent: "center",
-                      }}
-                    >
-                      <img src={ArrowDown} alt="Arraow Up" width={40} />
-                      $0
-                    </td>
-                    <td>20-12-2023</td>
+                    {columnites.map((columnite, index) => (
+                      <th key={index}>{columnite.name}</th>
+                    ))}
                   </tr>
-                  {/* <tr>
-                    <td>2</td>
-                    <td>MSFT</td>
-                    <td>Microsoft</td>
-                    <td>
-                      <p className="status-sold">Bought</p>
-                    </td>
-                    <td>$374.75</td>
-                    <td>$375.05</td>
-                    <td
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        alignContent: "center",
-                        textAlign: "center",
-                      }}
-                    >
-                      <img src={ArrowUp} alt="Arraow Up" width={40} />
-                      $1
-                    </td>
-                    <td>22-12-2023</td>
-                  </tr> */}
+                </thead>
+
+                <tbody>
+                  {records &&
+                    records.map((item,index) => (
+                      <tr key={index}>
+                        <td>{item.stock}</td>
+                        <td>{item?.status}</td>
+                        <td>{item?.amount}</td>
+                        <td>{item?.transaction_reference}</td>
+                        <td>{item?.transaction_name}</td>
+                        <td>{item?.date_added}</td>
+                        <td
+                           style={{
+                            width:"20px",
+                            padding:"0px",
+                            textAlign:"center"
+                          }}
+                        >
+                          <button
+                              className="buttonFinancials"
+                              style={{
+                                padding: "5px 15px",
+                                border: "none",
+                                color: "white",
+                                textAlign: "center",
+                                textDecoration: "none",
+                                border: "2px solid green",
+                                borderRadius: "5px",
+                                background: "green",
+                                cursor: "pointer",
+                                fontSize:".7rem"
+                              }}
+                              onClick={() => handleNavigate(item.id)}
+                              >
+                               View More
+                            </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

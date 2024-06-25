@@ -16,11 +16,13 @@ import ValueStock from "./main/stock/ValueStock";
 import Help from "./main/help/Help";
 import Ranger from "./main/selector/Ranger";
 import ParameterEstimate from "./main/optimiser/ParameterEstimate";
+import Transaction from "./main/Transaction/Transaction";
 import ResetPassword from "./auth/ResetPassword";
 import ForgotPassword from "./auth/ForgotPassword";
 import VerifyCode from "./auth/VerifyCode";
 import SendCode from "./auth/SendCode";
 
+// sdfsd
 function Pages() {
   return (
     <BrowserRouter>
@@ -34,6 +36,7 @@ function Pages() {
         <Route path="/send-code" element={<SendCode />} />
        
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/transaction" element={<Transaction />} />
         <Route path="/optimiser" element={<Optimiser />} />
         <Route path="/adviser" element={<Adviser />} />
         <Route path="/help" element={<Help />} />

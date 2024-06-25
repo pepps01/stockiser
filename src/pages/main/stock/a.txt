@@ -12,19 +12,16 @@ import { BASEURL } from "../../../apis/api";
 import Loading from "./../../../components/atom/loading/Loading";
 import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
 import axios from 'axios';
-
 const ValueStock =()=> {
   // const { stock_id } = useParams();
   const [modal, setModal] = useState(false);
-  // const [isData, setIsData] = useState(true);
   // const [records, setRecords] = useState([]);
-  const [sell_records, setSellRecords] = useState([]);
-  // const [sells, setSells] = useState(null);
-  const [stockData, setStockData] = useState(null);
-  // const [formData, setFormData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [buy, setBuy] = useState([]);
+  // const [sells, setSells] = useState(null);
+  const [stockData, setStockData] = useState([]);
+  // const [formData, setFormData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [selectData, setSelectData] = useState({
     ticker:"",
     open:"",
@@ -61,21 +58,45 @@ const ValueStock =()=> {
   // const encryptedParam1 = CryptoJS.AES.encrypt(param1, 'secret-key').toString();
   // const hashedParam2 = CryptoJS.SHA256(param2).toString();
   const getBackendData = async () => {
-    try {
-      const response = await axios.get(`${BASEURL}/api/selector/get-stock-market?stock_name=${stock_name}&stock_type=${stock_type}`,{
-                headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
+      // await fetch(`${BASEURL}/api/selector/get-stock-market?stock_name=${stock_name}&stock_type=${stock_type}`,{
+      //   method: 'GET',
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*',
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${token}`,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     setStockData(data.result);
+      //     setSellRecords(data.result);
+      //     // // // console.log("data", data);
+      //     // // // console.log("data results", data.result);
+      //     // // console.log("sell records",sell_records)
+      //     console.log(" records",data.result)
+      //     console.log(" sell",data.result.sell)
+      //     console.log(" buy",data.result.buy)
 
-      });
-      console.log("Response", response.data.result.buy);
-      setBuy(response.data.result.buy)
-      setData(response.data.result.sell)
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+      //     console.log(" StockData Damn!",stockData)
+      //     console.log(" Sell Records Damn!",sell_records)
+      //     // console.log(data.result);
+      //   })
+      //   .catch((error) => console.error("Error fetching data:", error));
+      try {
+          const response = await axios.get(`${BASEURL}/api/selector/get-stock-market?stock_name=${stock_name}&stock_type=${stock_type}`,{
+                    headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+                },
+
+          });
+          console.log("Response", response.data.result.buy);
+          setBuy(response.data.result.buy)
+          setData(response.data.result.sell)
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
     };
 
   
@@ -264,6 +285,9 @@ const ValueStock =()=> {
               borderRadius: "6px",
             }}
           >
+            {/* TODO: Isolate to a different container */}
+            {/* search area  */}
+
             <h4>Top 5 to Buy</h4>
           </div>
           <div>
@@ -275,8 +299,101 @@ const ValueStock =()=> {
                   ))}
                 </tr>
               </thead>
+              {/* <tbody> */}
+
+                {/* {stockData &&
+                  Object.keys(stockData).map((ticker, index ) => (
+                      <tr key={index}>
+                              <td>{stockData[ticker][0]?.ticker}</td>
+                              <td>{"p"}</td>
+                              <td>{ticker?.open}</td>
+                              <td>${Number(stockData[ticker][0]?.high).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.low).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker][0]?.close).toFixed(2)}</td>
+                              <td>{stockData[ticker][0]?.volume}</td>
+                        
+                    </tr>
+                  ))} */}
+            
+
+                {/* {stockData &&
+                  Object.keys(stockData).map((ticker, index ) => (
+                      <tr key={index}>
+                              <td>{stockData[ticker][4]?.ticker}</td>
+                              <td>${Number(stockData[ticker]?.open).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker]?.high).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker]?.low).toFixed(2)}</td>
+                              <td>${Number(stockData[ticker]?.close).toFixed(2)}</td>
+                              <td>{stockData[ticker][0]?.volume}</td>
+                        <td
+                          style={{
+                            width:"20px",
+                            padding:"0px",
+                            textAlign:"center"
+                          }}
+                        >
+                               <button
+                                className="buttonFinancials"
+                                  style={{
+                                    border: "none",
+                                    color: "white",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                    background: "green",
+                                    margin:"auto",
+                                    padding:".3rem .9rem",
+                                    borderRadius:2
+                                  }}
+                                  onClick={() => handleBuyClick(stockData[ticker][0])}
+                                >
+                                  Buy List
+                                </button>
+                              </td>
+                    </tr>
+                  ))} */}
+
+                  
+              {/* </tbody> */}
               <tbody>
-              {buy &&
+                  {/* {sell_records &&
+                    Object.keys(sell_records).map((ticker, index ) => (
+                      <tr key={index}>
+                        <td>{sell_records[ticker][0]?.ticker}</td>
+                        <td>${Number(sell_records[ticker][0]?.open).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.high).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.low).toFixed(2)}</td>
+                        <td>${Number(sell_records[ticker][0]?.close).toFixed(2)}</td>
+                        <td>{sell_records[ticker][0]?.volume}</td>
+                        <td
+                            style={{
+                              width:"20px",
+                              padding:"0px",
+                              textAlign:"center"
+                            }}
+                        >
+                      <button
+                            className="buttonFinancials"
+                            style={{
+                              padding: "5px 15px",
+                              border: "none",
+                              color: "white",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              border: "2px solid orange",
+                              borderRadius: "5px",
+                              background: "orange",
+                              cursor: "pointer",
+                              fontSize:".7rem"
+                            }}
+                            onClick={() => handleSellClick(sell_records[ticker][0])}
+                          >
+                            Sell List
+                          </button>
+                        </td>
+                      </tr>
+                ))} */}
+
+                {buy &&
                     buy.map((item, index ) => (
                       <tr key={index}>
                         <td>{item?.ticker}</td>
@@ -317,6 +434,9 @@ const ValueStock =()=> {
             </table> 
           </div>
 
+
+        
+
           <div
             className=""
             style={{
@@ -347,8 +467,9 @@ const ValueStock =()=> {
                   ))}
                 </tr>
               </thead>
+  
               <tbody>
-              {data &&
+                  {data &&
                     data.map((item, index ) => (
                       <tr key={index}>
                         <td>{item?.ticker}</td>

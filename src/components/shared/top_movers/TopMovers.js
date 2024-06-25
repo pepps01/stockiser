@@ -45,7 +45,7 @@ const TopMovers = () => {
             // zIndex: 2,
           }}
         >
-          <a
+          {/* <a
             href="/asset/1"
             style={{
               textDecoration: "none",
@@ -75,7 +75,7 @@ const TopMovers = () => {
                 5.23%
               </p>
             </div>
-          </a>
+          </a> */}
         </div>
         {/* pagination */}
       </div>

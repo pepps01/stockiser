@@ -3,7 +3,7 @@ import React from "react";
 function Asset() {
   return (
     <div>
-      <a href="/dashboard">Asset</a>
+      <a href="/dashboard">Asset!</a>
     </div>
   );
 }
