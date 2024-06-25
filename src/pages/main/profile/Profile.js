@@ -21,7 +21,6 @@ import { useNavigate } from "react-router-dom";
 import ArrowDown from "./../../../assets/misc/arrow-down-right.svg";
 import ArrowUp from "./../../../assets/misc/up-arrow.svg";
 import axios from "axios";
-import Item from "antd/es/list/Item";
 
 
 const Profile = () => {
@@ -29,7 +28,7 @@ const Profile = () => {
   const [name, setName] = useState({
     "firstname":"Sunny",
     "lastname":"Pepple",
-    "valuation": 100000, 
+    "valuation": 6, 
     "assets": 50
   }); 
   // const [email, setEmail] = useState("slpepple01@gmail.com");
@@ -78,6 +77,7 @@ const Profile = () => {
         });
         console.log("Response", response.data.result);
         setRecords(response.data.result);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
