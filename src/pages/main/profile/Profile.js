@@ -281,7 +281,7 @@ const Profile = () => {
                         <td>{item.stock}</td>
                         <td>{item?.status}</td>
                         <td>{item?.amount}</td>
-                        <td>{item?.transaction_reference}</td>
+                        <td>{item?.transaction_reference} <img src={ArrowDown}/></td>
                         <td>{item?.transaction_name}</td>
                         <td>{item?.date_added}</td>
                         <td
