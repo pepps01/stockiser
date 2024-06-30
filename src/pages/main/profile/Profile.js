@@ -37,6 +37,7 @@ const Profile = () => {
   const [stockData, setStockData] = useState(null);
   const [redirectPage, setRedirectPage] = useState(false);
   const [records, setRecords] = useState([]);
+  const [profile, setProfile] = useState({});
   const [file, setFile] = useState("")
   const [fileCheck,  setFileCheck] = useState(false)
   const navigate = useNavigate();
@@ -82,7 +83,23 @@ const Profile = () => {
         console.error('Error fetching data:', error);
       }
     };
-  
+    const get_profile = async () => {
+      try {
+          const response = await axios.get(`${BASEURL}/api/profile/view-profile`,{
+                    headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+                },
+          });
+          console.log("Profile response", response.data.result);
+          setProfile(response.data.result)
+          
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+    
   const handlePhoto =(e)=>{
       setFile(URL.createObjectURL(e.target.files[0]))
       setFileCheck(true)
@@ -132,6 +149,7 @@ const Profile = () => {
 
   useEffect(() => {
     // getData();
+    get_profile()
     getBackendData();
   }, []);
 
@@ -216,28 +234,22 @@ const Profile = () => {
               </div>
               <div className="other-info">
                   <p style={{ color: "grey", bold: 400 }}>Account Name</p>
-                  <h2>{name.firstname} {name.lastname}</h2>
+                  <h2>{profile?.name}</h2>
                 </div>
               <div className="assetValuation">
                 <img src={Chart} alt="asset valuation" />
                 <div className="other-info">
-                  <h4>Total Asset Valuation</h4>
-                  <h1 style={{ textAlign: "center" }}>{name.valuation}</h1>
+                  <h4>Total Purchase List</h4>
+                  <h1 style={{ textAlign: "center" }}>{profile?.total_purchases}</h1>
                 </div>
               </div>
-              {/* <div className="assetValuation">
-              <img src={Chart} alt="asset valuation" />
-              <div className="other-info">
-              <h4>Registered Date</h4>
-              <h1 style={{ textAlign: "center" }}>20th of December, 2023</h1>
-              </div>
-            </div> */}
+      
               <div className="assetValuation">
                 <img src={Chart} alt="asset valuation" />
                 <div className="other-info">
                   <image alt="asset valuation" />
                   <h4>WatchList</h4>
-                  <h1 style={{ textAlign: "center" }}>{name.assets}</h1>
+                  <h1 style={{ textAlign: "center" }}>{profile?.count}</h1>
                 </div>
               </div>
             </div>
@@ -279,7 +291,7 @@ const Profile = () => {
                     records.map((item,index) => (
                       <tr key={index}>
                         <td>{item.stock}</td>
-                        <td>{item?.status}</td>
+                        <td>{item?.action_taken}</td>
                         <td>{item?.amount}</td>
                         <td>{item?.transaction_reference} <img src={ArrowDown}/></td>
                         <td>{item?.transaction_name}</td>

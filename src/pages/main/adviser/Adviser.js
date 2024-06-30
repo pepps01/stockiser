@@ -14,12 +14,15 @@ import Algizer from "./../../../assets/algizer.jpeg";
 import TableSignals from "../../../components/shared/table/TableSignals";
 import { BASEURL } from "../../../apis/api";
 
+import './adviser.css'
+
 const Adviser = () => {
   const [modal, setModal] = useState(false);
   // const [isData, setIsData] = useState(true);
   const isData = true
   const [search,setSearch] = useState("");
   const navigate = useNavigate();
+  const [selectedRow, setSelectedRow] = useState(null);
   // const [formData, setFormData] = useState("");
 
   const handleClick = (e) => {
@@ -38,6 +41,19 @@ const Adviser = () => {
   const navigatePage = (e) => {
     e.preventDefault();
     navigate("/ticker");
+  };
+
+  const customStyles = {
+    content: {
+      top: "40%",
+      left: "50%",
+      marginRight: "-30%",
+      marginBottom: "-20%",
+      transform: "translate(-50%, -50%)",
+      width: "15%",
+      height: "30%",
+    },
+    
   };
 
   // const getData = async() => {
@@ -147,7 +163,7 @@ const Adviser = () => {
                 width: "20%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "flex-end",
               }}>
 
               <button
@@ -218,28 +234,33 @@ const Adviser = () => {
             />
           </div>
         </div>
-        <ReactModal isOpen={modal}>
-          <button onClick={handleClick}>Close Modal</button>
-          <div>
+        <ReactModal isOpen={modal} style={customStyles}>
+          <div className="" style={{display:'flex', justifyContent:'space-between', alignItems:"center"}}>
             <h2>Run Intervals</h2>
-            <div>
-              <label>15 minutes</label>
+            <button onClick={handleClick}>Close Modal</button>
+          </div>
+          <div style={{
+            width:"100%"
+          }}>
+      
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:"center"}}>
+              <h3 style={{width:"60%"}}>15 minutes</h3>
               <input type="radio" name="15" />
             </div>
-            <div>
-              <label>30 minutes</label>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:"center"}}> 
+              <h4 style={{width:"60%"}}>30 minutes</h4>
               <input type="radio" name="30" />
             </div>
-            <div>
-              <label>45 minutes</label>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:"center"}}>
+              <h4 style={{width:"60%"}}>45 minutes</h4>
               <input type="radio" name="45" />
             </div>
-            <div>
-              <label>1 hour</label>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:"center"}}>
+              <h4 style={{width:"60%"}}>1 hour</h4>
               <input type="radio" name="1" />
             </div>
             <Link
-              to={{ pathname: "/estimate" }}
+              to={{ pathname: "/advise" }}
               style={{
                 textDecoration: "none",
                 padding: ".4rem 1rem",

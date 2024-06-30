@@ -35,6 +35,7 @@ function TableSignals() {
           overflowY: "scroll",
         }}
       >
+        {/* check if the selected row is active */}
         {stocks.map((stock, index) => (
           <tr style={{}} key={index}>
             <td>

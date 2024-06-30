@@ -38,11 +38,11 @@ const SingleOptimiser = () => {
     content: {
       top: "50%",
       left: "50%",
-      marginRight: "-30%",
-      marginBottom: "-20%",
+      marginRight: "-20%",
+      marginBottom: "-10%",
       transform: "translate(-50%, -50%)",
-      width: "40%",
-      height: "50%",
+      width: "30%",
+      height: "40%",
     },
   };
 
@@ -413,7 +413,7 @@ const SingleOptimiser = () => {
               </select>
             </div>
             <Link
-              to={{ pathname: "/sellview" }}
+              to={{ pathname: "/selected_optimiser" }}
               style={{
                 background: "green",
                 textDecoration: "none",

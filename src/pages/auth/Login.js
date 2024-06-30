@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import LoginPhoto from "./../../assets/page_logos/login/login.jpg";
 import Tickizer from "./../../assets/tickizer.jpeg";
 import Arrow from "./../../assets/page_logos/login/arrow.png";
+import InfoError from "./../../assets/information.png";
 
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../../apis/api";
+import { Img } from "@chakra-ui/react";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +34,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("FormData", formData)
         const response = await fetch(BASEURL + "/api/login", {
           method: "POST",
           headers: { 
@@ -123,8 +124,16 @@ const Login = () => {
 
 
         <div className="login-form">
-          <div className={`${error ? "error" : "hidden"}`}>
-              <p className="alert-red">{errorMessage}</p>
+          <div className={`${error ? "error" : "hidden"}`} >
+              <img 
+                src={InfoError}
+                alt="Arrow back"
+                width={20}
+                height={20}
+                crossOrigin="anonymous"
+                style={{marginRight:'5px'}}
+              />
+              <p className="alert-red" >{errorMessage}</p>
           </div>
 
           <form>

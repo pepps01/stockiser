@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 // import AssetValidate from "./../../../assets/misc/row.svg";
 // import QuickActions from "../../../components/shared/quick_actions/QuickActions";
 // import TopMovers from "./../../../components/shared/top_movers/TopMovers";
@@ -12,10 +11,61 @@ import Algizer from "./../../../assets/algizer.jpeg";
 // import TableSignals from "../../../components/shared/table/TableSignals";
 import Sidebar from "../../../components/shared/sidebar";
 import AppNavbar from "../../../components/shared/navbar/Navbar";
+import { BASEURL } from "../../../apis/api";
+
+import InfoError from './../../../assets/information.png'
+
+
 function Ticker() {
   // const [modal, setModal] = useState(false);
+  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [isData, setIsData] = useState(true);
+
+  const [formData, setFormData] = useState({
+    email:"",
+    password: "",
+  });
+
   const navigate = useNavigate();
+
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch(BASEURL + "/api/login", {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json" ,
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok){
+          const result = await response.json();
+
+          if (result.status === 'error'){
+            setError(true)
+            setErrorMessage(result.message)
+            console.log("Failed", result.message);
+
+          } else{
+            localStorage.setItem("token", result.result.access_token);
+            console.log("result token",result.result.access_token);
+          }
+      } 
+    } catch (e) {
+      setError(true);
+      console.log("Error", e.message);
+    };
+  }
 
   return (
     <div
@@ -107,8 +157,19 @@ function Ticker() {
           <AppNavbar title="Create Ticker" />
 
           <div className="">
+          <div className={`${error ? "error" : "hidden"}`} >
+              <img 
+                src={InfoError}
+                alt="Arrow back"
+                width={20}
+                height={20}
+                crossOrigin="anonymous"
+                style={{marginRight:'5px'}}
+              />
+              <p className="alert-red" >{errorMessage}</p>
+          </div>
             <form
-              action=""
+              onSubmit={handleSubmit}
               style={{
                 marginTop: "1rem",
                 width: "500px",
@@ -135,8 +196,8 @@ function Ticker() {
                 </label>
                 <input
                   type="text"
-                  name="ticker"
-                  id="email"
+                  name="ticker_name"
+                  id="ticker_name"
                   placeholder="Enter Ticker Name"
                   style={{
                     display: "block",
@@ -169,8 +230,8 @@ function Ticker() {
                 <input
                   type="text"
                   name="parameter_name"
-                  id="password"
-                  placeholder="Enter Password"
+                  id="paramter_name"
+                  placeholder="Parameter Name"
                   style={{
                     display: "block",
                     width: "90%",
@@ -190,7 +251,7 @@ function Ticker() {
                 }}
               >
                 <label
-                  for="stockastic"
+                  for="stochastic"
                   style={{
                     marginBottom: ".5rem",
                     display: "block",
@@ -202,8 +263,9 @@ function Ticker() {
                 </label>
 
                 <select
-                  name="stockastic"
-                  id="stockastic"
+                  name="stochastic"
+                  id="stochastic"
+                  value={formData.stochastic}
                   style={{
                     display: "block",
                     width: "93%",
@@ -256,6 +318,7 @@ function Ticker() {
                     padding: "10px 10px",
                     border: "1px solid grey",
                   }}
+                  onChange={handleChange}
                 >
                   <option value="volvo">Fast (Upper Bound x Lower Bound) </option>
                   <option value="saab">Slow (Upper Bound x Lower Bound)</option>

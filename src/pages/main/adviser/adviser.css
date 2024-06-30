@@ -1,0 +1,24 @@
+input[type="radio"] {
+    -ms-transform: scale(0.5); /* IE 9 */
+    -webkit-transform: scale(0.5); /* Chrome, Safari, Opera */
+    transform: scale(0.5);
+  }
+
+  .hidden{
+    display: none;
+  }
+  .error{
+    background-color: rgb(230, 201, 201);
+    border-left: 4px solid red;
+    padding: .2px 8px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display:flex;
+    justify-content:left;
+    align-items:center
+  }
+  .alert-red{
+    color: black;
+    padding-left: 4px;
+    font-size: 900;
+  }

@@ -119,12 +119,16 @@ input[type="submit"] {
 }
 .error{
   background-color: rgb(230, 201, 201);
-  border-color: red;
-  padding: .5px 0px;
-  border: 1px solid red;
+  border-left: 4px solid red;
+  padding: .2px 8px;
   border-radius: 5px;
+  margin-bottom: 15px;
+  display:flex;
+  justify-content:left;
+  align-items:center
 }
 .alert-red{
-  color: red;
+  color: black;
   padding-left: 4px;
+  font-size: 900;
 }

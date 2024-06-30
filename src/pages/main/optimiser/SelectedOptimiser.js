@@ -10,7 +10,9 @@ import ArrowDown from "./../../../assets/misc/arrow-down-right.svg";
 import ArrowUp from "./../../../assets/misc/up-arrow.svg";
 
 import axios  from 'axios'
-function Optimiser() {
+
+
+function SelectedOptimiser() {
   const [records, setRecords] = useState([])
   const token = localStorage.getItem('token')
   const navigate = useNavigate();
@@ -72,22 +74,8 @@ function Optimiser() {
             >
               <AppNavbar title="Optimiser" />
               <div className="boardContainer">
-              <div className=''
-             style={{display:'flex', justifyContent:'flex-end', alignItems:"center", marginBottom:'20px'}}
-              >
-                <button onClick={handleNavigation}
-                 style={{
-                  background: "green",
-                  textDecoration: "none",
-                  color: "#fff",
-                  padding: ".7rem .5rem",
-                  borderRadius: "5px",
-                  marginTop: "15px",
-                  display: "block",
-                  textAlign: "center",
-                  border:'none'
-              }}
-                >Estimate Parameter</button>
+              <div className=''>
+                <button onClick={handleNavigation}>Estimate Parameter</button>
               </div>
               <table
                 className="userdetails table table-spaced space-table"
@@ -104,7 +92,7 @@ function Optimiser() {
 
                 <tbody>
                   {records &&
-                    records.slice(1,5).map((record,index) => (
+                    records.map((record,index) => (
                       <tr key={index}>
                         <td>{record.ticker}</td>
                         <td>{record?.action_taken}</td>
@@ -152,4 +140,4 @@ function Optimiser() {
   )
 }
 
-export default Optimiser
+export default SelectedOptimiser

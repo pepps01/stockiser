@@ -16,12 +16,10 @@ import axios from 'axios';
 const ValueStock =()=> {
   // const { stock_id } = useParams();
   const [modal, setModal] = useState(false);
-  // const [isData, setIsData] = useState(true);
-  // const [records, setRecords] = useState([]);
+  const [stockType, setStockType] = useState("");
+  const [stockName, setStockName] = useState("");
   const [sell_records, setSellRecords] = useState([]);
-  // const [sells, setSells] = useState(null);
   const [stockData, setStockData] = useState(null);
-  // const [formData, setFormData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [buy, setBuy] = useState([]);
@@ -42,6 +40,7 @@ const ValueStock =()=> {
     setModal(false);
   };
 
+  
   // const handleOpenClick = (e) => {
   //   e.preventDefault();
   //   setModal(true);
@@ -53,13 +52,12 @@ const ValueStock =()=> {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
-
-  // Access specific query parameters
-  const stock_name = queryParams.get('stock_name').toLowerCase();
+  const stock_name= queryParams.get('stock_name').toLowerCase();
   const stock_type = queryParams.get('stock_type').toLowerCase();
 
-  // const encryptedParam1 = CryptoJS.AES.encrypt(param1, 'secret-key').toString();
-  // const hashedParam2 = CryptoJS.SHA256(param2).toString();
+  // setStockType(queryParams.get('stock_type').toLowerCase())
+  // setStockName(queryParams.get('stock_type').toLowerCase())
+
   const getBackendData = async () => {
     try {
       const response = await axios.get(`${BASEURL}/api/selector/get-stock-market?stock_name=${stock_name}&stock_type=${stock_type}`,{
@@ -84,6 +82,7 @@ const ValueStock =()=> {
       const newData = {
         ticker: records?.ticker,
         close: records?.close,
+        adjclose: records?.adjclose,
         high: records?.high, 
         low: records?.low, 
         open:records?.open, 
@@ -92,8 +91,14 @@ const ValueStock =()=> {
         volume: records?.volume, 
         action_taken: "buy", 
         status:"processing",
+        stock_name:stock_name,
+        stock_type:stock_type,
         transaction_name:  stock_type? stock_type :"value"
       }
+
+
+      console.log("new Data", newData)
+
       const response = await fetch(BASEURL+"/api/transactions/buy-list",{
         method:'POST',
         headers:{
@@ -117,21 +122,24 @@ const ValueStock =()=> {
   };
 
   const handleSellClick = async (records) => {
-    const newSellData = {
-      ticker: records?.ticker,
-      close: records?.close,
-      high: records?.high, 
-      low: records?.low, 
-      open:records?.open, 
-      token:localStorage.getItem('token'),
-      // date:records?.date,
-      volume: records?.volume, 
-      action_taken: "sell", 
-      status:"processing",
-      transaction_name: stock_type? stock_type :"value"
-    }
-   console.log("selling", newSellData)    
     try{
+      const newSellData = {
+        ticker: records?.ticker,
+        close: records?.close,
+        adjclose: records?.adjclose,
+        high: records?.high, 
+        low: records?.low, 
+        open:records?.open, 
+        token:localStorage.getItem('token'),
+        // date:records?.date,
+        stock_name:stock_name,
+        stock_type:stock_type,
+        volume: records?.volume, 
+        action_taken: "sell", 
+        status:"processing",
+        transaction_name: stock_type? stock_type :"value"
+      }
+     console.log("selling", newSellData)    
       const response = await fetch(`${BASEURL}/api/transactions/sell-list`,{
         method:'POST',
         headers:{
@@ -163,12 +171,16 @@ const ValueStock =()=> {
     { name: "High" },
     { name: "Low" },
     { name: "Close" },
+    { name: "Adj Close" },
     { name: "Volume" },
     { name: "Action" },
   ];
 
   useEffect(() => {
     getBackendData()
+
+    setStockName(queryParams.get('stock_name').toLowerCase());
+    setStockType(queryParams.get('stock_type').toLowerCase());
   }, []);
 
   useEffect(() => {
@@ -284,6 +296,7 @@ const ValueStock =()=> {
                         <td>${Number(item.high).toFixed(2)}</td>
                         <td>${Number(item?.low).toFixed(2)}</td>
                         <td>${Number(item?.close).toFixed(2)}</td>
+                        <td>${Number(item?.adjclose).toFixed(2)}</td>
                         <td>{item?.volume}</td>
                         <td
                             style={{
@@ -306,7 +319,7 @@ const ValueStock =()=> {
                                     cursor: "pointer",
                                    fontSize:".7rem"
                               }}
-                              onClick={() => handleSellClick(item)}
+                              onClick={() => handleBuyClick(item)}
                               >
                               buy List
                             </button>
@@ -356,6 +369,7 @@ const ValueStock =()=> {
                         <td>${Number(item.high).toFixed(2)}</td>
                         <td>${Number(item?.low).toFixed(2)}</td>
                         <td>${Number(item?.close).toFixed(2)}</td>
+                        <td>${Number(item?.adjclose).toFixed(2)}</td>
                         <td>{item?.volume}</td>
                         <td
                             style={{

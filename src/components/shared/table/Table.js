@@ -17,7 +17,7 @@ function Table() {
       width={"100%"}
     >
       <thead>
-        <tr>
+        <tr style={{paddingTop: "10px", paddingRight:"10px"}} >
           <th>S/N</th>
           <th>Ticker</th>
           <th>Trade Name</th>
@@ -28,13 +28,13 @@ function Table() {
       </thead>
       <tbody>
         {stocks.map((stock, index) => (
-          <tr style={{}} key={index}>
-            <td>{index + 1}</td>
-            <td>{stock.stockExchangeName}</td>
-            <td>{stock.shortName}</td>
-            <td>{new Int32Array(stock.status) > 5 ? "" : stock.status}%</td>
-            <td>{stock?.capitalisation}</td>
-            <td>
+          <tr style={{paddingTop: "10px", paddingRight:"10px"}} key={index}>
+            <td style={{paddingTop: "10px", paddingRight:"10px"}} >{index + 1}</td>
+            <td style={{paddingTop: "10px", paddingRight:"10px"}} >{stock.stockExchangeName}</td>
+            <td style={{paddingTop: "10px", paddingRight:"10px"}} >{stock.shortName}</td>
+            <td style={{paddingTop: "10px", paddingRight:"10px"}} >{new Int32Array(stock.status) > 5 ? "" : stock.status}%</td>
+            <td style={{paddingTop: "10px", paddingRight:"10px"}} >{stock?.capitalisation}</td>
+            <td style={{paddingTop: "10px", paddingRight:"10px"}} >
               <a
                 href={`financials/${stock.capitalisation}`}
                 style={{

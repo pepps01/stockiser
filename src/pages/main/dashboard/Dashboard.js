@@ -108,8 +108,6 @@ const Dashboard = () => {
           }}
         >
           <AppNavbar title="Dashboard" />
-
-          
           <div
             className="main"
             style={{
@@ -173,7 +171,15 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+
+{/* to support the transactions  */}
+            <div className="card">
+                      {/* total transactions  */}
+                      {/* total buy list   */}
+                      {/* sell list  */}
+            </div>
           </div>
+
           <ReactModal isOpen={modal} data={selectedRow} style={customStyles}>
             <button onClick={handleClick}>Close Modal</button>
             <p style={{ fontSize: "1.3rem" }}>
