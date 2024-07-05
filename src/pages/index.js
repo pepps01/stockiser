@@ -21,6 +21,7 @@ import ResetPassword from "./auth/ResetPassword";
 import ForgotPassword from "./auth/ForgotPassword";
 import VerifyCode from "./auth/VerifyCode";
 import SendCode from "./auth/SendCode";
+import HomePage from "./home/HomePage";
 
 // sdfsd
 function Pages() {
@@ -28,6 +29,7 @@ function Pages() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Splash />} />
+        {/* <Route path="/home" element={<Splash />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/reset-password" element={<ResetPassword />} />

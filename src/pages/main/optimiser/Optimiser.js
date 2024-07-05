@@ -15,12 +15,10 @@ function Optimiser() {
   const token = localStorage.getItem('token')
   const navigate = useNavigate();
 
-
-
   const columnites = [
     { name: "Ticker" },
     { name: "Open" },
-    { name: "High" },
+    { name: "High"}, 
     { name: "Real Time Price" },
     { name: "Percentage Change" },
     { name: "Date" },

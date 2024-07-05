@@ -41,8 +41,8 @@ const SingleOptimiser = () => {
       marginRight: "-20%",
       marginBottom: "-10%",
       transform: "translate(-50%, -50%)",
-      width: "30%",
-      height: "40%",
+      width: "45%",
+      height: "45%",
     },
   };
 
@@ -54,6 +54,7 @@ const SingleOptimiser = () => {
       }}
     >
       {/* navbar */}
+      
       <div
         style={{
           height: "50px",
