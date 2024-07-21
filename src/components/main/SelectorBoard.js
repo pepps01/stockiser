@@ -185,7 +185,6 @@ function SelectorBoard({...props}) {
           
   </div>
 
-  {/* whats new */}
 
 </div>
   )
