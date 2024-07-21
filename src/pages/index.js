@@ -14,20 +14,30 @@ import Ticker from "./main/adviser/Ticker";
 import Profile from "./main/profile/Profile";
 import ValueStock from "./main/stock/ValueStock";
 import Help from "./main/help/Help";
-import Ranger from "./main/selector/Ranger";
+// import Ranger from "./main/selector/Ranger";
 import ParameterEstimate from "./main/optimiser/ParameterEstimate";
 import Transaction from "./main/Transaction/Transaction";
 import ResetPassword from "./auth/ResetPassword";
 import ForgotPassword from "./auth/ForgotPassword";
 import VerifyCode from "./auth/VerifyCode";
 import SendCode from "./auth/SendCode";
+import HomePage from "./home/HomePage";
+import Register from "./auth/Register";
+import Dash from "./main/dashboard/Dash";
+import Hang from "../components/main/Hang";
+import Select from "./main/selector/Select";
 
 // sdfsd
 function Pages() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Splash />} />
+        {/* <Route path="/" element={<Splash />} /> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/hang" element={<Hang />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/select" element={<Select />} />
+        <Route path="/dash" element={<Dash />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/reset-password" element={<ResetPassword />} />
@@ -48,7 +58,7 @@ function Pages() {
         <Route path="/selector/:selector_id" element={<SelectorView />} />
 
         <Route path="/estimate" element={<SingleOptimiser />} />
-        <Route path="/ranger" element={<Ranger />} />
+        {/* <Route path="/ranger" element={<Ranger />} /> */}
         {/* <Route path="/optimise/" element={<SingleStock />} /> */}
         <Route path="/ticker" element={<Ticker />} />
       </Routes>

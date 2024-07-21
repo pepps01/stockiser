@@ -9,6 +9,8 @@ import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../../apis/api";
 import { Img } from "@chakra-ui/react";
+import { ArrowLeft } from "lucide-react";
+import LoginLayout from "../../components/layouts/loginLayouts";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -70,128 +72,67 @@ const Login = () => {
   }, [loggedIn, navigate]);
 
   return (
-    <div className="loginContainer">
-      <div className="leftContainer">
-        <div className="imgContainer">
-          <img
-            src={Tickizer}
-            alt="tickizer logo"
-            crossOrigin="anonymous"
-            style={{
-              marginLeft: "0%",
-              width: "80%",
-            }}
-          />
-          <div className="descriptionContainer">
-            <h1
-              style={{
-                color: "#43BA00",
-                zIndex: 6,
-              }}
-            >
-              Tickizer
-            </h1>
-            <p className="description">
-              On the other hand, prop platforms are customized platforms built
-              by large brokerages to match their specific demands and style of
-              trading. Traders use various trading platforms, depending on the
-              style and amount of their trading.
-            </p>
-          </div>
+    <LoginLayout>
+         <div className='mb-8'>
+          <h1 className='font-extrabold text-4xl text-lime-500 mb-4 text-center'>Login in</h1>
+          <p>To sign in to the trading platform allows fot he email address to be
+              entered to fill the information below</p>
         </div>
-        <img src={LoginPhoto} alt="Login" crossOrigin="anonymous" />
-      </div>
-      {/* Right */}
-      <div className="rightContainer">
-        <div className="move-section" onClick={handleNavigate}>
-          <img
-            src={Arrow}
-            alt="Arrow back"
-            width={30}
-            height={25}
-            crossOrigin="anonymous"
-          />
-          <p>Go Home</p>
-        </div>
-
-        <div className="login-title">
-          <h1>Login</h1>
-          <p>
-            To sign in to the trading platform allows fot he email address to be
-            entered to fill the information below{" "}
-          </p>
-        </div>
-
-
-        <div className="login-form">
           <div className={`${error ? "error" : "hidden"}`} >
-              <img 
-                src={InfoError}
-                alt="Arrow back"
-                width={20}
-                height={20}
-                crossOrigin="anonymous"
-                style={{marginRight:'5px'}}
-              />
-              <p className="alert-red" >{errorMessage}</p>
+            <img 
+                  src={InfoError}
+                  alt="Arrow back"
+                  width={20}
+                  height={20}
+                  crossOrigin="anonymous"
+                  style={{marginRight:'5px'}}
+                />
+                <p className="alert-red" >{errorMessage}</p>
           </div>
-
-          <form>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-              />
+          <form onSubmit={handleSubmit} className="">
+              <div className="form-group">
+              <label className="text-lg">Email</label>
+               <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="border-2 border-gray-200 bg-white rounded-sm text-lg"
+                />
             </div>
             <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter Password"
-                value={formData.password}
-                onChange={handleChange}
-              />
+                <label className="text-lg">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="border-2 border-gray-200 bg-white border-r-3 text-lg"
+                />
             </div>
-
             <div className="form-group">
-              <input type="submit" value={"Login"} onClick={handleSubmit} />
+                <input type="submit" value={"Login"} className="font-extrabold"/>
             </div>
-          </form>
-          <div>
-            <p>
-              Have an account?{" "}
-              <a
-                href="/dashboard"
-                style={{
-                  textDecoration: "none",
-                }}
-              >
-                Terms and Conditions
-              </a>
-            </p>
+        </form>
+        <div className='font-medium text-lg'>
+             You dont have an account?  <a href="/register" className='text-lime-500 font-bold'>Sign Up</a>
+         </div>
+    </LoginLayout>
+  // <div className='w-full'>
+  //   <div className='max-w-[400px] mx-auto mt-10'>
+  //     <div className="w-full  flex justify-start gap-4 items-center cursor-pointer" onClick={()=> navigate(-1)}>
+  //         <ArrowLeft className='text-lime-400'/> <p>Go Back</p>
+  //     </div>
+  
+  //       
+  //    
 
-            <p>
-              <a
-                href="/forgot-password"
-                style={{
-                  textDecoration: "none",
-                }}
-              >
-                Forgot Password?
-              </a>
-            </p>
-            
-          </div>
-        </div>
-      </div>
-    </div>
+  //   </div>
+  // </div>
   );
 };
 

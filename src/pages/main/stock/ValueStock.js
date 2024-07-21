@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate,useLocation } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 // import AppNavbar from "../../../components/shared/navbar/Navbar";
 import AssetValidate from "./../../../assets/misc/row.svg";
@@ -14,7 +14,6 @@ import CustomNavbar from "../../../components/shared/navbar/CustomNavbar";
 import axios from 'axios';
 
 const ValueStock =()=> {
-  // const { stock_id } = useParams();
   const [modal, setModal] = useState(false);
   const [stockType, setStockType] = useState("");
   const [stockName, setStockName] = useState("");
