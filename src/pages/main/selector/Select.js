@@ -288,14 +288,13 @@ function Select() {
                             className='font-medium py-4  text-left pl-4'
                         >
                             <button
-                                  className="buttonFinancials"
+                                  className="buttonFinancials font-bold bg-lime-500"
                                   style={{
-                                    padding: "5px 15px",
+                                    padding: "8px 15px",
                                     border: "none",
                                     color: "white",
                                     textAlign: "center",
                                     textDecoration: "none",
-                                    border: "2px solid green",
                                     borderRadius: "5px",
                                     background: "green",
                                     cursor: "pointer",

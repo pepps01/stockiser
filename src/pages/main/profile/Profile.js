@@ -205,42 +205,31 @@ function Profile() {
                         <thead className='bg-slate-100 '>
                             <tr className='text-center'>
                             {columnites.map((columnite, index) => (
-                            <th key={index}>{columnite.name}</th>
+                            <th key={index} className='py-4 text-left pl-4'>{columnite.name}</th>
                           ))}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className=''>
-                                <td className='font-medium py-4  text-left pl-4'>NasDaQ</td>
-                                <td className='font-medium py-2  text-left pl-4'>200</td>
-                                <td className='font-medium py-2  text-left pl-4'>200</td>
-                                <td className='font-medium py-2  text-left pl-4'>200</td>
-                                <td className='py-4 flex justify-center items-center'>
-                                    <BsThreeDots/>
-                                </td>
-                            </tr>
                             {records &&
                                 records.map((item,index) => (
                                   <tr key={index}>
                                     <td className='font-medium py-4  text-left pl-4'>{item.stock}</td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.action_taken}</td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.amount}</td>
-                                    <td className='font-medium py-4  text-left pl-4'>{item?.transaction_reference} <img src={ArrowDown}/></td>
+                                    <td className='font-medium py-4  text-left pl-4 flex justify-center items-center gap-4'>{item?.transaction_reference} <img src={ArrowDown}/></td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.transaction_name}</td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.date_added}</td>
                                     <td className='font-medium py-4  text-left pl-4'
                                     >
                                       <button
-                                          className="buttonFinancials"
+                                          className="buttonFinancials font-bold bg-lime-500"
                                           style={{
-                                            padding: "5px 15px",
+                                            padding: "8px 15px",
                                             border: "none",
                                             color: "white",
                                             textAlign: "center",
                                             textDecoration: "none",
-                                            border: "2px solid green",
                                             borderRadius: "5px",
-                                            background: "green",
                                             cursor: "pointer",
                                             fontSize:".7rem"
                                           }}
