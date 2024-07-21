@@ -40,27 +40,25 @@ const AccordionItem = ({ index, question, answer, isOpen, onClick, stockName }) 
         {index + 1 === 1 ? (
           <>
             <p className="answer-content mb-8">{answer}</p>
-            <a href={`value-stock?stock_name=${stockName}&stock_type=value`} className="answer-button">
+            <a href={`value-stock?select=${stockName}&stock_type=value`} className="answer-button">
               {question}
             </a>
           </>
         ) : index + 1 === 2 ? (
           <>
             <p className="answer-content mb-8 ">{answer}</p>
-            <a href={`value-stock?stock_name=${stockName}&stock_type=growth`} className="answer-button">
+            <a href={`value-stock?select=${stockName}&stock_type=growth`} className="answer-button">
               {question}
             </a>
           </>
         ) : (
           <>
             <p className="answer-content mb-8">{answer}</p>
-            <a href={`value-stock?stock_name=${stockName}&stock_type=equity`} className="answer-button">
+            <a href={`value-stock?select=${stockName}&stock_type=equity`} className="answer-button">
               {question}
             </a>
           </>
         )}
-
-  
       </div>
     </div>
   );
