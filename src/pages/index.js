@@ -26,6 +26,7 @@ import Register from "./auth/Register";
 import Dash from "./main/dashboard/Dash";
 import Hang from "../components/main/Hang";
 import Select from "./main/selector/Select";
+import Counter from "./Counter";
 
 // sdfsd
 function Pages() {
@@ -61,6 +62,8 @@ function Pages() {
         {/* <Route path="/ranger" element={<Ranger />} /> */}
         {/* <Route path="/optimise/" element={<SingleStock />} /> */}
         <Route path="/ticker" element={<Ticker />} />
+
+        <Route path="/counter" element={<Counter />} />
       </Routes>
     </BrowserRouter>
   );

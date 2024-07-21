@@ -23,6 +23,7 @@ const Accordion = ({stockName}) => {
           isOpen={activeIndex === index}
           onClick={() => handleItemClick(index)}
           stockName={stockName}
+          className="py-4"
         />
       ))}
     </div>

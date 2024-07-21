@@ -24,7 +24,7 @@ const AccordionItem = ({ index, question, answer, isOpen, onClick, stockName }) 
         className="answer-container"
         style={
           isOpen 
-            ? { height: contentHeight.current.scrollHeight }
+            ? { height: "120px" }
             : { height: "0px" }
         }
       >
@@ -39,54 +39,28 @@ const AccordionItem = ({ index, question, answer, isOpen, onClick, stockName }) 
         */}
         {index + 1 === 1 ? (
           <>
-            <p className="answer-content">{answer}</p>
+            <p className="answer-content mb-8">{answer}</p>
             <a href={`value-stock?stock_name=${stockName}&stock_type=value`} className="answer-button">
               {question}
             </a>
           </>
         ) : index + 1 === 2 ? (
           <>
-            <p className="answer-content">{answer}</p>
+            <p className="answer-content mb-8 ">{answer}</p>
             <a href={`value-stock?stock_name=${stockName}&stock_type=growth`} className="answer-button">
               {question}
             </a>
           </>
         ) : (
           <>
-            <p className="answer-content">{answer}</p>
+            <p className="answer-content mb-8">{answer}</p>
             <a href={`value-stock?stock_name=${stockName}&stock_type=equity`} className="answer-button">
               {question}
             </a>
           </>
         )}
 
-        {/* <p className="answer-content">{answer}</p> */}
-        {/* <a href={`stockview/${index + 1}`} className="answer-button"> */}
-        {/* {question} */}
-        {/* </a> */}
-
-        {/* <Link
-          to={{ 
-            pathname: `/stock/${encodeURIComponent(index + 1)}`,
-            state: { stock_id: index, title: question, description: answer },
-          }}
-        >
-          {question}
-        </Link> */}
-        {/* <Link
-          to={`/stock/${encodeURIComponent(
-            index + 1
-          )}}?title=${question}&description=${answer}`}
-        >
-          {question}
-        </Link> */}
-        {/* <Link
-          to={`/stock/${encodeURIComponent(index + 1)}/${data.title}/${
-            data.description
-          }`}
-        >
-          {data.title}
-        </Link> */}
+  
       </div>
     </div>
   );

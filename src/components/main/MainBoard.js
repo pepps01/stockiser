@@ -70,7 +70,6 @@ function MainBoard({...props}) {
                         <thead className='bg-slate-100 '>
                             <tr className='text-center'>
                                 <th className='py-4 text-left pl-4'>Listing Name</th>
-                                <th className='py-4 text-left pl-4'>Volume*</th>
                                 <th className='py-4 text-left pl-4'>Market Cap</th>
                                 <th className='py-4 text-left pl-4'>Change</th>
                                 <th className='py-4 text-center'>Action</th>
@@ -81,7 +80,6 @@ function MainBoard({...props}) {
                                 <td className='font-medium py-4  text-left pl-4'>NasDaQ</td>
                                 <td className='font-medium py-2  text-left pl-4'>200</td>
                                 <td className='font-medium py-2  text-left pl-4'>200</td>
-                                <td className='font-medium py-2  text-left pl-4'>200</td>
                                 <td className='py-4 flex justify-center items-center'>
                                     <BsThreeDots/>
                                 </td>
@@ -90,14 +88,12 @@ function MainBoard({...props}) {
                                 <td className='font-medium py-4  text-left pl-4'>Dow</td>
                                 <td className='font-medium   text-left pl-4'>200</td>
                                 <td className='font-medium   text-left pl-4'>200</td>
-                                <td className='font-medium   text-left pl-4'>200</td>
                                 <td className='py-4 flex justify-center items-center'>
                                     <BsThreeDots/>
                                 </td>
                             </tr>
                             <tr className=''>
                                 <td className='font-medium py-4  text-left pl-4'>Russell</td>
-                                <td className='font-medium   text-left pl-4'>200</td>
                                 <td className='font-medium   text-left pl-4'>200</td>
                                 <td className='font-medium   text-left pl-4'>200</td>
                                 <td className='py-4 flex justify-center items-center'>

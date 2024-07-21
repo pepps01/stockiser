@@ -19,7 +19,7 @@ function NavigationBar() {
         <>
         
         <nav className='w-full bg-white'>
-             <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4  '>
+             <div className='flex justify-between items-center h-24 max-w-[1440px] mx-auto px-4  '>
 
             <Img src={Logo} className="rounded-full w-20 hover:cursor-pointer" onClick={handleClick}/>
             <div onClick={handleNav} className="block md:hidden"> 
@@ -35,19 +35,7 @@ function NavigationBar() {
                 </div>
                 </div>
         </nav>
-            {/* <nav className='w-full bg-black mb-12'>
-            <div className=' mx-auto max-w-[1280px] flex justify-between items-center p-4'>
-                <img src={require("./../../assets/algizer.png")} alt='tickizer logo' className='rounded-md w-40 max-h-10'/>
-                <ul className='flex justify-between items-center gap-8'>
-                   <li className='cursor-pointer'>
-                        <a href="/login" className='font-medium text-lg'>Login</a>
-                    </li> 
-                    <li className='cursor-pointer'>
-                        <a href="/register" className='font-medium text-lg'>Register</a>
-                    </li> 
-                </ul>
-            </div>
-            </nav> */}
+            
         </>
   )
 }
