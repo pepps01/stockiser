@@ -5,18 +5,22 @@ import { CiCalendar } from "react-icons/ci";
 
 import { Img } from '@chakra-ui/react';
 import Logo from './../../assets/algizer.jpeg'
+import { useNavigate } from 'react-router-dom';
 
 function HomeNav() {
     const [nav,setNav] = useState(false)
-
+    const navigation = useNavigate()
     const handleNav =()=>{
         setNav(!nav)
+    }
+    const handleClick =()=>{
+        navigation('/')
     }
     return (
         <div className='w-full bg-lime-100 text-white sticky'>
             <div className='flex justify-between items-center h-28 max-w-[1240px] mx-auto px-4  '>
                 {/* <h1 className='w-full text-3xl font-bold text-[#000]'>Algizer</h1> */}
-                <Img src={Logo} className="rounded-full w-24"/>
+                <Img src={Logo} className="rounded-full w-24 hover:cursor-pointer" onClick={handleClick}/>
                 <ul className='sm:flex text-white w-0 gap-8'>
                     <li className='p-4'><a href='/faq' className='text-black  hover:text-lime-700'>Faq</a></li>
                     <li className='p-4'><a href='/register' className='text-black hover:text-lime-700'>Register</a></li>

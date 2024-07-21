@@ -3,22 +3,25 @@ import Logo from './../../assets/algizer.jpeg'
 import { IoMdMenu } from 'react-icons/io';
 import { AiOutlineClose } from "react-icons/ai";
 import {  Img } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 
 function NavigationBar() {
     const [nav,setNav] = useState(false)
-
+    const navigation = useNavigate()
     const handleNav =()=>{
         setNav(!nav)
     }
-    
+    const handleClick =()=>{
+            navigation('/')
+    }
   return (
         <>
         
         <nav className='w-full bg-white'>
              <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4  '>
 
-            <Img src={Logo} className="rounded-full w-16"/>
+            <Img src={Logo} className="rounded-full w-20 hover:cursor-pointer" onClick={handleClick}/>
             <div onClick={handleNav} className="block md:hidden"> 
                     {!nav? <IoMdMenu size={40} color={'black'}/>: <AiOutlineClose size={40} color={'black'}/>}
             </div>
