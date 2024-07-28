@@ -4,7 +4,7 @@ import Logo from './../../assets/algizer.jpeg'
 
 function Footer() {
   return (
-    <div className='w-full  bg-black text-white sm:py-4 absolute bottom-0'>
+    <div className='w-full  bg-black text-white sm:py-4 absolute bottom-0 sm:hidden'>
         <div className='max-w-[1280px] p-4 mx-auto grid grid-row-3  text-center sm:flex sm:justify-around sm:items-center'>
             <div className='w-full p-2 mx-auto cursor-pointer md:cursor-auto'>
               <a href='/about-us'>About Us</a>
