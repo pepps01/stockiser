@@ -7,6 +7,7 @@ function News(props) {
         marginLeft: "0px",
         width: "100%",
         marginBottom: "1rem",
+        marginTop:"2rem"
       }}
     >
       <h5

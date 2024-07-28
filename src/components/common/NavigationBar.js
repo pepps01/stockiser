@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import {  Img } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
+import Profileimage from "./../../assets/avatar.png";
 
 function NavigationBar() {
     const [nav,setNav] = useState(false)
@@ -14,7 +15,11 @@ function NavigationBar() {
     }
     const handleClick =()=>{
             navigation('/')
-    }
+        }
+        
+        const handleProfile =()=>{
+                navigation('/profile')
+        }
   return (
         <>
         
@@ -22,6 +27,11 @@ function NavigationBar() {
              <div className='flex justify-between items-center h-24 max-w-[1440px] mx-auto px-4  '>
 
             <Img src={Logo} className="rounded-full w-20 hover:cursor-pointer" onClick={handleClick}/>
+
+            <div className='flex flex-col justify-center items-center cursor-pointer' onClick={handleProfile} >
+                         <img src={Profileimage} alt='profile' className='overflow-hidden self-center' style={{width:50, height:50}}/>
+                        <div className=''>My Profile</div>
+            </div>
             <div onClick={handleNav} className="block md:hidden"> 
                     {!nav? <IoMdMenu size={40} color={'black'}/>: <AiOutlineClose size={40} color={'black'}/>}
             </div>
@@ -33,7 +43,7 @@ function NavigationBar() {
                             <li className='p-4 border-b border-gray-400'><a>Faq</a></li>
                         </ul>
                 </div>
-                </div>
+            </div>
         </nav>
             
         </>

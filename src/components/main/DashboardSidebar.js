@@ -14,7 +14,10 @@ function DashboardSidebar({...props}) {
   const handleOptimiser =()=>{navigation('/optimiser')}
   const handleAdviser =()=>{navigation('/adviser')}
   const handleHelp =()=>{navigation('/help')}
-  const handleLogout =()=>{navigation('/login')}
+  const handleLogout =()=>{
+    localStorage.removeItem("token")
+    navigation('/login')
+  }
   
   return (
       <div className='sm:flex sm:w-2/12 sm:flex-col sm:h-[100vh]  bg-white px-4 pt-8 w-0'>

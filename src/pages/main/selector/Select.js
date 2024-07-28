@@ -45,13 +45,22 @@ function Select() {
   })
   const navigate = useNavigate();
   const token = localStorage.getItem('token')
+  const location = useLocation();
 
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
   };
 
-  
+  const queryParams = new URLSearchParams(location.search);
+  const stock_name= queryParams.get('stock_name').toLowerCase();
+  const stock_type = queryParams.get('stock_type').toLowerCase();
+
+//  useEffect(() => {
+//     console.log("STOCKK_TYPE", stock_type)
+//     console.log("STOCKK_NAME", stock_name)
+//  }, [stock_name, stock_type])
+
   // const handleOpenClick = (e) => {
   //   e.preventDefault();
   //   setModal(true);
@@ -60,14 +69,8 @@ function Select() {
   function capitalizeString(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
-  const location = useLocation();
 
-  const queryParams = new URLSearchParams(location.search);
-  const stock_name= queryParams.get('stock_name').toLowerCase();
-  const stock_type = queryParams.get('stock_type').toLowerCase();
-
-  // setStockType(queryParams.get('stock_type').toLowerCase())
-  // setStockName(queryParams.get('stock_type').toLowerCase())
+  
 
   const getBackendData = async () => {
     try {
@@ -214,14 +217,14 @@ function Select() {
           <div className='sm:w-8/12 h-screen '>
     <div className='px-4 bg-slate-50 sm:px-8'>
       <div className='w-full pt-8'>
-          <h2 className='font-bold text-2xl sm:font-extrabold sm:text-3xl '>{stock_name?capitalizeString(stock_name):" "} Stock </h2>
-          {/* subtext */}
+          {/* <h2 className='font-bold text-2xl sm:font-extrabold sm:text-3xl '>{stock_name?capitalizeString(stock_name):" "} Stock </h2> */}
       </div>
 
       <div className='flex justify-between items-center mt-4'>
-          <div className='border-2 border-gray-300  flex gap-2 items-center py-2 px-16 rounded-md'>
-              <CiSearch size={20}/>  <p className='font-regular '>Search</p>
-          </div>
+      <div className='border-2 border-gray-300  flex gap-2 items-center  px-2 rounded-md '>
+                    <CiSearch size={20}/>  <input type={"search"} placeholder="Search" className="w-full p-1 flex outline-none w-[300px]"/>
+                </div>
+                
           
           <div className=' flex justify-left items-center gap-4'>
               <div className='border-2 border-gray-300 px-4 py-2 rounded-md flex gap-2 items-center '>
@@ -235,15 +238,10 @@ function Select() {
                   <option value={'2 hours'}>24 hours</option>
               </select>
           </div>
-  
-          {/* <div className='border-2 border-gray-300  flex gap-2 items-center py-2 px-4 rounded-md'>
-              <CiFilter size={20}/>  <p className='font-extrabold '>Filters</p>
-          </div> */}
       </div>
 
   </div>
 
-        {/* table component */}
         <div className='my-4 rounded-md bg-white border-2 border-gray-100' >
                 {/* card title  */}
               <div className='px-4 pt-4 pb-4 border-2  flex justify-between items-center'>
@@ -251,15 +249,6 @@ function Select() {
                       <h2 className='font-bold text-md'>Stocks to Buy</h2>
                       <CiCircleInfo />
                   </div>
-                  {/* <div className='flex gap-3 justify-end items-center'>
-                      <button className='flex justify-start gap-2 items-center border-2 rounded-md border-lime-500 px-4 py-3 bg-lime-500 text-white font-extrabold'>
-                      <MdOutlineFileDownload />
-                          <p>Export</p>
-                      </button>
-                      <button className='flex justify-center items-center border-2 border-gray-200 py-4 px-4 rounded-md'>
-                          <BsThreeDots />
-                      </button>
-                  </div> */}
               </div>
           {/* card table */}
               <table className='w-full border-collapse table-auto bg-white'>
@@ -288,7 +277,7 @@ function Select() {
                             className='font-medium py-4  text-left pl-4'
                         >
                             <button
-                                  className="buttonFinancials font-bold bg-lime-500"
+                                  className="buttonFinancials  bg-lime-600 font-extrabold text-lg"
                                   style={{
                                     padding: "8px 15px",
                                     border: "none",
@@ -296,13 +285,12 @@ function Select() {
                                     textAlign: "center",
                                     textDecoration: "none",
                                     borderRadius: "5px",
-                                    background: "green",
                                     cursor: "pointer",
-                                   fontSize:".7rem"
+                                   fontSize:".8rem"
                               }}
                               onClick={() => handleBuyClick(item)}
                               >
-                              buy List
+                              Buy List
                             </button>
                         </td>
                       </tr>
@@ -311,7 +299,6 @@ function Select() {
               </table>
           </div>
           
-     {/* table component */}
      <div className='my-4 rounded-md bg-white border-2 border-gray-100 mt-8' >
                 {/* card title  */}
               <div className='px-4 pt-4 pb-4 border-2  flex justify-between items-center'>
@@ -319,17 +306,8 @@ function Select() {
                       <h2 className='font-bold text-md'>Stocks to Sell</h2>
                       <CiCircleInfo />
                   </div>
-                  {/* <div className='flex gap-3 justify-end items-center'>
-                      <button className='flex justify-start gap-2 items-center border-2 rounded-md border-lime-500 px-4 py-3 bg-lime-500 text-white font-extrabold'>
-                      <MdOutlineFileDownload />
-                          <p>Export</p>
-                      </button>
-                      <button className='flex justify-center items-center border-2 border-gray-200 py-4 px-4 rounded-md'>
-                          <BsThreeDots />
-                      </button>
-                  </div> */}
+             
               </div>
-          {/* card table */}
               <table className='w-full border-collapse table-auto bg-white'>
                   <thead className='bg-slate-100 '>
                   <tr className='text-center'>
@@ -353,18 +331,16 @@ function Select() {
                            
                         >
                       <button
-                            className="buttonFinancials"
+                            className="buttonFinancials font-black text-lg bg-orange-700 border-none"
                             style={{
                               padding: "5px 15px",
                               border: "none",
                               color: "white",
                               textAlign: "center",
                               textDecoration: "none",
-                              border: "2px solid orange",
                               borderRadius: "5px",
-                              background: "orange",
                               cursor: "pointer",
-                              fontSize:".7rem"
+                              fontSize:".8rem"
                             }}
                             onClick={() => handleSellClick(item)}
                             >
@@ -383,15 +359,8 @@ function Select() {
 </div>
           <NewsBoard/>
       </div>
-      {/* <Footerbar/> */}
   </div>
   )
 }
 
 export default Select
-
-// style={{
-//   width:"20px",
-//   padding:"0px",
-//   textAlign:"center"
-// }}

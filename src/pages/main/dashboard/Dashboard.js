@@ -107,91 +107,6 @@ const Dashboard = () => {
   } = useTableHook(columns, records, 10, handleRowClick);
 
   return (
-    
-//     <div className="page-controller">
-//       <AdminNavbar />
-//       <div className="body-controller">
-//         <AdminSidebar />
-//         <div
-//           className="main-container"
-//           style={{
-//             width: "100%",
-//             boxSizing: "border-box",
-//             padding: "0px 2rem",
-//           }}
-//         >
-//           <AppNavbar title="Dashboard" />
-//           <div
-//             className="main"
-//             style={{
-//               width: "100%",
-//             }}
-//           >
-//             {/* consuming Hooks  */}
-//             <div
-//               style={{
-//                 width: "100%",
-//               }}
-//             >
-//               <input
-//                 type="text"
-//                 placeholder="Search..."
-//                 value={search}
-//                 onChange={(e) => handleSearch(e.target.value)}
-//                 style={{
-//                   width: "30%",
-//                   height:"4vh"
-//                 }}
-//               />
-//               <Table />
-              
-//               <div
-//                 className=""
-//                 style={{
-//                   display:  "flex",
-//                   width: "100%",
-//                   justifyContent: "right",
-//                   alignItems: "center",
-//                 }}
-//               >
-//                 <p>
-//                   Page {currentPage} of {totalPages}
-//                 </p>
-
-//                 <div
-//                   className=""
-//                   style={{
-//                     marginLeft: "1rem",
-//                   }}
-//                 >
-//                   <button
-//                     disabled={currentPage === 1}
-//                     onClick={() => handlePageChange(currentPage - 1)}
-//                   >
-//                     Previous
-//                   </button>
-//                   <button
-//                     disabled={currentPage === totalPages}
-//                     onClick={() => handlePageChange(currentPage + 1)}
-//                     style={{
-//                       color: "white",
-//                       background: "green",
-//                       border: "green",
-//                     }}
-//                   >
-//                     Next
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-
-// {/* to support the transactions  */}
-//             <div className="card">
-//                       {/* total transactions  */}
-//                       {/* total buy list   */}
-//                       {/* sell list  */}
-//             </div>
-//           </div>
         
 <div className='w-full'>
         <NavigationBar/>
@@ -207,8 +122,8 @@ const Dashboard = () => {
             </div>
 
             <div className='flex justify-between items-center mt-4'>
-                <div className='border-2 border-gray-300  flex gap-2 items-center py-2 px-16 rounded-md'>
-                    <CiSearch size={20}/>  <p className='font-regular '>Search</p>
+                <div className='border-2 border-gray-300  flex gap-2 items-center  px-2 rounded-md '>
+                    <CiSearch size={20}/>  <input type={"search"} placeholder="Search" className="w-full p-1 flex outline-none w-[300px]"/>
                 </div>
                 
                 <div className=' flex justify-left items-center gap-4'>
@@ -249,7 +164,10 @@ const Dashboard = () => {
                             </Button>
                         </div>
                     </div>
+                    
+                    {/* table */}
                     <Table/>
+
                     <div className='flex justify-between items-center px-2 py-5 border-2 border-gray-50'>
                         <div className=''>
                             Showing  

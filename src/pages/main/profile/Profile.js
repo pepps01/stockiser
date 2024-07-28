@@ -58,9 +58,9 @@ function Profile() {
     { name: "Real Time Price" },
     { name: "Percentage Change" },
     { name: "Date" },
-    { name: "Action" },
   ];
-
+  
+  // { name: "Action" },
   const getBackendData = async () => {
     try {
         const response = await axios.get(`${BASEURL}/api/transactions/user`,{
@@ -214,12 +214,31 @@ function Profile() {
                                 records.map((item,index) => (
                                   <tr key={index}>
                                     <td className='font-medium py-4  text-left pl-4'>{item.stock}</td>
-                                    <td className='font-medium py-4  text-left pl-4'>{item?.action_taken}</td>
+                                    <td className='font-medium py-4  text-left pl-4'>{
+                                        item?.action_taken == "buy"? (
+                                          <>
+                                            <div className=' text-green-600'> buy</div>
+                                          </>)
+                                            : (
+                                              <>
+                                              <div className='  text-red-600'> sell</div> 
+                                              </>
+                                            )
+                                    }</td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.amount}</td>
-                                    <td className='font-medium py-4  text-left pl-4 flex justify-center items-center gap-4'>{item?.transaction_reference} <img src={ArrowDown}/></td>
+                                    <td className='font-medium py-4  text-left pl-4 flex justify-center items-center gap-4'>
+                                            {
+                                              item?.transaction_reference  >= 5000 ? (<>
+                                              <img src={ArrowDown}/>
+                                             </> 
+                                             ):(
+                                              <>
+                                                <img src={ArrowUp}/>
+                                              </>
+                                             )} </td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.transaction_name}</td>
                                     <td className='font-medium py-4  text-left pl-4'>{item?.date_added}</td>
-                                    <td className='font-medium py-4  text-left pl-4'
+                                    {/* <td className='font-medium py-4  text-left pl-4'
                                     >
                                       <button
                                           className="buttonFinancials font-bold bg-lime-500"
@@ -237,7 +256,7 @@ function Profile() {
                                           >
                                           View More
                                         </button>
-                                    </td>
+                                    </td> */}
                                   </tr>
                                 ))}
                         </tbody>
@@ -274,7 +293,7 @@ function Profile() {
     </div>
           {/* <NewsBoard/> */}
       </div>
-      <Footerbar/>
+      {/* <Footerbar/> */}
   </div>
   )
 }

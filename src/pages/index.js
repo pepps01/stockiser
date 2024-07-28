@@ -27,6 +27,7 @@ import Dash from "./main/dashboard/Dash";
 import Hang from "../components/main/Hang";
 import Select from "./main/selector/Select";
 import Counter from "./Counter";
+import Stock from "./main/stock/Stock";
 
 // sdfsd
 function Pages() {
@@ -54,6 +55,9 @@ function Pages() {
         <Route path="/asset" element={<Asset />} />
         <Route path="/parameter-estimate" element={<ParameterEstimate />} />
         <Route path="/value-stock" element={<ValueStock />} />
+        <Route path="/value-stock" element={<ValueStock />} />
+        <Route path="/stock" element={<Stock />} />
+        <Route path="/select" element={<Select />} />
 
         <Route path="/selector" element={<Selector />} />
         <Route path="/selector/:selector_id" element={<SelectorView />} />

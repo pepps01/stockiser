@@ -64,26 +64,6 @@ const Stock = (props) => {
     { name: "Action" },
   ];
 
-  // const loadData = () => {
-  //   fetch(`${BASEURL}/api/selector/stocks`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setRecords({ records: data });
-  //       console.log("data records", data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const getData = async () => {
-  //   await fetch(`${BASEURL}/api/selectors/tickers/buy`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setRecords(data.result);
-  //       console.log("DATA", data);
-  //       // console.log(data.result);
-  //     })
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // };
 
 
   const getData = async () => {
@@ -114,6 +94,7 @@ const Stock = (props) => {
   };
   useEffect(() => {
     loadData();
+    console.log("STOCKNAME", stock_name)
   }, []);
 
   const navigate = useNavigate();

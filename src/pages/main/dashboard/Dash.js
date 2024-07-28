@@ -41,7 +41,7 @@ function Dash() {
         <NavigationBar/>
         <div className='w-screen h-screen sm:flex sm:justify-start sm:items-center flex bg-slate-50'> 
             <DashboardSidebar/>
-            <MainBoard records={records}/>
+            <MainBoard records={records} />
             <NewsBoard/>
         </div>
         <Footerbar/>
