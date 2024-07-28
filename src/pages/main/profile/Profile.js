@@ -141,10 +141,15 @@ function Profile() {
     }
   };
 
+  const reversedData = [...records].reverse();
+
   useEffect(() => {
     // getData();
     get_profile()
     getBackendData();
+
+
+
   }, []);
 
   useEffect(() => {
@@ -210,8 +215,8 @@ function Profile() {
                             </tr>
                         </thead>
                         <tbody>
-                            {records &&
-                                records.map((item,index) => (
+                            {reversedData &&
+                                reversedData.reverse().map((item,index) => (
                                   <tr key={index}>
                                     <td className='font-medium py-4  text-left pl-4'>{item.stock}</td>
                                     <td className='font-medium py-4  text-left pl-4'>{
