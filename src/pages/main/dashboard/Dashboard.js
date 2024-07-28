@@ -25,6 +25,7 @@ import { IoClose } from "react-icons/io5";
 
 const Dashboard = () => {
   const [modal, setModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(false);
   const [records, setRecords] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [count, setCount] = useState(20)
@@ -69,6 +70,10 @@ const Dashboard = () => {
   ];
   const token = localStorage.getItem('token')
 
+  const handleSearch =(e)=>{
+    setSearchTerm(e.target.value)
+  }
+  
 
   const getData = async () => {
     await fetch(`${BASEURL}/api/selector/selected`,{
@@ -99,7 +104,6 @@ const Dashboard = () => {
   const {
     Table,
     search,
-    handleSearch,
     currentPage,
     totalPages,
     handlePageChange,
@@ -123,7 +127,7 @@ const Dashboard = () => {
 
             <div className='flex justify-between items-center mt-4'>
                 <div className='border-2 border-gray-300  flex gap-2 items-center  px-2 rounded-md '>
-                    <CiSearch size={20}/>  <input type={"search"} placeholder="Search" className="w-full p-1 flex outline-none w-[300px]"/>
+                    <CiSearch size={20}/>  <input type={"search"} placeholder="Search" className=" p-1 flex outline-none w-[200px]" onClick={handleSearch} />
                 </div>
                 
                 <div className=' flex justify-left items-center gap-4'>
@@ -197,7 +201,7 @@ const Dashboard = () => {
                 </div>
             <NewsBoard/>
         </div>
-        <Footerbar/>
+        {/* <Footerbar/> */}
           <ReactModal isOpen={modal} data={selectedRow} style={customStyles}>
             <div className="flex justify-between items-center flex-row-reverse">
 
