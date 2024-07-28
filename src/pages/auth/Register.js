@@ -68,7 +68,7 @@ function Register() {
       
       useEffect(() => {
         if (loggedIn) {
-          navigate("/verify-code");
+          navigate("/login");
         }
       }, [loggedIn]);
       
