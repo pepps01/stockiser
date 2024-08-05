@@ -24,9 +24,9 @@ function DashboardSidebar({...props}) {
         <div className='w-full'>
             <div onClick={handleDashboard} className='flex justify-start gap-4 items-center font-medium text-md px-1 py-4 hover:cursor-pointer hover:bg-lime-50 hover:text-lime-800 hover:border-r-lime-600 hover:border-r-4 '>
               <MdDashboard />
-                Dashboard Server
+                Dashboard Server Handling Declaration
             </div>
-            <div onClick={handleSelector} className='flex justify-start gap-4 items-center font-medium text-md px-1 py-4 hover:cursor-pointer hover:bg-lime-50 hover:text-lime-800  hover:border-r-lime-600 hover:border-r-4'>
+            <div onClick={handleSelector} className='text-white flex justify-start gap-4 items-center font-medium text-md px-1 py-4 hover:cursor-pointer hover:bg-lime-50 hover:text-lime-800  hover:border-r-lime-600 hover:border-r-4'>
               <CgSelectO size={25}/>
                 Selector
             </div>
