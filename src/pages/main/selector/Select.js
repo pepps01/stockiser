@@ -221,9 +221,9 @@ function Select() {
       </div>
 
       <div className='flex justify-between items-center mt-4'>
-      <div className='border-2 border-gray-300  flex gap-2 items-center  px-2 rounded-md '>
+          <div className='border-2 border-gray-300  flex gap-2 items-center  px-2 rounded-md '>
                     <CiSearch size={20}/>  <input type={"search"} placeholder="Search" className="w-full p-1 flex outline-none w-[300px]"/>
-                </div>
+           </div>
                 
           
           <div className=' flex justify-left items-center gap-4'>
